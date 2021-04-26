@@ -2,6 +2,14 @@ import React, { Component } from 'react';
 import './DetailsUpload.css';
 import firebase from '../../config/firebase';
 import wbcitylist from '../../Utils/WBList';
+import Loader from "react-loader-spinner";
+import { Modal } from 'react-responsive-modal';
+import uuid from 'react-uuid'
+
+import 'react-responsive-modal/styles.css';
+
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
+
 export class DetailsUpload extends Component {
 	constructor(props) {
 		super(props);
@@ -9,18 +17,26 @@ export class DetailsUpload extends Component {
 		this.state = {
 			name: '',
 			ox_contact: '',
-			verified: false,
 			state: 'West Bengal',
 			city: '',
 			district: '',
 			area: '',
 			my_contact: '',
 			user_verified: true,
+            modal_open:false,
+            submitted: false,
+            error:false,
+			verified: false,
+
 		};
 		this.sendOtp = this.sendOtp.bind(this);
 		this.onSubmit = this.onSubmit.bind(this);
+        this.onCloseModal = this.onCloseModal.bind(this)
 	}
 
+    onCloseModal = () => {
+		this.setState({ open: false });
+	};
 	sendOtp(e) {
 		e.preventDefault();
 		console.log(this.state.my_contact);
@@ -61,11 +77,12 @@ export class DetailsUpload extends Component {
 	onSubmit(e) {
 		e.preventDefault();
 		console.log(this.state);
+        this.setState({...this.state,modal_open:true})
 
 		let databaseRef = firebase
 			.database()
 			.ref('data')
-			.child(this.state.my_contact);
+			.child(uuid());
 
 		databaseRef.set({
 			name: this.state.name,
@@ -78,11 +95,72 @@ export class DetailsUpload extends Component {
 			my_contact: this.state.my_contact,
 			user_verified: this.state.user_verified,
 			updated_on: new Date().toLocaleString(),
-		});
+		},
+        (error) => {
+            if (error) {
+
+            this.setState({...this.state,error:true})
+
+              // The write failed...
+            } else {
+                this.setState({...this.state,submitted:true})
+
+              // Data saved successfully!
+            }
+        }
+        )
 	}
 	render() {
 		return (
 			<div>
+                	<Modal open={this.state.modal_open} onClose={this.onCloseModal}
+                    center={true}
+                    closeOnOverlayClick={false}
+                    showCloseIcon={false}
+                    >
+
+                    {this.state.error || this.state.submitted ?
+                    <div>
+                        <p>{this.state.error? "Something went wrong! Would you like to try again ?":""}</p>
+                        <p>{this.state.submitted? "Data has been saved successfully! Would you like to upload more data?":""}</p>
+
+                        <div className={"yes-no-div"}>
+
+                        <a href="#" className={""}
+
+                        onClick={()=>{this.props.history.push(`/list/oxygen`)}}
+                        >No</a>
+
+                        <button
+                        onClick={()=>{
+                            this.setState({
+                                ...this.state,
+                                state: 'West Bengal',
+                                city: '',
+                                district: '',
+                                area: '',
+                                verified:''
+                            })
+                        }}
+                        >Yes</button>
+
+
+                        </div>
+
+
+                    </div>
+                    
+                    : 
+                    <Loader
+                    type="Puff"
+                    color="#4a74c9"
+                    height={100}
+                    width={100}
+                    />
+                    }
+
+				</Modal>
+               
 				<center>
 					<h2>Covid help</h2>
 				</center>
@@ -99,9 +177,32 @@ export class DetailsUpload extends Component {
 						<form method='post' action={'#'}>
 							<fieldset>
 								<legend>
-									<span className='number'>1</span> Your Basic Info
+									<span className='number'>1</span> Your Info
 								</legend>
-								<label htmlFor='name'>Name:</label>
+								
+
+								<label htmlFor='phone'>Your phone number:</label>
+								<input
+									type='phone'
+									id='phone'
+									name='phone'
+									onChange={(e) => {
+										this.setState({ my_contact: e.target.value });
+									}}
+								/>
+
+								<button onClick={this.sendOtp} className={'verify-btn'}>
+									Send otp
+								</button>
+
+							
+							</fieldset>
+							<fieldset>
+								<legend>
+									<span className='number'>2</span> Location
+								</legend>
+
+                                <label htmlFor='name'>Name:</label>
 								<input
 									type='text'
 									id='name'
@@ -123,23 +224,7 @@ export class DetailsUpload extends Component {
 									}}
 								/>
 
-								<label htmlFor='phone'>Your phone number:</label>
-								<input
-									type='phone'
-									id='phone'
-									name='phone'
-									onChange={(e) => {
-										this.setState({ my_contact: e.target.value });
-									}}
-								/>
-
-								<button onClick={this.sendOtp} className={'verify-btn'}>
-									Send otp
-								</button>
-
-								<br />
-
-								<div className={'ox-verified'}>
+                            <div className={'ox-verified'}>
 									<label>Verified:</label>
 									<input
 										type='radio'
@@ -161,12 +246,6 @@ export class DetailsUpload extends Component {
 										No
 									</label>
 								</div>
-							</fieldset>
-							<fieldset>
-								<legend>
-									<span className='number'>2</span> Location
-								</legend>
-
 								<label htmlFor='state'>State:</label>
 								<select
 									id='state'

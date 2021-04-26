@@ -22,10 +22,10 @@ export class List extends Component {
 					</p>
 					<p>
                         <b>District</b>
-                         : {this.props.district}</p>{' '}
+                         : {this.props.district===""?"Not available":this.props.district}</p>{' '}
 					<p>
                         <b>Area</b>
-                         : {this.props.area}</p>{' '}
+                         : {this.props.area===""?"Not available":this.props.area}</p>{' '}
 					<p>
                         <b>Quantity & Amount</b>
 						 : {this.props.quantity} & {this.props.amount}{' '}

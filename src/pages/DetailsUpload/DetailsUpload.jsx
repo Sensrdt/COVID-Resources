@@ -22,14 +22,14 @@ export class DetailsUpload extends Component {
 			district: '',
 			area: '',
 			my_contact: '',
-			user_verified: true,
+			user_verified: false,
 			modal_open: false,
 			submitted: false,
 			error: false,
 			verified: false,
 			quantity: '',
 			amount: '',
-			type: '',
+			type: 'Oxygen',
 		};
 		this.sendOtp = this.sendOtp.bind(this);
 		this.onSubmit = this.onSubmit.bind(this);
@@ -172,9 +172,7 @@ export class DetailsUpload extends Component {
 
 				<div className={'refresh'}>
 					<p onClick={() => this.props.history.push(`/`)}>Back to home</p>
-					<p onClick={() => this.props.history.push(`/upload/oxygen`)}>
-						Refresh
-					</p>
+					<p onClick={() => window.location.reload()}>Refresh</p>
 				</div>
 
 				<div className='row'>

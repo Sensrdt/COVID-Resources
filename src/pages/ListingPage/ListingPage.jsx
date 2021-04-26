@@ -88,6 +88,8 @@ export class ListingPage extends Component {
 							this.setState({
 								...this.state,
 								data: [],
+								modal: false,
+								loading: false,
 							});
 						}
 					});
@@ -103,10 +105,6 @@ export class ListingPage extends Component {
 					.equalTo(this.state.type)
 					.on('value', (snapshot) => {
 						let json = snapshot.val();
-						console.log(
-							'🚀 ~ file: ListingPage.jsx ~ line 106 ~ ListingPage ~ .on ~ json',
-							json
-						);
 
 						if (json !== null) {
 							var arr = [];
@@ -124,11 +122,23 @@ export class ListingPage extends Component {
 							this.setState({
 								...this.state,
 								data: [],
+								modal: false,
+								loading: false,
 							});
 						}
 					});
 			}
 		}
+	}
+
+	componentWillUnmount() {
+		this.setState({
+			data: [],
+			city: '',
+			loading: true,
+			modal: false,
+			type: '',
+		});
 	}
 
 	onCloseModal = () => {
@@ -203,9 +213,7 @@ export class ListingPage extends Component {
 
 				<div className={'refresh'}>
 					<p onClick={() => this.props.history.push(`/`)}>Back to home</p>
-					<p onClick={() => this.props.history.push(`/upload/oxygen`)}>
-						Refresh
-					</p>
+					<p onClick={() => window.location.reload()}>Refresh</p>
 				</div>
 
 				{this.state.data.map((value) => {

@@ -22,8 +22,6 @@ export class Home extends Component {
 				<Modal open={this.state.open} onClose={this.onCloseModal}
 					showCloseIcon={false}
 				>
-					
-					
 				</Modal>
 				<div className={'main-div'}>
 					<header>

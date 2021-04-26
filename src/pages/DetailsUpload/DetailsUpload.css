@@ -33,7 +33,7 @@ form {
     height: 2em;
     width: 100%;
     background-color: #e8eeef;
-    color: #8a97a0;
+    color: #43494e;
     box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
     margin-bottom: 30px;
   }
@@ -124,4 +124,16 @@ form {
     }
   
   }
-  
+  .verify-btn{
+     float: right;
+  }
+
+  .ox-verified{
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      margin-top: 3em;
+  }
+  .ox-verified input{
+      margin-left: 0.2em;
+  }

@@ -265,9 +265,9 @@ export class ListingPage extends Component {
 					{this.state.report ? (
 						<div className={'report'}>
 							<div className={'report-history'}>
-								<p>{this.state.support} supported </p>
-								<p>{this.state.fake} marked as fake </p>
-								<p>{this.state.not_available} marked as not available </p>
+								<p>{this.state.support} supported 🤝</p>
+								<p>{this.state.fake} marked as fake 😠</p>
+								<p>{this.state.not_available} marked as not available ❌</p>
 							</div>
 							<label htmlFor='report'>Feedback:</label>
 

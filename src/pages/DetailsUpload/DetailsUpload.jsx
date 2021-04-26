@@ -230,7 +230,7 @@ export class DetailsUpload extends Component {
 
 								{this.state.user_verified ? (
 									<a className={'a-verified'} href={'#'}>
-										Verified
+										✔ Verified
 									</a>
 								) : (
 									''
@@ -418,7 +418,7 @@ export class DetailsUpload extends Component {
 								</button>
 							</center>
                             <p className={"click-terms"}>
-                            By clicking Sign Up, you agree to our <a
+                            By clicking Submit, you agree to our <a
                             href={"#"}
                             onClick={()=>this.setState({
                                 modal_open:true,

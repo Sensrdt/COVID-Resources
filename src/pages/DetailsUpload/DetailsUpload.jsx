@@ -211,7 +211,7 @@ export class DetailsUpload extends Component {
 				</Modal>
 
 				<center>
-					<h2>Covid help</h2>
+					<h2 onClick={() => this.props.history.push(`/`)}>CoAid</h2>
 				</center>
 
 				<div className={'refresh'}>
@@ -266,7 +266,7 @@ export class DetailsUpload extends Component {
 							</fieldset>
 							<fieldset>
 								<legend>
-									<span className='number'>2</span> Location
+									<span className='number'>2</span> Details
 								</legend>
 
 								<label htmlFor='name'>Name:</label>
@@ -278,7 +278,7 @@ export class DetailsUpload extends Component {
 										this.setState({ ...this.state, name: e.target.value });
 									}}
 								/>
-								<label htmlFor='phone'>Oxygen phone number:</label>
+								<label htmlFor='phone'>Dealer / Supplier Contact Number:</label>
 								<input
 									type='text'
 									id='ox_contact'
@@ -402,7 +402,7 @@ export class DetailsUpload extends Component {
 										this.setState({ ...this.state, quantity: e.target.value });
 									}}
 									disabled={!this.state.user_verified}
-									type='text'
+									type='number'
 									id='quantity'
 									name='quantity'
 								/>

@@ -12,6 +12,9 @@ form {
     margin: 0 0 30px 0;
     text-align: center;
   }
+  h2{
+      cursor: pointer;
+  }
 
   input[type="text"],
   input[type="password"],

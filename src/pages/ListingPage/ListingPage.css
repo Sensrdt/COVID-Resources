@@ -3,7 +3,9 @@
     height: 100%;
     
 }
-
+h2{
+    cursor: pointer;
+}
 /* ---------------------------
 Dropdown with CHECKBOX 
 ---------------------------- */

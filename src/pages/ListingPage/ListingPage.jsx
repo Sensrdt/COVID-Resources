@@ -306,7 +306,7 @@ export class ListingPage extends Component {
 					)}
 				</Modal>
 				<center>
-					<h2>CoAid</h2>
+					<h2 onClick={() => this.props.history.push(`/`)}>CoAid</h2>
 				</center>
 				<div class='dd_with_select'>
 					<select name='sections' id='select' onchange=''>

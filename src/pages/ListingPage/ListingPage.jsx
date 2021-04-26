@@ -5,7 +5,13 @@ import LocationDetails from '../../Utils/Location.json';
 import firebase from '../../config/firebase';
 import wbcitylist from '../../Utils/WBList';
 import stateArray from '../../Utils/StateList';
+import Loader from 'react-loader-spinner';
+import { Modal } from 'react-responsive-modal';
+import uuid from 'react-uuid';
 
+import 'react-responsive-modal/styles.css';
+
+import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
 export class ListingPage extends Component {
 	constructor(props) {
 		super(props);
@@ -13,13 +19,19 @@ export class ListingPage extends Component {
 		this.state = {
 			data: [],
 			city: '',
+			loading: true,
+			modal: false,
+			type: '',
 		};
 		this.fetchUniversalData = this.fetchUniversalData.bind(this);
 	}
 
 	componentDidMount() {
 		this.fetchUniversalData();
-		console.log(stateArray);
+		this.setState({
+			...this.state,
+			modal: true,
+		});
 	}
 
 	fetchUniversalData() {
@@ -37,6 +49,8 @@ export class ListingPage extends Component {
 
 				this.setState({
 					data: arr,
+					modal: false,
+					loading: false,
 				});
 			},
 			function (errorObject) {
@@ -67,6 +81,44 @@ export class ListingPage extends Component {
 
 							this.setState({
 								data: arr,
+								modal: false,
+								loading: false,
+							});
+						} else {
+							this.setState({
+								...this.state,
+								data: [],
+							});
+						}
+					});
+			}
+		}
+		console.log(this.state);
+		if (prevState.type !== this.state.type) {
+			if (this.state.type === 'Select type') {
+				this.fetchUniversalData();
+			} else {
+				databaseRef
+					.orderByChild('type')
+					.equalTo(this.state.type)
+					.on('value', (snapshot) => {
+						let json = snapshot.val();
+						console.log(
+							'🚀 ~ file: ListingPage.jsx ~ line 106 ~ ListingPage ~ .on ~ json',
+							json
+						);
+
+						if (json !== null) {
+							var arr = [];
+
+							Object.keys(json).forEach(function (key) {
+								arr.push(json[key]);
+							});
+
+							this.setState({
+								data: arr,
+								modal: false,
+								loading: false,
 							});
 						} else {
 							this.setState({
@@ -79,19 +131,42 @@ export class ListingPage extends Component {
 		}
 	}
 
+	onCloseModal = () => {
+		this.setState({ modal: false });
+	};
 	render() {
-		console.log(this.state);
 		return (
 			<div className={'listing-main'}>
+				<Modal
+					open={this.state.modal}
+					onClose={this.onCloseModal}
+					center={true}
+					closeOnOverlayClick={false}
+					showCloseIcon={false}>
+					{this.state.loading ? (
+						<Loader type='Puff' color='#4a74c9' height={100} width={100} />
+					) : (
+						''
+					)}
+				</Modal>
 				<center>
 					<h2>Covid help</h2>
 				</center>
 				<div class='dd_with_select'>
 					<select name='sections' id='select' onchange=''>
-						<option value='Section1'>State</option>
-						<option value='Section2'>Section Two</option>
-						<option value='Section3'>Section Three</option>
+						<option value='West Bengal'>West Bengal</option>
 					</select>
+
+					{/* <select
+						id='state'
+						name='state'
+						className={'custom-select'}
+						disabled={!this.state.user_verified}
+						onChange={(e) => {
+							this.setState({ ...this.state, state: e.target.value });
+						}}>
+						<option value='West Bengal'>West Bengal</option>
+					</select> */}
 
 					<select
 						id='city'
@@ -107,6 +182,22 @@ export class ListingPage extends Component {
 								</option>
 							);
 						})}
+					</select>
+
+					<select
+						name='type'
+						id='type'
+						onChange={(e) => {
+							this.setState({
+								...this.state,
+								type: e.target.value,
+							});
+						}}>
+						<option value='Select type'>Select Type</option>
+						<option value='Oxygen'>Oxygen</option>
+						<option value='ICU Bed'>ICU Bed</option>
+						<option value='Plasma'>Plasma</option>
+						<option value='Bed'>Beds</option>
 					</select>
 				</div>
 
@@ -129,6 +220,9 @@ export class ListingPage extends Component {
 							ox_contact={value.ox_contact}
 							phone={value.my_contact}
 							updated_on={value.updated_on}
+							amount={value.amount}
+							quantity={value.quantity}
+							type={value.type}
 						/>
 					);
 				})}

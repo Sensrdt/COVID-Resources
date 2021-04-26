@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import './List.css';
 export class List extends Component {
 	render() {
-		console.log(this.props);
 		return (
 			<React.Fragment>
 				<div className='list-main-class'>
@@ -14,7 +13,10 @@ export class List extends Component {
 					<p>City : {this.props.city}</p>
 					<p>District : {this.props.district}</p>{' '}
 					<p>Verified : {this.props.verified ? 'Yes' : 'No'} </p>
+					<p>Quantity : {this.props.quantity} </p>
+					<p>Amount : {this.props.amount} </p>
 					<p>Contact Number : {this.props.ox_contact}</p>
+					<p>Type : {this.props.type}</p>
 					<p className={'updated'}>Last updated : {this.props.updated_on}</p>
 				</div>
 			</React.Fragment>

@@ -8,6 +8,11 @@ import stateArray from '../../Utils/StateList';
 import Loader from 'react-loader-spinner';
 import { Modal } from 'react-responsive-modal';
 import uuid from 'react-uuid';
+import { Fab, Action } from 'react-tiny-fab';
+
+import { ReactComponent as Upload } from "./upload.svg";
+
+import 'react-tiny-fab/dist/styles.css';
 
 import 'react-responsive-modal/styles.css';
 
@@ -24,6 +29,7 @@ export class ListingPage extends Component {
 			type: '',
 		};
 		this.fetchUniversalData = this.fetchUniversalData.bind(this);
+        this.myRootRef = React.createRef();
 	}
 
 	componentDidMount() {
@@ -43,9 +49,23 @@ export class ListingPage extends Component {
 				let json = snapshot.val();
 				var arr = [];
 
-				Object.keys(json).forEach(function (key) {
-					arr.push(json[key]);
-				});
+                try{
+                    Object.keys(json).forEach(function (key) {
+                        arr.push(json[key]);
+                    });
+                    this.setState({
+                        data: arr,
+                        modal: false,
+                        loading: false,
+                    });
+                }catch(error){
+                    this.setState({
+                        data: [],
+                        modal: false,
+                        loading: false,
+                    });
+                }
+				
 
 				this.setState({
 					data: arr,
@@ -146,7 +166,17 @@ export class ListingPage extends Component {
 	};
 	render() {
 		return (
-			<div className={'listing-main'}>
+			<div className={'listing-main'} >
+             <Fab
+
+  alwaysShowTitle={true}
+  icon={<Upload/>}
+  onClick={()=>{
+      console.log('213');
+      this.myRootRef.current.scroll({ top: 0, left: 0, behavior: "smooth" });
+  }}
+>
+</Fab>
 				<Modal
 					open={this.state.modal}
 					onClose={this.onCloseModal}
@@ -158,9 +188,43 @@ export class ListingPage extends Component {
 					) : (
 						''
 					)}
+                    {
+                        this.state.report?
+                        <div className={"report"}>
+                            <div className={"report-history"}>
+
+                            </div>
+								<label htmlFor='report'>Select:</label>
+                            
+                            <select
+									id='report'
+									name='report'
+									className={'custom-select'}
+									onChange={(e) => {
+										this.setState({ ...this.state, report_val:e.target.value });
+									}}>
+									<option value='Support'>Support</option>
+									<option value='Fake'>Fake</option>
+									<option value='Not available'>Not available</option>
+
+							</select>
+                            <center>
+                            <button>
+                                Submit
+                            </button>
+                            </center>
+                           
+
+                        </div>
+
+                        
+                        :""
+                    }
+
+
 				</Modal>
 				<center>
-					<h2>Covid help</h2>
+					<h2>CoAid</h2>
 				</center>
 				<div class='dd_with_select'>
 					<select name='sections' id='select' onchange=''>
@@ -216,7 +280,8 @@ export class ListingPage extends Component {
 					<p onClick={() => window.location.reload()}>Refresh</p>
 				</div>
 
-				{this.state.data.map((value) => {
+            <div  ref={this.myRootRef}>
+            {this.state.data.map((value) => {
 					return (
 						<List
 							name={value.name}
@@ -231,9 +296,20 @@ export class ListingPage extends Component {
 							amount={value.amount}
 							quantity={value.quantity}
 							type={value.type}
+                            uid={value.uid}
+                            onReport={(id)=>{
+                                this.setState({
+                                    ...this.state,
+                                    report_id:id,
+                                    modal:true,
+                                    report: true
+                                })
+                            }}
 						/>
 					);
 				})}
+            </div>
+				
 			</div>
 		);
 	}

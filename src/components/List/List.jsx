@@ -6,7 +6,11 @@ export class List extends Component {
 			<React.Fragment>
 				<div className='list-main-class'>
 					<div className={'rating'}>
-						<p>Report</p>{' '}
+						<p
+                        onClick={()=>{
+                            this.props.onReport(12)
+                        }}
+                        >Report</p>{' '}
 					</div>
 					<p className='name'>Dealer Name : {this.props.name}</p>
 					<p>State : {this.props.state}</p>

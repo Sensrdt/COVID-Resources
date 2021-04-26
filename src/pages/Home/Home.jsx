@@ -29,7 +29,7 @@ export class Home extends Component {
 				</Modal>
 				<div className={'main-div'}>
 					<header>
-						<h1>Covid help</h1>
+						<h1>CoAid</h1>
 					</header>
 
 					<div class='wrap'>

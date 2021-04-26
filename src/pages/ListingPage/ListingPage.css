@@ -103,6 +103,7 @@ Dropdown with HTML SELECT
   color: #4a74c9;
   font-weight: bold;
   border-color: #4a74c9;
+  background: white;
 }
 .dd_with_select select option {
   /* dropdown item */

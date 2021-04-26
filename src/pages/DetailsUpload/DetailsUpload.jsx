@@ -126,6 +126,10 @@ export class DetailsUpload extends Component {
 					this.state.quantity !== '' ? this.state.quantity : 'Not specified',
 				amount: this.state.amount !== '' ? this.state.amount : 'Not specified',
 				type: this.state.type,
+                not_available:0,
+                support:0,
+                fake:0
+
 			},
 			(error) => {
 				if (error) {

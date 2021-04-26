@@ -14,7 +14,7 @@ export class Home extends Component {
 		this.onCloseModal = this.onCloseModal.bind(this)
 	}
 	onCloseModal=()=>{
-		this.setState({open:true})
+		this.setState({open:false})
 	}
 	
 	render() {

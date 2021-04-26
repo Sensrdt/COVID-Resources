@@ -4,6 +4,7 @@ import './ListingPage.css';
 import LocationDetails from '../../Utils/Location.json';
 import firebase from '../../config/firebase';
 import wbcitylist from '../../Utils/WBList';
+import stateArray from '../../Utils/StateList';
 
 export class ListingPage extends Component {
 	constructor(props) {
@@ -13,9 +14,15 @@ export class ListingPage extends Component {
 			data: [],
 			city: '',
 		};
+		this.fetchUniversalData = this.fetchUniversalData.bind(this);
 	}
 
 	componentDidMount() {
+		this.fetchUniversalData();
+		console.log(stateArray);
+	}
+
+	fetchUniversalData() {
 		let databaseRef = firebase.database().ref('/data');
 
 		databaseRef.on(
@@ -38,8 +45,42 @@ export class ListingPage extends Component {
 		);
 	}
 
+	componentDidUpdate(prevProps, prevState) {
+		let databaseRef = firebase.database().ref('/data');
+
+		if (prevState.city !== this.state.city) {
+			if (this.state.city === 'Select City') {
+				this.fetchUniversalData();
+			} else {
+				databaseRef
+					.orderByChild('city')
+					.equalTo(this.state.city)
+					.on('value', (snapshot) => {
+						let json = snapshot.val();
+
+						if (json !== null) {
+							var arr = [];
+
+							Object.keys(json).forEach(function (key) {
+								arr.push(json[key]);
+							});
+
+							this.setState({
+								data: arr,
+							});
+						} else {
+							this.setState({
+								...this.state,
+								data: [],
+							});
+						}
+					});
+			}
+		}
+	}
+
 	render() {
-		console.log(this.state.data);
+		console.log(this.state);
 		return (
 			<div className={'listing-main'}>
 				<center>
@@ -55,7 +96,6 @@ export class ListingPage extends Component {
 					<select
 						id='city'
 						name='city'
-						className={'custom-select'}
 						// disabled={!this.state.user_verified}
 						onChange={(e) => {
 							this.setState({ ...this.state, city: e.target.value });

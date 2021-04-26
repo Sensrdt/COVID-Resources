@@ -28,7 +28,7 @@ export class Home extends Component {
 				<div className={'main-div'}>
 					<header>
 						<h1>CoAid</h1>
-						<p>An aid towards distancing covid critically</p>
+						<p>An aid towards distancing covid</p>
 					</header>
 
 					<div class='wrap'>

@@ -10,7 +10,7 @@ export class DetailsUpload extends Component {
 			name: '',
 			ox_contact: '',
 			verified: false,
-			state: '',
+			state: 'West Bengal',
 			city: '',
 			district: '',
 			area: '',
@@ -61,6 +61,24 @@ export class DetailsUpload extends Component {
 	onSubmit(e) {
 		e.preventDefault();
 		console.log(this.state);
+
+		let databaseRef = firebase
+			.database()
+			.ref('data')
+			.child(this.state.my_contact);
+
+		databaseRef.set({
+			name: this.state.name,
+			ox_contact: this.state.ox_contact,
+			verified: this.state.verified,
+			state: this.state.state,
+			city: this.state.city,
+			district: this.state.district,
+			area: this.state.area,
+			my_contact: this.state.my_contact,
+			user_verified: this.state.user_verified,
+			updated_on: new Date().toLocaleString(),
+		});
 	}
 	render() {
 		return (

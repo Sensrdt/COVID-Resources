@@ -9,6 +9,7 @@ import uuid from 'react-uuid';
 import 'react-responsive-modal/styles.css';
 
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
+import TermsCond from '../../components/TermsCond/TermsCond';
 
 export class DetailsUpload extends Component {
 	constructor(props) {
@@ -31,6 +32,7 @@ export class DetailsUpload extends Component {
 			amount: '',
 			otp_loading: false,
 			type: 'Oxygen',
+            terms:true
 		};
 		this.sendOtp = this.sendOtp.bind(this);
 		this.onSubmit = this.onSubmit.bind(this);
@@ -183,9 +185,20 @@ export class DetailsUpload extends Component {
 								</button>
 							</div>
 						</div>
-					) : (
+					) : this.state.terms?"":
 						<Loader type='Puff' color='#4a74c9' height={100} width={100} />
-					)}
+					}
+
+                    {this.state.terms ?
+                  <TermsCond
+                  closeModal={()=>{
+                    this.setState({
+                        modal_open:false,
+                        terms:false
+                    })
+                  }}
+                  />  
+                :""}
 				</Modal>
 
 				<center>
@@ -404,6 +417,15 @@ export class DetailsUpload extends Component {
 									Submit
 								</button>
 							</center>
+                            <p className={"click-terms"}>
+                            By clicking Sign Up, you agree to our <a
+                            href={"#"}
+                            onClick={()=>this.setState({
+                                modal_open:true,
+                                terms:true
+                            })}
+                            >Terms & Conditions</a>
+                            </p>
 						</form>
 					</div>
 				</div>

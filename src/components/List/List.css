@@ -17,9 +17,13 @@
     margin: 0;
     margin-left: 0.5em;
     margin-bottom: 1.5em;
+    cursor: pointer;
 }
 .updated{
     margin-bottom: 0;
     font-size: 0.75rem;
 }
 
+.tick-verified{
+    color: green;
+}

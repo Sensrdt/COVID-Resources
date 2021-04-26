@@ -6,11 +6,13 @@ export class List extends Component {
 			<React.Fragment>
 				<div className='list-main-class'>
 					<div className={'rating'}>
+                        {this.props.verified?<p className={"tick-verified"}>✔ Verified</p>:""}
+                        
 						<p
 							onClick={() => {
 								this.props.onReport(this.props.uid);
 							}}>
-							Report
+							Rating
 						</p>{' '}
 					</div>
 					<p>Type : {this.props.type}</p>
@@ -20,10 +22,10 @@ export class List extends Component {
 					<p>District : {this.props.district}</p>{' '}
 					<p>Area : {this.props.area}</p>{' '}
 					<p>
-						Quantity & Amount : {this.props.quantity}, {this.props.amount}{' '}
+						Quantity & Amount : {this.props.quantity} & {this.props.amount}{' '}
 					</p>
 					<p>Contact Number : {this.props.ox_contact}</p>
-					<p className='name'>Dealer Name : {this.props.name}</p>
+					<p className='name'>Dealer / Supplier : {this.props.name}</p>
 					<p className={'updated'}>Last updated : {this.props.updated_on}</p>
 				</div>
 			</React.Fragment>

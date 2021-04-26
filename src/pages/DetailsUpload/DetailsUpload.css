@@ -155,3 +155,7 @@ form {
     float: left;
     color: green;
   }
+  .click-terms{
+      align-items: center;
+      text-align: center;
+  }

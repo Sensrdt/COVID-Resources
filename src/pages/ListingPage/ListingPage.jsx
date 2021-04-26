@@ -265,11 +265,11 @@ export class ListingPage extends Component {
 					{this.state.report ? (
 						<div className={'report'}>
 							<div className={'report-history'}>
-								<p>{this.state.support} people supported </p>
-								<p>{this.state.fake} people maeked as fake </p>
-								<p>{this.state.not_available} people marked as no available </p>
+								<p>{this.state.support} supported </p>
+								<p>{this.state.fake} marked as fake </p>
+								<p>{this.state.not_available} marked as not available </p>
 							</div>
-							<label htmlFor='report'>Select:</label>
+							<label htmlFor='report'>Feedback:</label>
 
 							<select
 								id='report'
@@ -285,7 +285,7 @@ export class ListingPage extends Component {
 							<center>
 								<button onClick={this.report}>Submit</button>
 							</center>
-							<a href={'#'} onClick={this.onCloseModal}>
+							<a href={'#'} onClick={this.onCloseModal} className={"a-close"}>
 								Close
 							</a>
 						</div>

@@ -19,13 +19,11 @@ export class Home extends Component {
 	render() {
 		return (
 			<React.Fragment>
-				<Modal open={this.state.open} onClose={this.onCloseModal}>
-					<h2>Simple centered modal</h2>
-					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam
-						pulvinar risus non risus hendrerit venenatis. Pellentesque sit amet
-						hendrerit risus, sed porttitor quam.
-					</p>
+				<Modal open={this.state.open} onClose={this.onCloseModal}
+					showCloseIcon={false}
+				>
+					
+					
 				</Modal>
 				<div className={'main-div'}>
 					<header>
@@ -35,8 +33,9 @@ export class Home extends Component {
 					<div class='wrap'>
 						<button
 							class='button'
-							onClick={() => this.props.history.push(`/list/oxygen`)}>
-							Oxygen list
+							onClick={() =>window.location.assign('/list/oxygen')
+						}>
+							Medical aids
 						</button>
 					</div>
 
@@ -44,15 +43,11 @@ export class Home extends Component {
 						<button
 							class='button'
 							onClick={() => this.props.history.push(`/upload/oxygen`)}>
-							Upload Oxygen
+							Provide info
 						</button>
 					</div>
 
-					<div
-						className={'terms-div'}
-						onClick={() => this.setState({ open: true })}>
-						<p>Terms and conditions</p>
-					</div>
+				
 				</div>
 			</React.Fragment>
 		);

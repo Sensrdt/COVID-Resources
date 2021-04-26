@@ -5,7 +5,7 @@
     flex-direction: column;
     justify-content: space-evenly;
     background: #f1f3f9;
-    height: 100vh;
+    height: 80vh;
     font-family: "Muli", Arial, sans-serif;
     overflow: scroll;
 }

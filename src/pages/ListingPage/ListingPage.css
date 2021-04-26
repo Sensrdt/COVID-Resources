@@ -140,3 +140,8 @@ cursor: pointer;
     color: black;
     text-decoration: none;
 }
+.no-data{
+    text-align: center;
+    margin-top: 3em;
+    font-size: 2rem;
+}

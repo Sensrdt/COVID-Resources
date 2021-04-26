@@ -1,5 +1,5 @@
 const wbcity = [
-	'Select City',
+	'All City',
 	'Adra',
 	'Alipurduar',
 	'Arambagh',

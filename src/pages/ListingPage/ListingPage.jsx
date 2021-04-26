@@ -24,7 +24,7 @@ export class ListingPage extends Component {
 		this.state = {
 			data: [],
 			city: '',
-			loading: true,
+			loading: false,
 			modal: false,
 			type: '',
 			report_val: 'support',
@@ -54,13 +54,15 @@ export class ListingPage extends Component {
 
 	componentDidMount() {
 		this.fetchUniversalData();
-		this.setState({
-			...this.state,
-			modal: true,
-		});
+		
 	}
 
 	fetchUniversalData() {
+        this.setState({
+			...this.state,
+			modal: true,
+            loading:true
+		});
 		let databaseRef = firebase.database().ref('/data');
 
 		databaseRef.on(
@@ -102,9 +104,14 @@ export class ListingPage extends Component {
 		let databaseRef = firebase.database().ref('/data');
 
 		if (prevState.city !== this.state.city) {
-			if (this.state.city === 'Select City') {
+			if (this.state.city === 'All City') {
 				this.fetchUniversalData();
 			} else {
+                this.setState({
+                    ...this.state,
+                    modal: true,
+                    loading:true
+                });
 				databaseRef
 					.orderByChild('city')
 					.equalTo(this.state.city)
@@ -136,9 +143,14 @@ export class ListingPage extends Component {
 		}
 		console.log(this.state);
 		if (prevState.type !== this.state.type) {
-			if (this.state.type === 'Select type') {
+			if (this.state.type === 'AllType') {
 				this.fetchUniversalData();
 			} else {
+                this.setState({
+                    ...this.state,
+                    modal: true,
+                    loading:true
+                });
 				databaseRef
 					.orderByChild('type')
 					.equalTo(this.state.type)
@@ -337,7 +349,7 @@ export class ListingPage extends Component {
 								type: e.target.value,
 							});
 						}}>
-						<option value='Select type'>Select Type</option>
+						<option value='AllType'>All Type</option>
 						<option value='Oxygen'>Oxygen</option>
 						<option value='ICU Bed'>ICU Bed</option>
 						<option value='Plasma'>Plasma</option>
@@ -353,6 +365,9 @@ export class ListingPage extends Component {
 				</div>
 
 				<div ref={this.myRootRef}>
+                    {this.state.data.length===0 && !this.state.loading?
+                <p className={"no-data"}>😔 Currently no data available! Please try after sometime</p>:
+                        ""}
 					{this.state.data.map((value) => {
 						return (
 							<List

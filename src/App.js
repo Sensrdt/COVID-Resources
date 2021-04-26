@@ -19,9 +19,6 @@ class App extends Component {
 					<Route path='/auth' component={Auth} />
 					<Route path='/list/oxygen' component={ListingPage} />
 					<Route path='/upload/oxygen' component={DetailsUpload} />
-
-					
-					<Route path='/cv/update' component={UpdateForm} />
 				</Switch>
 			</Router>
 		);

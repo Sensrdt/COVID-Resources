@@ -8,11 +8,11 @@ import stateArray from '../../Utils/StateList';
 import Loader from 'react-loader-spinner';
 import { Modal } from 'react-responsive-modal';
 import uuid from 'react-uuid';
-import { Fab, Action } from 'react-tiny-fab';
+// import { Fab, Action } from 'react-tiny-fab';
 
-import { ReactComponent as Upload } from "./upload.svg";
+import { ReactComponent as Upload } from './upload.svg';
 
-import 'react-tiny-fab/dist/styles.css';
+// import 'react-tiny-fab/dist/styles.css';
 
 import 'react-responsive-modal/styles.css';
 
@@ -27,9 +27,29 @@ export class ListingPage extends Component {
 			loading: true,
 			modal: false,
 			type: '',
+			report_val: 'support',
+			name: '',
+			verified: '',
+			user_verified: '',
+			state: '',
+			district: '',
+			amount: '',
+			quantity: '',
+			cached_city: '',
+			ox_contact: '',
+			updated_on: '',
+			phone: '',
+			not_available: '',
+			support: '',
+			fake: '',
+			cached_type: '',
+			area: '',
+			my_contact: '',
 		};
 		this.fetchUniversalData = this.fetchUniversalData.bind(this);
-        this.myRootRef = React.createRef();
+		this.report = this.report.bind(this);
+
+		this.myRootRef = React.createRef();
 	}
 
 	componentDidMount() {
@@ -49,23 +69,22 @@ export class ListingPage extends Component {
 				let json = snapshot.val();
 				var arr = [];
 
-                try{
-                    Object.keys(json).forEach(function (key) {
-                        arr.push(json[key]);
-                    });
-                    this.setState({
-                        data: arr,
-                        modal: false,
-                        loading: false,
-                    });
-                }catch(error){
-                    this.setState({
-                        data: [],
-                        modal: false,
-                        loading: false,
-                    });
-                }
-				
+				try {
+					Object.keys(json).forEach(function (key) {
+						arr.push(json[key]);
+					});
+					this.setState({
+						data: arr,
+						modal: false,
+						loading: false,
+					});
+				} catch (error) {
+					this.setState({
+						data: [],
+						modal: false,
+						loading: false,
+					});
+				}
 
 				this.setState({
 					data: arr,
@@ -164,19 +183,74 @@ export class ListingPage extends Component {
 	onCloseModal = () => {
 		this.setState({ modal: false });
 	};
+
+	report() {
+		console.log(this.state);
+
+		let databaseRef = firebase
+			.database()
+			.ref('/data')
+			.child(this.state.report_id);
+
+		databaseRef.set(
+			{
+				name: this.state.name,
+				ox_contact: this.state.ox_contact,
+				verified: this.state.verified,
+				state: this.state.state,
+				city: this.state.cached_city,
+				district: this.state.district,
+				area: this.state.area,
+				my_contact: this.state.my_contact,
+				user_verified: this.state.user_verified,
+				uid: this.state.report_id,
+				support:
+					this.state.report_val === 'support'
+						? this.state.support + 1
+						: this.state.support,
+
+				fake:
+					this.state.report_val === 'fake'
+						? this.state.fake + 1
+						: this.state.fake,
+				not_available:
+					this.state.report_val === 'not_available'
+						? this.state.not_available + 1
+						: this.state.not_available,
+				updated_on: this.state.updated_on,
+				quantity: this.state.quantity,
+				amount: this.state.amount,
+				type: this.state.cached_type,
+			},
+			(error) => {
+				if (error) {
+					this.setState({ ...this.state, error: true });
+
+					// The write failed...
+				} else {
+					this.fetchUniversalData();
+					this.setState({ ...this.state, submitted: true, modal: false });
+
+					// Data saved successfully!
+				}
+			}
+		);
+	}
+
 	render() {
 		return (
-			<div className={'listing-main'} >
-             <Fab
-
-  alwaysShowTitle={true}
-  icon={<Upload/>}
-  onClick={()=>{
-      console.log('213');
-      this.myRootRef.current.scroll({ top: 0, left: 0, behavior: "smooth" });
-  }}
->
-</Fab>
+			<div className={'listing-main'}>
+				{/* <Fab
+					alwaysShowTitle={true}
+					icon={<Upload />}
+					onClick={() => {
+						console.log('213');
+						this.myRootRef.current.scroll({
+							top: 0,
+							left: 0,
+							behavior: 'smooth',
+						});
+					}}></Fab> */}
 				<Modal
 					open={this.state.modal}
 					onClose={this.onCloseModal}
@@ -188,40 +262,36 @@ export class ListingPage extends Component {
 					) : (
 						''
 					)}
-                    {
-                        this.state.report?
-                        <div className={"report"}>
-                            <div className={"report-history"}>
+					{this.state.report ? (
+						<div className={'report'}>
+							<div className={'report-history'}>
+								<p>{this.state.support} people supported </p>
+								<p>{this.state.fake} people maeked as fake </p>
+								<p>{this.state.not_available} people marked as no available </p>
+							</div>
+							<label htmlFor='report'>Select:</label>
 
-                            </div>
-								<label htmlFor='report'>Select:</label>
-                            
-                            <select
-									id='report'
-									name='report'
-									className={'custom-select'}
-									onChange={(e) => {
-										this.setState({ ...this.state, report_val:e.target.value });
-									}}>
-									<option value='Support'>Support</option>
-									<option value='Fake'>Fake</option>
-									<option value='Not available'>Not available</option>
-
+							<select
+								id='report'
+								name='report'
+								className={'custom-select'}
+								onChange={(e) => {
+									this.setState({ ...this.state, report_val: e.target.value });
+								}}>
+								<option value='support'>Support</option>
+								<option value='fake'>Fake</option>
+								<option value='not_available'>Not available</option>
 							</select>
-                            <center>
-                            <button>
-                                Submit
-                            </button>
-                            </center>
-                           
-
-                        </div>
-
-                        
-                        :""
-                    }
-
-
+							<center>
+								<button onClick={this.report}>Submit</button>
+							</center>
+							<a href={'#'} onClick={this.onCloseModal}>
+								Close
+							</a>
+						</div>
+					) : (
+						''
+					)}
 				</Modal>
 				<center>
 					<h2>CoAid</h2>
@@ -280,36 +350,53 @@ export class ListingPage extends Component {
 					<p onClick={() => window.location.reload()}>Refresh</p>
 				</div>
 
-            <div  ref={this.myRootRef}>
-            {this.state.data.map((value) => {
-					return (
-						<List
-							name={value.name}
-							verified={value.verified}
-							user_verified={value.user_verified}
-							city={value.city}
-							state={value.state}
-							district={value.district}
-							ox_contact={value.ox_contact}
-							phone={value.my_contact}
-							updated_on={value.updated_on}
-							amount={value.amount}
-							quantity={value.quantity}
-							type={value.type}
-                            uid={value.uid}
-                            onReport={(id)=>{
-                                this.setState({
-                                    ...this.state,
-                                    report_id:id,
-                                    modal:true,
-                                    report: true
-                                })
-                            }}
-						/>
-					);
-				})}
-            </div>
-				
+				<div ref={this.myRootRef}>
+					{this.state.data.map((value) => {
+						return (
+							<List
+								name={value.name}
+								verified={value.verified}
+								user_verified={value.user_verified}
+								city={value.city}
+								state={value.state}
+								district={value.district}
+								ox_contact={value.ox_contact}
+								phone={value.my_contact}
+								updated_on={value.updated_on}
+								amount={value.amount}
+								area={value.area}
+								quantity={value.quantity}
+								type={value.type}
+								uid={value.uid}
+								onReport={(id) => {
+									this.setState({
+										...this.state,
+										report_id: id,
+										name: value.name,
+										verified: value.verified,
+										user_verified: value.user_verified,
+										cached_city: value.city,
+										state: value.state,
+										district: value.district,
+										amount: value.amount,
+										quantity: value.quantity,
+										cached_type: value.type,
+										ox_contact: value.ox_contact,
+										updated_on: value.updated_on,
+										modal: true,
+										phone: value.phone,
+										support: value.support,
+										fake: value.fake,
+										area: value.area,
+										not_available: value.not_available,
+										report: true,
+										my_contact: value.my_contact,
+									});
+								}}
+							/>
+						);
+					})}
+				</div>
 			</div>
 		);
 	}

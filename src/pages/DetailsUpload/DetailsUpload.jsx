@@ -174,11 +174,8 @@ export class DetailsUpload extends Component {
 									onClick={() => {
 										this.setState({
 											...this.state,
-											state: 'West Bengal',
-											city: '',
 											district: '',
 											area: '',
-											verified: '',
 											modal_open: false,
 										});
 									}}>
@@ -343,6 +340,7 @@ export class DetailsUpload extends Component {
 									onChange={(e) => {
 										this.setState({ ...this.state, district: e.target.value });
 									}}
+									value={this.state.district}
 									type='text'
 									id='district'
 									name='district'
@@ -353,6 +351,7 @@ export class DetailsUpload extends Component {
 									onChange={(e) => {
 										this.setState({ ...this.state, area: e.target.value });
 									}}
+									value={this.state.area}
 									disabled={!this.state.user_verified}
 									type='text'
 									id='area'

@@ -7,12 +7,19 @@ export class DetailsUpload extends Component {
         super(props)
     
         this.state = {
+          
+            name:"",
+            ox_contact:"",
+            verified: false,
              state: "",
              city: "",
+             district:"",
+             area:"",
              my_contact:"",
-             user_verified: false
+             user_verified: true
         }
         this.sendOtp = this.sendOtp.bind(this)
+        this.onSubmit = this.onSubmit.bind(this)
     }
 
     sendOtp(e){
@@ -39,12 +46,13 @@ export class DetailsUpload extends Component {
                     this.setState({user_verified:true})
                    
                 }).catch(function (error) {
-                    console.error( error);
-                    
+                    alert("Invalid code.")
+
                 });
 
               // ...
             }).catch((error) => {
+                alert("Something error! Please try after sometime.")
               // Error; SMS not sent
               // ...
             });
@@ -53,38 +61,46 @@ export class DetailsUpload extends Component {
        
     }
     
+    onSubmit(e){
+        e.preventDefault()
+        console.log(this.state);
+    }
     render() {
         return (
             <div>
+
             <center><h2>Covid help</h2></center>
            
-<div className={"refresh"}>
-<p onClick={()=>this.props.history.push(`/`)}>Back to home</p>
-<p onClick={()=>this.props.history.push(`/upload/oxygen`)}>Refresh</p>
-</div>
+            <div className={"refresh"}>
+            <p onClick={()=>this.props.history.push(`/`)}>Back to home</p>
+            <p onClick={()=>this.props.history.push(`/upload/oxygen`)}>Refresh</p>
+            </div>
            
            
             <div className="row">
               <div className="col-md-12">
-                <form  method="post">
+                <form method="post" action={"#"}>
                 
                   <fieldset>
                     <legend><span className="number">1</span> Your Basic Info</legend>
                     <label htmlFor="name">Name:</label>
-                    <input type="text" id="name" name="user_name" />
+                    <input type="text" id="name" name="name"
+                    onChange={(e)=>{this.setState({...this.state,name:e.target.value})}}
+                    
+                    />
                     <label htmlFor="phone">Oxygen phone number:</label>
-                    <input type="phone" id="phone" name="phone" />
+                    <input type="phone" id="ox_contact" name="ox_contact" 
+                    onChange={(e)=>{this.setState({...this.state,ox_contact:e.target.value})}}
+                    
+                    />
 
                     <label htmlFor="phone">Your phone number:</label>
                     <input type="phone" id="phone" name="phone" 
                     onChange={(e)=>{
-                        console.log(e.target.value);
                         this.setState({my_contact: e.target.value})
                     }}
                     />
                     
-                        <label htmlFor="otp">OTP</label>
-                        <input type="text"/>
                         <button
                         onClick={this.sendOtp}
                         className={"verify-btn"} >Send otp</button>
@@ -104,8 +120,10 @@ export class DetailsUpload extends Component {
                     <label htmlFor="state">State:</label>
                     <select id="state" name="state" className={"custom-select"}
                     disabled={!this.state.user_verified}
+                    onChange={(e)=>{this.setState({...this.state,state:e.target.value})}}
+
                     >
-                     
+                        
                         <option value="West Bengal">West Bengal</option>
                      
                     </select>
@@ -114,6 +132,7 @@ export class DetailsUpload extends Component {
                     <label htmlFor="city">City:</label>
                     <select id="city" name="city" className={"custom-select"}
                     disabled={!this.state.user_verified}
+                    onChange={(e)=>{this.setState({...this.state,city:e.target.value})}}
                     
                     >
 
@@ -130,19 +149,23 @@ export class DetailsUpload extends Component {
                     <label htmlFor="job">District:</label>
                     <input
                     disabled={!this.state.user_verified}
+                    onChange={(e)=>{this.setState({...this.state,district:e.target.value})}}
                     
                     type="text" id="district" name="district" />
 
 
                     <label htmlFor="area">Area:</label>
                     <input 
+                    onChange={(e)=>{this.setState({...this.state,area:e.target.value})}}
                     disabled={!this.state.user_verified}
                     
                     type="text" id="area" name="area" />
                    
                   </fieldset>
                   <center>
-                  <button type="submit">Submit</button>
+                  <button type="submit"
+                  onClick={this.onSubmit}
+                  >Submit</button>
 
                   </center>
                 </form>

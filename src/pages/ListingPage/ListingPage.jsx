@@ -9,23 +9,19 @@ export class ListingPage extends Component {
             <center><h2>Covid help</h2></center>
 <div class="dd_with_select">
    
-    <select name="sections" id="select" onchange="document.getElementById(this.value).scrollIntoView()">
-      <option value="Section1">Section One</option>
+    <select name="sections" id="select" onchange="">
+      <option value="Section1">State</option>
       <option value="Section2">Section Two</option>
       <option value="Section3">Section Three</option>
     </select>
 
-    <select name="sections" id="select" onchange="document.getElementById(this.value).scrollIntoView()">
-      <option value="Section1">Section One</option>
+    <select name="sections" id="select" onchange="">
+      <option value="Section1">City</option>
       <option value="Section2">Section Two</option>
       <option value="Section3">Section Three</option>
     </select>
 
-    <select name="sections" id="select" onchange="document.getElementById(this.value).scrollIntoView()">
-      <option value="Section1">Section One</option>
-      <option value="Section2">Section Two</option>
-      <option value="Section3">Section Three</option>
-    </select>
+  
    
   </div>
 

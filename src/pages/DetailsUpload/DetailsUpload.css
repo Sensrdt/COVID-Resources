@@ -137,3 +137,6 @@ form {
   .ox-verified input{
       margin-left: 0.2em;
   }
+  .u_verified{
+      opacity: 0.5;
+  }

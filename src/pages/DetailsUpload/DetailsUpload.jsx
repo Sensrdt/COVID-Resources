@@ -164,6 +164,8 @@ export class DetailsUpload extends Component {
                   </fieldset>
                   <center>
                   <button type="submit"
+                  className={!this.state.user_verified?'u_verified':''}
+                   disabled={!this.state.user_verified}
                   onClick={this.onSubmit}
                   >Submit</button>
 

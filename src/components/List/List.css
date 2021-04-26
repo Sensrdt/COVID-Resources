@@ -1,0 +1,25 @@
+.list-main-class{
+   
+    border: 1px solid #4a74c9;
+    padding: 1em;
+    margin: 1em;
+    border-radius: 5px;
+    background-color: white;
+    box-shadow: 1px -1px 0px -1px #4a74c9;
+
+}
+.rating{
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    float: right;
+}.rating p{
+    margin: 0;
+    margin-left: 0.5em;
+    margin-bottom: 1.5em;
+}
+.updated{
+    margin-bottom: 0;
+    font-size: 0.75rem;
+}
+

@@ -29,6 +29,7 @@ export class DetailsUpload extends Component {
 			verified: false,
 			quantity: '',
 			amount: '',
+			otp_loading: false,
 			type: 'Oxygen',
 		};
 		this.sendOtp = this.sendOtp.bind(this);
@@ -41,10 +42,16 @@ export class DetailsUpload extends Component {
 	};
 	sendOtp(e) {
 		e.preventDefault();
+		this.setState({
+			...this.state,
+			otp_loading: true,
+		});
 		console.log(this.state.my_contact);
+
 		var recaptcha = new firebase.auth.RecaptchaVerifier('recaptcha', {
 			size: 'invisible',
 		});
+
 		var number = '+91' + this.state.my_contact;
 
 		// const appVerifier = window.recaptchaVerifier;
@@ -61,15 +68,29 @@ export class DetailsUpload extends Component {
 				confirmationResult
 					.confirm(code)
 					.then((result) => {
-						this.setState({ user_verified: true });
+						this.setState({
+							my_contact: this.state.my_contact,
+							user_verified: true,
+							otp_loading: false,
+						});
 					})
-					.catch(function (error) {
+					.catch((error) => {
+						this.setState({
+							my_contact: this.state.my_contact,
+							user_verified: false,
+							otp_loading: false,
+						});
 						alert('Invalid code.');
 					});
 
 				// ...
 			})
 			.catch((error) => {
+				this.setState({
+					my_contact: this.state.my_contact,
+					user_verified: false,
+					otp_loading: false,
+				});
 				alert('Something error! Please try after sometime.');
 				// Error; SMS not sent
 				// ...
@@ -81,7 +102,9 @@ export class DetailsUpload extends Component {
 		console.log(this.state);
 		this.setState({ ...this.state, modal_open: true });
 
-		let databaseRef = firebase.database().ref('data').child(uuid());
+		const uid = uuid();
+
+		let databaseRef = firebase.database().ref('data').child(uid);
 
 		databaseRef.set(
 			{
@@ -94,6 +117,7 @@ export class DetailsUpload extends Component {
 				area: this.state.area,
 				my_contact: this.state.my_contact,
 				user_verified: this.state.user_verified,
+				uid: uid,
 				updated_on: new Date().toLocaleString(),
 				quantity:
 					this.state.quantity !== '' ? this.state.quantity : 'Not specified',
@@ -113,6 +137,7 @@ export class DetailsUpload extends Component {
 			}
 		);
 	}
+
 	render() {
 		return (
 			<div>
@@ -193,9 +218,32 @@ export class DetailsUpload extends Component {
 									}}
 								/>
 
-								<button onClick={this.sendOtp} className={'verify-btn'}>
-									Send otp
-								</button>
+								{this.state.user_verified ? (
+									<a className={'a-verified'} href={'#'}>
+										Verified
+									</a>
+								) : (
+									''
+								)}
+								{this.state.otp_loading ? (
+									<Loader
+										type='Puff'
+										color='#4a74c9'
+										height={100}
+										width={100}
+									/>
+								) : (
+									<button
+										onClick={this.sendOtp}
+										className={
+											this.state.user_verified
+												? 'verify-btn u_verified'
+												: 'verify-btn'
+										}
+										disabled={this.state.user_verified}>
+										Send otp
+									</button>
+								)}
 							</fieldset>
 							<fieldset>
 								<legend>
@@ -231,6 +279,12 @@ export class DetailsUpload extends Component {
 										id='under_13'
 										defaultValue='under_13'
 										name='user_age'
+										onChange={() =>
+											this.setState({
+												...this.state,
+												verified: true,
+											})
+										}
 									/>
 									<label htmlFor='under_13' className='light'>
 										Yes
@@ -241,6 +295,12 @@ export class DetailsUpload extends Component {
 										id='over_13'
 										defaultValue='over_13'
 										name='user_age'
+										onChange={() =>
+											this.setState({
+												...this.state,
+												verified: false,
+											})
+										}
 									/>
 									<label htmlFor='over_13' className='light'>
 										No

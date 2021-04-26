@@ -149,3 +149,9 @@ form {
       text-decoration: none;
       margin-right: 1em;
   }
+
+  .a-verified{
+    text-decoration: none;
+    float: left;
+    color: green;
+  }

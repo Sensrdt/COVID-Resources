@@ -342,6 +342,8 @@ export class ListingPage extends Component {
 						<option value='ICU Bed'>ICU Bed</option>
 						<option value='Plasma'>Plasma</option>
 						<option value='Bed'>Beds</option>
+                        <option value='Ambulance'>Ambulance</option>
+
 					</select>
 				</div>
 

@@ -27,7 +27,7 @@ export class TermsCond extends Component {
                 3.Developers’   or   Product   owners   of  COAID ,   are   NOT   responsible   for   verifying   the   truth   orauthentication behind the information/contents provided by the registered individuals
                 </li>
                 <li>
-                4.COAID is solely developed on Human Interests and to help each other in this unfortunate time ofCovid19 Pandemic . No pro6t /revenue is ideated to be obtained from it’s use.
+                4.COAID is solely developed on Human Interests and to help each other in this unfortunate time ofCovid19 Pandemic . No profit /revenue is ideated to be obtained from it’s use.
                 </li>
             </ul>
             

@@ -32,7 +32,8 @@ export class DetailsUpload extends Component {
 			amount: '',
 			otp_loading: false,
 			type: 'Oxygen',
-            terms:true
+            terms:false,
+            loading:false
 		};
 		this.sendOtp = this.sendOtp.bind(this);
 		this.onSubmit = this.onSubmit.bind(this);
@@ -102,7 +103,7 @@ export class DetailsUpload extends Component {
 	onSubmit(e) {
 		e.preventDefault();
 		console.log(this.state);
-		this.setState({ ...this.state, modal_open: true });
+		this.setState({ ...this.state, modal_open: true, terms:false});
 
 		const uid = uuid();
 
@@ -128,11 +129,11 @@ export class DetailsUpload extends Component {
 			},
 			(error) => {
 				if (error) {
-					this.setState({ ...this.state, error: true });
+					this.setState({ ...this.state, error: true,submitted: false });
 
 					// The write failed...
 				} else {
-					this.setState({ ...this.state, submitted: true });
+					this.setState({ ...this.state, submitted: true,error: false });
 
 					// Data saved successfully!
 				}
@@ -185,11 +186,13 @@ export class DetailsUpload extends Component {
 								</button>
 							</div>
 						</div>
-					) : this.state.terms?"":
-						<Loader type='Puff' color='#4a74c9' height={100} width={100} />
-					}
+					) : ""}
 
-                    {this.state.terms ?
+                {this.state.loading?
+                <Loader type='Puff' color='#4a74c9' height={100} width={100} />:""
+                }
+
+                {this.state.terms ?
                   <TermsCond
                   closeModal={()=>{
                     this.setState({
@@ -199,6 +202,8 @@ export class DetailsUpload extends Component {
                   }}
                   />  
                 :""}
+
+
 				</Modal>
 
 				<center>
@@ -384,6 +389,7 @@ export class DetailsUpload extends Component {
 									<option value='ICU Bed'>ICU Bed</option>
 									<option value='Plasma'>Plasma</option>
 									<option value='Bed'>Beds</option>
+                                    <option value='Ambulance'>Ambulance</option>
 								</select>
 
 								<label htmlFor='area'>Quantity:</label>

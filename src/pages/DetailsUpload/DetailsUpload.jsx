@@ -283,7 +283,7 @@ export class DetailsUpload extends Component {
 				</Modal>
 
 				<center>
-					<h2 onClick={() => this.props.history.push(`/`)}>CoAid</h2>
+					<h2 onClick={() => this.props.history.push(`/`)}>CoAid.live</h2>
 				</center>
 
 				<div className={'refresh'}>

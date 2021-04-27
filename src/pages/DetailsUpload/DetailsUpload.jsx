@@ -431,7 +431,7 @@ export class DetailsUpload extends Component {
 									<option value='West Bengal'>West Bengal</option>
 								</select>
 
-								<label htmlFor='city'>City:</label>
+								<label htmlFor='city'>City / Town:</label>
 								<select
 									id='city'
 									name='city'

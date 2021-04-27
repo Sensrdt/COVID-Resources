@@ -11,10 +11,10 @@ export class TermsCond extends Component {
             >Close</button>
             <h2>Terms and conditions</h2>
             <p>
-            By   using   this   website/app,   you   agree   to   be   bound   by   ,and   to   comply   with   these   Terms   andConditions of COAID.If you do not agree with these terms and conditions, please do not use thissit/app.
+            By using this   website/app, you agree to be   bound   by   ,and   to   comply   with   these   Terms   andConditions of COAID.If you do not agree with these terms and conditions, please do not use this it/app.
             </p>
             <p>
-            We reserve the right at our sole discretion ,to change , modify and alter these Terms and Conditions at any time if needed. Unless otherwise indicated, amendments will become effective immediately.Please   review   these   Terms   and   Conditions   periodically.   For   your   information,   this   Terms   andConditions were last updated as of the date provided in the top of the page.
+            We reserve the right at our sole discretion ,to change , modify and alter these Terms and Conditions at any time if needed. Unless otherwise indicated, amendments will become effective immediately.Please   review   these   Terms   and   Conditions   periodically. For   your   information,   this   Terms   andConditions were last updated as of the date provided in the top of the page.
             </p>
             <ul>
                 <li>

@@ -130,8 +130,7 @@ export class ListingPage extends Component {
 		let databaseRef = firebase.database().ref('/data2');
 
 		if (prevState.city !== this.state.city) {
-            console.log('i am in');
-			if (this.state.city === 'All City') {
+			if (this.state.city === 'All City / Town') {
 				this.fetchUniversalData();
 			} else {
                 this.setState({
@@ -353,7 +352,7 @@ export class ListingPage extends Component {
 					)}
 				</Modal>
 				<center>
-					<h2 onClick={() => this.props.history.push(`/`)}>CoAid</h2>
+					<h1 onClick={() => this.props.history.push(`/`)}>CoAid.live</h1>
 				</center>
 				<div class='dd_with_select'>
 					<select name='sections' id='select' onchange=''>

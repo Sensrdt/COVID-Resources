@@ -25,7 +25,7 @@ export class Home extends Component {
 				</Modal>
 				<div className={'main-div'}>
 					<header>
-						<h1>CoAid</h1>
+						<h1>CoAid.live</h1>
 						<p>An aid towards distancing covid</p>
 					</header>
 

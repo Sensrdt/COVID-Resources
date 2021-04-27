@@ -8,7 +8,7 @@ import stateArray from '../../Utils/StateList';
 import Loader from 'react-loader-spinner';
 import { Modal } from 'react-responsive-modal';
 import uuid from 'react-uuid';
-import _ from 'lodash'
+import _ from 'lodash';
 // import { Fab, Action } from 'react-tiny-fab';
 
 import { ReactComponent as Upload } from './upload.svg';
@@ -55,49 +55,45 @@ export class ListingPage extends Component {
 
 	componentDidMount() {
 		this.fetchUniversalData();
-		
 	}
 
 	fetchUniversalData() {
-        this.setState({
+		this.setState({
 			...this.state,
 			modal: true,
-            loading:true
+			loading: true,
 		});
-		let databaseRef = firebase.database().ref('/data2')
-
-        
+		let databaseRef = firebase.database().ref('/data2');
 
 		databaseRef.on(
 			'value',
 			(snapshot) => {
 				let json = snapshot.val();
-                console.log(json);
+				console.log(json);
 				var arr = [];
 
-                try{
-                    Object.keys(json).forEach(function (keys) {
+				try {
+					Object.keys(json).forEach(function (keys) {
+						Object.keys(json[keys]).forEach((key) => {
+							arr.push(json[keys][key]);
+						});
+					});
+					_.sortBy(arr, [{ updated_on: 'desc' }]);
 
-                        Object.keys(json[keys]).forEach((key)=>{
-                            arr.push(json[keys][key])
-                            
-                        })
-                    });
-
-                    this.setState({
+					this.setState({
 						data: arr.reverse(),
 						modal: false,
 						loading: false,
 					});
-                } catch (error) {
+				} catch (error) {
 					this.setState({
 						data: [],
 						modal: false,
 						loading: false,
 					});
 				}
-            
-                // try {
+
+				// try {
 				// 	Object.keys(json).forEach(function (key) {
 				// 		arr.push(json[key]);
 				// 	});
@@ -133,97 +129,101 @@ export class ListingPage extends Component {
 			if (this.state.city === 'All City / Town') {
 				this.fetchUniversalData();
 			} else {
-                this.setState({
-                    ...this.state,
-                    modal: true,
-                    loading:true
-                });
-				databaseRef
-					.on('value', (snapshot) => {
-						let json = snapshot.val()
-                        console.log(json);
+				this.setState({
+					...this.state,
+					modal: true,
+					loading: true,
+				});
+				databaseRef.on('value', (snapshot) => {
+					let json = snapshot.val();
+					console.log(json);
 
-						if (json !== null) {
-							var arr = [];
+					if (json !== null) {
+						var arr = [];
 
-							Object.keys(json).forEach((keys)=>{
-                                Object.keys(json[keys]).forEach((key)=>{
-                                    if(json[keys][key].city.toUpperCase()===this.state.city.toUpperCase()){
-                                        arr.push(json[keys][key])
-                                    }
-                                    
-                                })
+						Object.keys(json).forEach((keys) => {
+							Object.keys(json[keys]).forEach((key) => {
+								if (
+									json[keys][key].city.toUpperCase() ===
+									this.state.city.toUpperCase()
+								) {
+									arr.push(json[keys][key]);
+								}
 							});
-                           
-							this.setState({
-								data: arr.reverse(),
-								modal: false,
-								loading: false,
-							});
-						} else {
-							this.setState({
-								...this.state,
-								data: [],
-								modal: false,
-								loading: false,
-							});
-						}
-					});
-///==========================>
-                // const newArr=[]
-                // this.state.data.map(data=>{
-                //     console.log(data.city,"data");
-                //     if(data.city.toUpperCase()===this.state.city.toUpperCase()){
-                //         newArr.push(data)
-                //     }
-                // })
-                			// this.setState({
-							// 	data: newArr,
-							// 	modal: false,
-							// 	loading: false,
-							// });
+						});
+
+						_.sortBy(arr, [{ updated_on: 'desc' }]);
+
+						this.setState({
+							data: arr.reverse(),
+							modal: false,
+							loading: false,
+						});
+					} else {
+						this.setState({
+							...this.state,
+							data: [],
+							modal: false,
+							loading: false,
+						});
+					}
+				});
+				///==========================>
+				// const newArr=[]
+				// this.state.data.map(data=>{
+				//     console.log(data.city,"data");
+				//     if(data.city.toUpperCase()===this.state.city.toUpperCase()){
+				//         newArr.push(data)
+				//     }
+				// })
+				// this.setState({
+				// 	data: newArr,
+				// 	modal: false,
+				// 	loading: false,
+				// });
 			}
 		}
 		if (prevState.type !== this.state.type) {
 			if (this.state.type === 'AllType') {
 				this.fetchUniversalData();
 			} else {
-                this.setState({
-                    ...this.state,
-                    modal: true,
-                    loading:true
-                });
-				databaseRef
-					.on('value', (snapshot) => {
-						let json = snapshot.val()
-                        console.log(json);
+				this.setState({
+					...this.state,
+					modal: true,
+					loading: true,
+				});
+				databaseRef.on('value', (snapshot) => {
+					let json = snapshot.val();
+					console.log(json);
 
-						if (json !== null) {
-							var arr = [];
+					if (json !== null) {
+						var arr = [];
 
-							Object.keys(json).forEach((keys)=>{
-                                Object.keys(json[keys]).forEach((key)=>{
-                                    if(json[keys][key].type.toUpperCase()===this.state.type.toUpperCase()){
-                                        arr.push(json[keys][key])
-                                    }
-                                    
-                                })
+						Object.keys(json).forEach((keys) => {
+							Object.keys(json[keys]).forEach((key) => {
+								if (
+									json[keys][key].type.toUpperCase() ===
+									this.state.type.toUpperCase()
+								) {
+									arr.push(json[keys][key]);
+								}
 							});
-                            _.sortBy(arr, [{updated_on:'desc'}])
-							this.setState({
-								data: arr.reverse(),
-								modal: false,
-								loading: false,
-							});
-						} else {
-							this.setState({
-								...this.state,
-								data: [],
-								modal: false,
-								loading: false,
-							});
-						}
-					});
+						});
+						_.sortBy(arr, [{ updated_on: 'desc' }]);
+						this.setState({
+							data: arr.reverse(),
+							modal: false,
+							loading: false,
+						});
+					} else {
+						this.setState({
+							...this.state,
+							data: [],
+							modal: false,
+							loading: false,
+						});
+					}
+				});
 			}
 		}
 	}
@@ -343,7 +343,7 @@ export class ListingPage extends Component {
 							<center>
 								<button onClick={this.report}>Submit</button>
 							</center>
-							<a href={'#'} onClick={this.onCloseModal} className={"a-close"}>
+							<a href={'#'} onClick={this.onCloseModal} className={'a-close'}>
 								Close
 							</a>
 						</div>
@@ -400,8 +400,7 @@ export class ListingPage extends Component {
 						<option value='ICU Bed'>ICU Bed</option>
 						<option value='Plasma'>Plasma</option>
 						<option value='Bed'>Beds</option>
-                        <option value='Ambulance'>Ambulance</option>
-
+						<option value='Ambulance'>Ambulance</option>
 					</select>
 				</div>
 
@@ -411,9 +410,13 @@ export class ListingPage extends Component {
 				</div>
 
 				<div ref={this.myRootRef}>
-                    {this.state.data.length===0 && !this.state.loading?
-                <p className={"no-data"}>😔 Currently no data available! Please try after sometime</p>:
-                        ""}
+					{this.state.data.length === 0 && !this.state.loading ? (
+						<p className={'no-data'}>
+							😔 Currently no data available! Please try after sometime
+						</p>
+					) : (
+						''
+					)}
 					{this.state.data.map((value) => {
 						return (
 							<List

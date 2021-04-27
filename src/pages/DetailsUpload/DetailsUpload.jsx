@@ -40,6 +40,18 @@ export class DetailsUpload extends Component {
 		this.onCloseModal = this.onCloseModal.bind(this);
 	}
 
+    componentDidMount(){
+        if(sessionStorage.getItem('co_aiduser')){
+            this.setState({
+                ...this.state,
+                otp_loading: false,
+                user_verified: true,
+                my_contact: sessionStorage.getItem('co_aiduser')
+
+            });
+        }
+    }
+
 	onCloseModal = () => {
 		this.setState({ open: false });
 	};
@@ -71,6 +83,7 @@ export class DetailsUpload extends Component {
 				confirmationResult
 					.confirm(code)
 					.then((result) => {
+                        sessionStorage.setItem('co_aiduser',this.state.my_contact)
 						this.setState({
 							my_contact: this.state.my_contact,
 							user_verified: true,
@@ -103,13 +116,16 @@ export class DetailsUpload extends Component {
 	onSubmit(e) {
 		e.preventDefault();
 		console.log(this.state);
-		this.setState({ ...this.state, modal_open: true, terms:false});
+		this.setState({ ...this.state, modal_open: true, terms:false,loading:true});
 
 		const uid = uuid();
 
-		let databaseRef = firebase.database().ref('data').child(uid);
+		let databaseRef = firebase.database().ref('data2').child(this.state.my_contact);
+        var newPostRef = databaseRef.push();
+        console.log(newPostRef.key);
+        
 
-		databaseRef.set(
+            newPostRef.set(
 			{
 				name: this.state.name,
 				ox_contact: this.state.ox_contact,
@@ -128,16 +144,24 @@ export class DetailsUpload extends Component {
 				type: this.state.type,
                 not_available:0,
                 support:0,
-                fake:0
+                fake:0,
+                key:newPostRef.key
 
 			},
 			(error) => {
 				if (error) {
-					this.setState({ ...this.state, error: true,submitted: false });
+					this.setState({ ...this.state, error: true,submitted: false,loading:false });
 
 					// The write failed...
 				} else {
-					this.setState({ ...this.state, submitted: true,error: false });
+                    // let userRef = firebase.database().ref('users').child(this.state.my_contact);
+
+                    // var newPostRef = userRef.push(uid);
+
+                    // console.log(newPostRef);
+                    
+
+					this.setState({ ...this.state, submitted: true,error: false,loading:false });
 
 					// Data saved successfully!
 				}
@@ -172,7 +196,15 @@ export class DetailsUpload extends Component {
 									href='#'
 									className={''}
 									onClick={() => {
-										this.props.history.push(`/list/oxygen`);
+                                        this.setState({
+											...this.state,
+											district: '',
+											area: '',
+                                            quantity:0,
+                                            amount:0,
+											modal_open: false,
+										});
+										this.props.history.push(`/list/aids`);
 									}}>
 									No
 								</a>
@@ -184,6 +216,8 @@ export class DetailsUpload extends Component {
 											district: '',
 											area: '',
 											modal_open: false,
+                                            quantity:0,
+                                            amount:0,
 										});
 									}}>
 									Yes
@@ -192,7 +226,7 @@ export class DetailsUpload extends Component {
 						</div>
 					) : ""}
 
-                {this.state.loading?
+                {this.state.loading || this.state.otp_loading?
                 <Loader type='Puff' color='#4a74c9' height={100} width={100} />:""
                 }
 
@@ -216,7 +250,7 @@ export class DetailsUpload extends Component {
 
 				<div className={'refresh'}>
 					<p onClick={() => this.props.history.push(`/`)}>Back to home</p>
-					<p onClick={() => window.location.reload()}>Refresh</p>
+					<p onClick={() => this.props.history.push(`/list/records`)}>Your records</p>
 				</div>
 
 				<div className='row'>
@@ -229,6 +263,7 @@ export class DetailsUpload extends Component {
 
 								<label htmlFor='phone'>Your phone number:</label>
 								<input
+                                    value={this.state.my_contact}
 									type='phone'
 									id='phone'
 									name='phone'
@@ -405,6 +440,8 @@ export class DetailsUpload extends Component {
 									type='number'
 									id='quantity'
 									name='quantity'
+                                    value={this.state.quantity}
+
 								/>
 
 								<label htmlFor='area'>Amount:</label>
@@ -416,6 +453,7 @@ export class DetailsUpload extends Component {
 									type='text'
 									id='amount'
 									name='amount'
+                                    value={this.state.amount}
 								/>
 							</fieldset>
 							<center>

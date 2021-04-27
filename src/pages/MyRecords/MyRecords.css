@@ -1,0 +1,158 @@
+.listing-main{
+    background: #f1f3f9;
+    height: 100%;
+    
+}
+h2{
+    cursor: pointer;
+}
+/* ---------------------------
+Dropdown with CHECKBOX 
+---------------------------- */
+
+.dd_with_select{
+    display: flex;
+   
+    margin-top: 1em;
+    flex-direction: row;
+    overflow: scroll;
+    width: 100%;
+    justify-content: space-evenly;
+}
+.dd_with_chkb label.toogle {
+  /* dropdown toogle */
+  display: block;
+  box-sizing: border-box;
+  padding: 15px;
+  background-color: white;
+  color: #303030;
+  border: 1px solid #c2c2c2;
+}
+.dd_with_chkb label.toogle:hover {
+  cursor: pointer;
+}
+
+.dd_with_chkb input.chkb {
+  /* checkbox invisible*/
+  display: none;
+}
+.dd_with_chkb #chkb:checked ~ .dd_a {
+  display: block;
+  box-sizing: border-box;
+}
+
+.dd_with_chkb .dd_a {
+  /* dropdown item */
+  display: none;
+  padding: 15px;
+  border-left: 1px solid #c2c2c2;
+  border-right: 1px solid #c2c2c2;
+  color: #000;
+  font-size: 16px;
+  text-decoration: none;
+}
+.dd_with_chkb .dd_a:hover {
+  background-color: #f0f0f0;
+}
+.dd_with_chkb .dd_a:last-child {
+  border-bottom: 1px solid #c2c2c2;
+}
+
+/* ---------------------------
+Dropdown with CSS HOVER 
+---------------------------- */
+.dd_with_hover div.toogle {
+  /* dropdown toogle */
+  display: block;
+  box-sizing: border-box;
+  padding: 15px;
+  background-color: white;
+  color: #303030;
+  border: 1px solid #c2c2c2;
+}
+.dd_with_hover div.toogle:hover {
+  cursor: pointer;
+}
+.dd_with_hover div.toogle:hover > .dd_a {
+  display: block;
+  box-sizing: border-box;
+}
+/*.dd_with_hover div.toogle:hover {
+  padding-bottom: 0;
+}*/
+.dd_with_hover .dd_a {
+  /* dropdown item */
+  display: none;
+  padding: 15px 0;
+  color: #000;
+  font-size: 16px;
+  text-decoration: none;
+}
+.dd_with_hover .dd_a:first-child {
+  margin-top: 15px;
+}
+.dd_with_hover .dd_a:hover {
+  background-color: #f0f0f0;
+}
+
+/* ---------------------------
+Dropdown with HTML SELECT 
+---------------------------- */
+.dd_with_select select {
+  width: 100%;
+  padding: 15px 0 15px 5px;
+  border-radius: 5px;
+  color: #4a74c9;
+  font-weight: bold;
+  border-color: #4a74c9;
+  background: white;
+}
+.dd_with_select select option {
+  /* dropdown item */
+  min-height: 50px;
+  padding: 15px;
+  border-left: 1px solid #c2c2c2;
+  border-right: 1px solid #c2c2c2;
+  color: #303030;
+  text-decoration: none;
+}
+.dd_with_select select option:hover {
+  background-color: #f0f0f0;
+}
+
+.refresh{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+}
+.refresh p{
+    margin-left: 0.5em;
+    margin-right: 0.5em;
+    text-decoration: underline;
+cursor: pointer;
+}
+.a-close{
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1em;
+    color: black;
+    text-decoration: none;
+}
+.no-data{
+    text-align: center;
+    margin-top: 3em;
+    font-size: 2rem;
+}
+.remove-div{
+    padding: 1em;
+
+}
+.remove-div a{
+    margin-right: 1em;
+    font-size: 1.5rem;
+    text-decoration: none;
+}

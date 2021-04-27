@@ -8,6 +8,7 @@ import stateArray from '../../Utils/StateList';
 import Loader from 'react-loader-spinner';
 import { Modal } from 'react-responsive-modal';
 import uuid from 'react-uuid';
+import _ from 'lodash'
 // import { Fab, Action } from 'react-tiny-fab';
 
 import { ReactComponent as Upload } from './upload.svg';
@@ -63,30 +64,56 @@ export class ListingPage extends Component {
 			modal: true,
             loading:true
 		});
-		let databaseRef = firebase.database().ref('/data');
+		let databaseRef = firebase.database().ref('/data2')
+
+        
 
 		databaseRef.on(
 			'value',
 			(snapshot) => {
 				let json = snapshot.val();
+                console.log(json);
 				var arr = [];
 
-				try {
-					Object.keys(json).forEach(function (key) {
-						arr.push(json[key]);
-					});
-					this.setState({
+                try{
+                    Object.keys(json).forEach(function (keys) {
+
+                        Object.keys(json[keys]).forEach((key)=>{
+                            arr.push(json[keys][key])
+                            
+                        })
+                    });
+                    _.sortBy(arr, [{updated_on:'desc'}])
+
+                    this.setState({
 						data: arr,
 						modal: false,
 						loading: false,
 					});
-				} catch (error) {
+                } catch (error) {
 					this.setState({
 						data: [],
 						modal: false,
 						loading: false,
 					});
 				}
+            
+                // try {
+				// 	Object.keys(json).forEach(function (key) {
+				// 		arr.push(json[key]);
+				// 	});
+				// 	this.setState({
+				// 		data: arr,
+				// 		modal: false,
+				// 		loading: false,
+				// 	});
+				// } catch (error) {
+				// 	this.setState({
+				// 		data: [],
+				// 		modal: false,
+				// 		loading: false,
+				// 	});
+				// }
 
 				this.setState({
 					data: arr,
@@ -101,9 +128,10 @@ export class ListingPage extends Component {
 	}
 
 	componentDidUpdate(prevProps, prevState) {
-		let databaseRef = firebase.database().ref('/data');
+		let databaseRef = firebase.database().ref('/data2');
 
 		if (prevState.city !== this.state.city) {
+            console.log('i am in');
 			if (this.state.city === 'All City') {
 				this.fetchUniversalData();
 			} else {
@@ -113,20 +141,24 @@ export class ListingPage extends Component {
                     loading:true
                 });
 				databaseRef
-					.orderByChild('city')
-					.equalTo(this.state.city)
 					.on('value', (snapshot) => {
-						let json = snapshot.val();
+						let json = snapshot.val()
+                        console.log(json);
 
 						if (json !== null) {
 							var arr = [];
 
-							Object.keys(json).forEach(function (key) {
-								arr.push(json[key]);
+							Object.keys(json).forEach((keys)=>{
+                                Object.keys(json[keys]).forEach((key)=>{
+                                    if(json[keys][key].city.toUpperCase()===this.state.city.toUpperCase()){
+                                        arr.push(json[keys][key])
+                                    }
+                                    
+                                })
 							});
-
+                            _.sortBy(arr, [{updated_on:'desc'}])
 							this.setState({
-								data: arr,
+								data: arr.reverse(),
 								modal: false,
 								loading: false,
 							});
@@ -139,9 +171,21 @@ export class ListingPage extends Component {
 							});
 						}
 					});
+///==========================>
+                // const newArr=[]
+                // this.state.data.map(data=>{
+                //     console.log(data.city,"data");
+                //     if(data.city.toUpperCase()===this.state.city.toUpperCase()){
+                //         newArr.push(data)
+                //     }
+                // })
+                			// this.setState({
+							// 	data: newArr,
+							// 	modal: false,
+							// 	loading: false,
+							// });
 			}
 		}
-		console.log(this.state);
 		if (prevState.type !== this.state.type) {
 			if (this.state.type === 'AllType') {
 				this.fetchUniversalData();
@@ -152,20 +196,24 @@ export class ListingPage extends Component {
                     loading:true
                 });
 				databaseRef
-					.orderByChild('type')
-					.equalTo(this.state.type)
 					.on('value', (snapshot) => {
-						let json = snapshot.val();
+						let json = snapshot.val()
+                        console.log(json);
 
 						if (json !== null) {
 							var arr = [];
 
-							Object.keys(json).forEach(function (key) {
-								arr.push(json[key]);
+							Object.keys(json).forEach((keys)=>{
+                                Object.keys(json[keys]).forEach((key)=>{
+                                    if(json[keys][key].type.toUpperCase()===this.state.type.toUpperCase()){
+                                        arr.push(json[keys][key])
+                                    }
+                                    
+                                })
 							});
-
+                            _.sortBy(arr, [{updated_on:'desc'}])
 							this.setState({
-								data: arr,
+								data: arr.reverse(),
 								modal: false,
 								loading: false,
 							});

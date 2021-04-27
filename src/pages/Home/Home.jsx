@@ -32,7 +32,7 @@ export class Home extends Component {
 					<div class='wrap'>
 						<button
 							class='button'
-							onClick={() =>window.location.assign('/list/oxygen')
+							onClick={() =>window.location.assign('/list/aids')
 						}>
 							Medical aids
 						</button>
@@ -41,7 +41,7 @@ export class Home extends Component {
 					<div class='wrap'>
 						<button
 							class='button'
-							onClick={() => this.props.history.push(`/upload/oxygen`)}>
+							onClick={() => this.props.history.push(`/upload/aid`)}>
 							Provide info
 						</button>
 					</div>

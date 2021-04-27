@@ -8,6 +8,7 @@ import Home from './pages/Home/Home';
 import UpdateForm from './pages/Update/UpdateForm';
 import ListingPage from './pages/ListingPage/ListingPage';
 import DetailsUpload from './pages/DetailsUpload/DetailsUpload';
+import MyRecords from './pages/MyRecords/MyRecords';
 
 class App extends Component {
 	render() {
@@ -17,8 +18,10 @@ class App extends Component {
 					<Redirect from='/' to='/home' exact />
 					<Route path='/home' component={Home} exact />
 					<Route path='/auth' component={Auth} />
-					<Route path='/list/oxygen' component={ListingPage} />
-					<Route path='/upload/oxygen' component={DetailsUpload} />
+					<Route path='/list/aids' component={ListingPage} />
+					<Route path='/upload/aid' component={DetailsUpload} />
+					<Route path='/list/records' component={MyRecords} />
+
 				</Switch>
 			</Router>
 		);

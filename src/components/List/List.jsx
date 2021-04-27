@@ -40,6 +40,10 @@ export class List extends Component {
 					<p className={'updated'}>
                         <b>Last updated</b>
                          : {this.props.updated_on}</p>
+                            {this.props.delete? <p 
+                className={"remove"}
+                onClick={()=>this.props.onDelete(this.props.ukey)}>Delete</p>:""}
+               
 				</div>
 			</React.Fragment>
 		);

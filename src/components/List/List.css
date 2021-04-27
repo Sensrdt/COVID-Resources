@@ -32,3 +32,10 @@
     cursor: pointer;
     font-weight: bold;
 }
+.amount{
+    display: flex;
+    align-items: center;
+}
+.amount p{
+    margin: 0;
+}

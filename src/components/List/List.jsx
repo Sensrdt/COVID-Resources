@@ -1,53 +1,96 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import './List.css';
 export class List extends Component {
-	render() {
-		return (
-			<React.Fragment>
-				<div className='list-main-class'>
-					<div className={'rating'}>
-                        {this.props.verified?<p className={"tick-verified"}>✔ Verified</p>:""}
-                        
-						{/* <p
+  getLocation = () => {
+      if(this.props.city==="" && this.props.state==="" && this.props.district===""){
+          return "";
+      }else{
+          return(
+        <p>
+            {"🌎  "}&nbsp;<b>Location</b>:&nbsp;
+            {this.props.district!==""?`${this.props.district} ,`:""}
+            
+            {this.props.city !==""?`${this.props.city} ,`:"" }
+            
+            {this.props.state}{' '}
+        </p>
+          )
+
+      }
+  }
+  render() {
+    return (
+      <React.Fragment>
+        <div className='list-main-class'>
+          <div className={'rating'}>
+            {this.props.verified
+              ? <p className={"tick-verified"}>✔ Verified</p>
+              : ""}
+
+            {/* <p
 							onClick={() => {
 								this.props.onReport(this.props.uid);
 							}}>
 							Rating
 						</p> */}
-					</div>
-					<p><b>Type</b> : {this.props.type}</p>
-					<p>
-                        <b>Location</b>
-						 : {this.props.city}, {this.props.state}{' '}
-					</p>
-					<p>
+          </div>
+          <p>
+            {"📋  "}&nbsp;
+            <b>Type</b>
+            : {this.props.type}</p>
+
+            {this.getLocation()}
+          
+
+          {/* <p>
                         <b>District</b>
-                         : {this.props.district===""?"Not available":this.props.district}</p>{' '}
-					<p>
-                        <b>Area</b>
-                         : {this.props.area===""?"Not available":this.props.area}</p>{' '}
-					<p>
+                         : {this.props.district===""?"Not available":this.props.district}
+                         </p>
+                          */}
+          {this.props.area === ""
+            ? <p>{"🏠  "}&nbsp;<b>Area</b>: this.props.area</p>
+            : ""}
+
+          {/* <p>
                         <b>Quantity & Amount</b>
 						 : {this.props.quantity} & {this.props.amount}{' '}
-					</p>
-					<p>
-                        <b>Contact Number</b>
-                         : {this.props.ox_contact}</p>
-					<p 
-                    className='name'>
-                        <b>Dealer / Supplier</b>
-                         : {this.props.name}</p>
-					<p className={'updated'}>
-                        <b>Last updated</b>
-                         : {this.props.updated_on}</p>
-                            {this.props.delete? <p 
-                className={"remove"}
-                onClick={()=>this.props.onDelete(this.props.ukey)}>Delete</p>:""}
-               
-				</div>
-			</React.Fragment>
-		);
-	}
+					</p> */}
+          <p>{"📱  "}&nbsp;
+            <b>Contact Number</b>
+            : {this.props.ox_contact}</p>
+
+          <p className='name'>{"👨  "}&nbsp;<b>Dealer / Supplier</b>: {this.props.name}</p>
+       
+          <div className={"amount"}>
+
+            
+{"#️⃣ "}&nbsp; <p>{this.props.quantity===undefined || this.props.quantity==="undefined" ||this.props.quantity===""|| this.props.quantity === 0 ||
+this.props.quantity==="Unknown. " || this.props.quantity==="Unknown." || this.props.quantity==="Unknown"|| this.props.quantity==="Not specified"?
+
+   `   NA  `: `   ${this.props.quantity}` 
+   }</p>&nbsp;
+
+&nbsp;{"💰 "}&nbsp; <p>{this.props.amount===""|| this.props.amount === 0 || this.props.amount==="Not specified"? 
+   `   NA  `: `   ${this.props.amount} ` 
+   }</p>
+
+</div>
+
+          <p className={'updated'}>
+            {"⏱️  "}&nbsp;
+            <b>Last updated</b>
+            : {this.props.updated_on}</p>
+
+    
+        
+          {this.props.delete
+            ? <p className={"remove"} onClick={() => this.props.onDelete(this.props.ukey)}>Delete</p>
+            : ""}
+
+        </div>
+      </React.Fragment>
+    );
+  }
 }
 
 export default List;

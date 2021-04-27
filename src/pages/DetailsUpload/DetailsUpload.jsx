@@ -250,7 +250,8 @@ export class DetailsUpload extends Component {
 
 				<div className={'refresh'}>
 					<p onClick={() => this.props.history.push(`/`)}>Back to home</p>
-					<p onClick={() => this.props.history.push(`/list/records`)}>Your records</p>
+                    {sessionStorage.getItem('co_aiduser')?<p onClick={() => this.props.history.push(`/list/records`)}>Your records</p>:""}
+					
 				</div>
 
 				<div className='row'>

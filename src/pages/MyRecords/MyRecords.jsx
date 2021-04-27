@@ -61,9 +61,10 @@ export class MyRecords extends Component {
                 my_contact: sessionStorage.getItem('co_aiduser')
 
             });
+		this.fetchUniversalData();
+
         }
 
-		this.fetchUniversalData();
 		
 	}
 

@@ -10,7 +10,7 @@ import 'react-responsive-modal/styles.css';
 
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
 import TermsCond from '../../components/TermsCond/TermsCond';
-
+let confirmationResult1=null
 export class DetailsUpload extends Component {
 	constructor(props) {
 		super(props);
@@ -35,12 +35,14 @@ export class DetailsUpload extends Component {
             terms:false,
             loading:false,
             otp_number:'',
-            otp_sent:false
+            otp_sent:false,
+            confirmationResult:null
 
 		};
 		this.sendOtp = this.sendOtp.bind(this);
 		this.onSubmit = this.onSubmit.bind(this);
 		this.onCloseModal = this.onCloseModal.bind(this);
+        this.confirmationResult = null;
 	}
 
     componentDidMount(){
@@ -79,28 +81,37 @@ export class DetailsUpload extends Component {
 			.then((confirmationResult) => {
 				// SMS sent. Prompt user to type the code from the message, then sign the
 				// user in with confirmationResult.confirm(code).
-				var code = prompt('Enter the otp', '');
+				// var code = prompt('Enter the otp', '');
 
-				if (code === null) return;
+				// if (code === null) return;
 
-				confirmationResult
-					.confirm(code)
-					.then((result) => {
-                        sessionStorage.setItem('co_aiduser',this.state.my_contact)
-						this.setState({
-							my_contact: this.state.my_contact,
-							user_verified: true,
-							otp_loading: false,
-						});
-					})
-					.catch((error) => {
-						this.setState({
-							my_contact: this.state.my_contact,
-							user_verified: false,
-							otp_loading: false,
-						});
-						alert('Invalid code.');
-					});
+                this.confirmationResult= confirmationResult
+                this.setState({
+                   ...this.state,
+                   confirmationResult:confirmationResult,
+                   otp_sent:true,
+                   
+                });
+                console.log(confirmationResult);
+
+				// confirmationResult
+				// 	.confirm(code)
+				// 	.then((result) => {
+                //         sessionStorage.setItem('co_aiduser',this.state.my_contact)
+				// 		this.setState({
+				// 			my_contact: this.state.my_contact,
+				// 			user_verified: true,
+				// 			otp_loading: false,
+				// 		});
+				// 	})
+				// 	.catch((error) => {
+				// 		this.setState({
+				// 			my_contact: this.state.my_contact,
+				// 			user_verified: false,
+				// 			otp_loading: false,
+				// 		});
+				// 		alert('Invalid code.');
+				// 	});
 
 				// ...
 			})
@@ -171,6 +182,30 @@ export class DetailsUpload extends Component {
 			}
 		);
 	}
+    checkValidOtp=()=>{
+        this.setState({
+           
+            otp_loading: true,
+        });
+       
+       this.confirmationResult.confirm(this.state.otp_number).then(res=>{
+                      sessionStorage.setItem('co_aiduser',this.state.my_contact)
+						this.setState({
+							my_contact: this.state.my_contact,
+							user_verified: true,
+							otp_loading: false,
+						});
+       }).catch(err=>{
+           		this.setState({
+							my_contact: this.state.my_contact,
+							user_verified: false,
+							otp_loading: false,
+						});
+						alert('Invalid code.');
+
+       })
+
+    }
 
 	render() {
 		return (
@@ -229,7 +264,7 @@ export class DetailsUpload extends Component {
 						</div>
 					) : ""}
 
-                {this.state.loading || this.state.otp_loading?
+                {(this.state.loading || this.state.otp_loading)  ?
                 <Loader type='Puff' color='#4a74c9' height={100} width={100} />:""
                 }
 
@@ -259,7 +294,7 @@ export class DetailsUpload extends Component {
 
 				<div className='row'>
 					<div className='col-md-12'>
-						<form method='post' action={'#'}>
+						<form action={'#'}>
 							<fieldset>
 								<legend>
 									<span className='number'>1</span> Your Info
@@ -267,6 +302,7 @@ export class DetailsUpload extends Component {
 
 								<label htmlFor='phone'>Your phone number:</label>
 								<input
+                                disabled={this.state.user_verified}
                                     value={this.state.my_contact}
 									type='phone'
 									id='phone'
@@ -276,6 +312,22 @@ export class DetailsUpload extends Component {
 									}}
 								/>
 
+
+                                {this.state.otp_sent?<React.Fragment>
+                                    <label htmlFor='phone'>Enter OTP:</label>
+                                    <input
+                                    disabled={this.state.user_verified}
+                                    value={this.state.otp_number}
+									type='number'
+									id='otp'
+									name='otp'
+									onChange={(e) => {
+										this.setState({ otp_number: e.target.value });
+									}}
+								/>
+                                </React.Fragment>:""}
+                                
+
 								{this.state.user_verified ? (
 									<a className={'a-verified'} href={'#'}>
 										✔ Verified
@@ -283,7 +335,7 @@ export class DetailsUpload extends Component {
 								) : (
 									''
 								)}
-								{this.state.otp_loading ? (
+								{this.state.otp_loading && !this.state.otp_sent? (
 									<Loader
 										type='Puff'
 										color='#4a74c9'
@@ -292,14 +344,16 @@ export class DetailsUpload extends Component {
 									/>
 								) : (
 									<button
-										onClick={this.sendOtp}
+                                        type={"button"}
+										onClick={this.state.otp_sent?this.checkValidOtp: this.sendOtp}
 										className={
 											this.state.user_verified
 												? 'verify-btn u_verified'
 												: 'verify-btn'
 										}
 										disabled={this.state.user_verified}>
-										Send otp
+                                            {this.state.otp_sent?'Submit OTP':'Send otp'}
+										
 									</button>
 								)}
 							</fieldset>
@@ -463,8 +517,12 @@ export class DetailsUpload extends Component {
 							<center>
 								<button
 									type='submit'
-									className={!this.state.user_verified ? 'u_verified' : ''}
-									disabled={!this.state.user_verified}
+									className={!this.state.user_verified   ||
+                                        this.state.name==="" || this.state.ox_contact==="" ? 'u_verified' : ''}
+									disabled={!this.state.user_verified
+                                    ||
+                                    this.state.name==="" || this.state.ox_contact==="" 
+                                    }
 									onClick={this.onSubmit}>
 									Submit
 								</button>

@@ -83,10 +83,9 @@ export class ListingPage extends Component {
                             
                         })
                     });
-                    _.sortBy(arr, [{updated_on:'desc'}])
 
                     this.setState({
-						data: arr,
+						data: arr.reverse(),
 						modal: false,
 						loading: false,
 					});
@@ -156,7 +155,7 @@ export class ListingPage extends Component {
                                     
                                 })
 							});
-                            _.sortBy(arr, [{updated_on:'desc'}])
+                           
 							this.setState({
 								data: arr.reverse(),
 								modal: false,
@@ -249,7 +248,7 @@ export class ListingPage extends Component {
 
 		let databaseRef = firebase
 			.database()
-			.ref('/data')
+			.ref('/data2')
 			.child(this.state.report_id);
 
 		databaseRef.set(

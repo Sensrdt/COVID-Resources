@@ -33,7 +33,10 @@ export class DetailsUpload extends Component {
 			otp_loading: false,
 			type: 'Oxygen',
             terms:false,
-            loading:false
+            loading:false,
+            otp_number:'',
+            otp_sent:false
+
 		};
 		this.sendOtp = this.sendOtp.bind(this);
 		this.onSubmit = this.onSubmit.bind(this);
@@ -200,8 +203,8 @@ export class DetailsUpload extends Component {
 											...this.state,
 											district: '',
 											area: '',
-                                            quantity:0,
-                                            amount:0,
+                                            quantity:'',
+                                            amount:'',
 											modal_open: false,
 										});
 										this.props.history.push(`/list/aids`);

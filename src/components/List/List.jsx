@@ -8,12 +8,12 @@ export class List extends Component {
 					<div className={'rating'}>
                         {this.props.verified?<p className={"tick-verified"}>✔ Verified</p>:""}
                         
-						<p
+						{/* <p
 							onClick={() => {
 								this.props.onReport(this.props.uid);
 							}}>
 							Rating
-						</p>{' '}
+						</p> */}
 					</div>
 					<p><b>Type</b> : {this.props.type}</p>
 					<p>

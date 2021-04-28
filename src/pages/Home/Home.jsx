@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './Home.css';
 import 'react-responsive-modal/styles.css';
 import { Modal } from 'react-responsive-modal';
-
+import Logo from '../../Utils/logo1.png'
 export class Home extends Component {
 	constructor(props) {
 		super(props);
@@ -25,7 +25,11 @@ export class Home extends Component {
 				</Modal>
 				<div className={'main-div'}>
 					<header>
-						<h1>CoAid.live</h1>
+					<img className={"logo"} src={Logo} alt=""/>
+
+						<h1>
+							CoAid.live
+							</h1>
 						<p>An aid towards distancing covid</p>
 					</header>
 

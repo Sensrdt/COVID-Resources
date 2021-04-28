@@ -10,7 +10,10 @@ import 'react-responsive-modal/styles.css';
 
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
 import TermsCond from '../../components/TermsCond/TermsCond';
-let confirmationResult1=null
+import OTP from '../../components/Auth/OTP';
+import Logo from '../../Utils/logo1.png'
+import moment from 'moment'
+
 export class DetailsUpload extends Component {
 	constructor(props) {
 		super(props);
@@ -30,19 +33,13 @@ export class DetailsUpload extends Component {
 			verified: false,
 			quantity: '',
 			amount: '',
-			otp_loading: false,
 			type: 'Oxygen',
             terms:false,
             loading:false,
-            otp_number:'',
-            otp_sent:false,
-            confirmationResult:null
+            
 
 		};
-		this.sendOtp = this.sendOtp.bind(this);
 		this.onSubmit = this.onSubmit.bind(this);
-		this.onCloseModal = this.onCloseModal.bind(this);
-        this.confirmationResult = null;
 	}
 
     componentDidMount(){
@@ -60,73 +57,15 @@ export class DetailsUpload extends Component {
 	onCloseModal = () => {
 		this.setState({ open: false });
 	};
-	sendOtp(e) {
-		e.preventDefault();
-		this.setState({
-			...this.state,
-			otp_loading: true,
-		});
-		console.log(this.state.my_contact);
+	
+    ParseDate=(dateString)=> {
+        const format1 = "DD-MM-YYYY HH:mm:ss"
+      
 
-		var recaptcha = new firebase.auth.RecaptchaVerifier('recaptcha', {
-			size: 'invisible',
-		});
+        const dateTime1 = moment(dateString).format(format1);
 
-		var number = '+91' + this.state.my_contact;
-
-		// const appVerifier = window.recaptchaVerifier;
-		firebase
-			.auth()
-			.signInWithPhoneNumber(number, recaptcha)
-			.then((confirmationResult) => {
-				// SMS sent. Prompt user to type the code from the message, then sign the
-				// user in with confirmationResult.confirm(code).
-				// var code = prompt('Enter the otp', '');
-
-				// if (code === null) return;
-
-                this.confirmationResult= confirmationResult
-                this.setState({
-                   ...this.state,
-                   confirmationResult:confirmationResult,
-                   otp_sent:true,
-                   
-                });
-                console.log(confirmationResult);
-
-				// confirmationResult
-				// 	.confirm(code)
-				// 	.then((result) => {
-                //         sessionStorage.setItem('co_aiduser',this.state.my_contact)
-				// 		this.setState({
-				// 			my_contact: this.state.my_contact,
-				// 			user_verified: true,
-				// 			otp_loading: false,
-				// 		});
-				// 	})
-				// 	.catch((error) => {
-				// 		this.setState({
-				// 			my_contact: this.state.my_contact,
-				// 			user_verified: false,
-				// 			otp_loading: false,
-				// 		});
-				// 		alert('Invalid code.');
-				// 	});
-
-				// ...
-			})
-			.catch((error) => {
-				this.setState({
-					my_contact: this.state.my_contact,
-					user_verified: false,
-					otp_loading: false,
-				});
-				alert('Something error! Please try after sometime.');
-				// Error; SMS not sent
-				// ...
-			});
-	}
-
+        return(dateTime1);
+    }
 	onSubmit(e) {
 		e.preventDefault();
 		console.log(this.state);
@@ -151,7 +90,7 @@ export class DetailsUpload extends Component {
 				my_contact: this.state.my_contact,
 				user_verified: this.state.user_verified,
 				uid: uid,
-				updated_on: new Date().toLocaleString(),
+				updated_on: this.ParseDate(new Date().toString()),
 				quantity:
 					this.state.quantity !== '' ? this.state.quantity : 'Not specified',
 				amount: this.state.amount !== '' ? this.state.amount : 'Not specified',
@@ -182,30 +121,7 @@ export class DetailsUpload extends Component {
 			}
 		);
 	}
-    checkValidOtp=()=>{
-        this.setState({
-           
-            otp_loading: true,
-        });
-       
-       this.confirmationResult.confirm(this.state.otp_number).then(res=>{
-                      sessionStorage.setItem('co_aiduser',this.state.my_contact)
-						this.setState({
-							my_contact: this.state.my_contact,
-							user_verified: true,
-							otp_loading: false,
-						});
-       }).catch(err=>{
-           		this.setState({
-							my_contact: this.state.my_contact,
-							user_verified: false,
-							otp_loading: false,
-						});
-						alert('Invalid code.');
-
-       })
-
-    }
+    
 
 	render() {
 		return (
@@ -241,6 +157,8 @@ export class DetailsUpload extends Component {
                                             quantity:'',
                                             amount:'',
 											modal_open: false,
+                                            submitted:false,
+                                            error:false
 										});
 										this.props.history.push(`/list/aids`);
 									}}>
@@ -256,6 +174,8 @@ export class DetailsUpload extends Component {
 											modal_open: false,
                                             quantity:0,
                                             amount:0,
+                                            submitted:false,
+                                            error:false
 										});
 									}}>
 									Yes
@@ -279,16 +199,51 @@ export class DetailsUpload extends Component {
                   />  
                 :""}
 
+                  {this.state.verify_modal?
+                  <React.Fragment>
+                <OTP
+                onVerify={(my_contact)=>{
+                    this.setState({
+                        my_contact: my_contact,
+                        user_verified: true,
+                    });
+                    this.props.history.push(`/list/records`)
+
+                }}
+                /> 
+                <a className={"otp-close"} href={"#"}
+                onClick={()=>{
+                    this.setState({
+                        modal_open: false,
+                    });  
+                }}
+                >Close</a>
+                  </React.Fragment>
+                :""
+                }
 
 				</Modal>
 
 				<center>
-					<h2 onClick={() => this.props.history.push(`/`)}>CoAid.live</h2>
+                  
+					<h2 onClick={() => this.props.history.push(`/`)}><img src={Logo} class={"logo-1"} alt=""/>CoAid.live</h2>
 				</center>
 
 				<div className={'refresh'}>
 					<p onClick={() => this.props.history.push(`/`)}>Back to home</p>
-                    {sessionStorage.getItem('co_aiduser')?<p onClick={() => this.props.history.push(`/list/records`)}>Your records</p>:""}
+
+                    <p onClick={() =>{
+                        
+                        if(sessionStorage.getItem('co_aiduser')){
+                            this.props.history.push(`/list/records`)
+                        }else{
+                            this.setState({
+                                modal_open:true,
+                                verify_modal:true
+                            })
+                        }
+                        }
+                        }>Your records</p>
 					
 				</div>
 
@@ -299,63 +254,16 @@ export class DetailsUpload extends Component {
 								<legend>
 									<span className='number'>1</span> Your Info
 								</legend>
-
-								<label htmlFor='phone'>Your phone number:</label>
-								<input
-                                disabled={this.state.user_verified}
-                                    value={this.state.my_contact}
-									type='phone'
-									id='phone'
-									name='phone'
-									onChange={(e) => {
-										this.setState({ my_contact: e.target.value });
-									}}
-								/>
-
-
-                                {this.state.otp_sent?<React.Fragment>
-                                    <label htmlFor='phone'>Enter OTP:</label>
-                                    <input
-                                    disabled={this.state.user_verified}
-                                    value={this.state.otp_number}
-									type='number'
-									id='otp'
-									name='otp'
-									onChange={(e) => {
-										this.setState({ otp_number: e.target.value });
-									}}
-								/>
-                                </React.Fragment>:""}
                                 
-
-								{this.state.user_verified ? (
-									<a className={'a-verified'} href={'#'}>
-										✔ Verified
-									</a>
-								) : (
-									''
-								)}
-								{this.state.otp_loading && !this.state.otp_sent? (
-									<Loader
-										type='Puff'
-										color='#4a74c9'
-										height={100}
-										width={100}
-									/>
-								) : (
-									<button
-                                        type={"button"}
-										onClick={this.state.otp_sent?this.checkValidOtp: this.sendOtp}
-										className={
-											this.state.user_verified
-												? 'verify-btn u_verified'
-												: 'verify-btn'
-										}
-										disabled={this.state.user_verified}>
-                                            {this.state.otp_sent?'Submit OTP':'Send otp'}
-										
-									</button>
-								)}
+                                <OTP
+                                onVerify={(my_contact)=>{
+                                    this.setState({
+                                        my_contact: my_contact,
+                                        user_verified: true,
+                                    });
+                                }}
+                                />
+								
 							</fieldset>
 							<fieldset>
 								<legend>

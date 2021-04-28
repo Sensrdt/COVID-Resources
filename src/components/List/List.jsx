@@ -47,8 +47,8 @@ export class List extends Component {
                          : {this.props.district===""?"Not available":this.props.district}
                          </p>
                           */}
-          {this.props.area === ""
-            ? <p>{"🏠  "}&nbsp;<b>Area</b>: this.props.area</p>
+          {this.props.area !== ""
+            ? <p>{"🏠  "}&nbsp;<b>Area</b>: {this.props.area}</p>
             : ""}
 
           {/* <p>

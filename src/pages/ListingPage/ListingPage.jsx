@@ -7,17 +7,20 @@ import wbcitylist from '../../Utils/WBList';
 import stateArray from '../../Utils/StateList';
 import Loader from 'react-loader-spinner';
 import { Modal } from 'react-responsive-modal';
-import uuid from 'react-uuid';
 import _ from 'lodash';
+import Logo from '../../Utils/logo1.png'
+
+import fulltextsearchlight from 'full-text-search-light';
 // import { Fab, Action } from 'react-tiny-fab';
 
-import { ReactComponent as Upload } from './upload.svg';
-
+import moment from 'moment'
 // import 'react-tiny-fab/dist/styles.css';
 
 import 'react-responsive-modal/styles.css';
 
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
+
+
 export class ListingPage extends Component {
 	constructor(props) {
 		super(props);
@@ -46,6 +49,7 @@ export class ListingPage extends Component {
 			cached_type: '',
 			area: '',
 			my_contact: '',
+            search:''
 		};
 		this.fetchUniversalData = this.fetchUniversalData.bind(this);
 		this.report = this.report.bind(this);
@@ -56,6 +60,35 @@ export class ListingPage extends Component {
 	componentDidMount() {
 		this.fetchUniversalData();
 	}
+    ParseDate=(dateString)=> {
+        if(moment(dateString,'DD-MM-YYYY HH:mm:ss').isValid()){
+            return moment(dateString,'DD-MM-YYYY HH:mm:ss').format('dddd, MMMM Do, h:mm a');
+        }else if(moment(dateString,'MM/DD/YYYY HH:mm:ss').isValid()){
+            return moment(dateString,'MM/DD/YYYY HH:mm:ss').format('dddd, MMMM Do, h:mm a');
+        }
+        else{
+            return moment(dateString).format('dddd, MMMM Do, h:mm a');
+        }
+
+    }
+    getSortedArray(arr){
+
+        const tempArr = [...arr]
+        tempArr.map(data=>{
+           return data.updated_on= this.ParseDate(data.updated_on)
+            
+        })
+
+        tempArr.sort(function (left, right) {
+            return moment.utc(left.timeStamp).diff(moment.utc(right.timeStamp))
+        });
+
+
+
+        return tempArr.reverse()
+        console.log(tempArr)
+    }
+
 
 	fetchUniversalData() {
 		this.setState({
@@ -78,10 +111,9 @@ export class ListingPage extends Component {
 							arr.push(json[keys][key]);
 						});
 					});
-					_.sortBy(arr, [{ updated_on: 'desc' }]);
-
+				
 					this.setState({
-						data: arr.reverse(),
+						data: this.getSortedArray(arr)||[],
 						modal: false,
 						loading: false,
 					});
@@ -93,28 +125,6 @@ export class ListingPage extends Component {
 					});
 				}
 
-				// try {
-				// 	Object.keys(json).forEach(function (key) {
-				// 		arr.push(json[key]);
-				// 	});
-				// 	this.setState({
-				// 		data: arr,
-				// 		modal: false,
-				// 		loading: false,
-				// 	});
-				// } catch (error) {
-				// 	this.setState({
-				// 		data: [],
-				// 		modal: false,
-				// 		loading: false,
-				// 	});
-				// }
-
-				this.setState({
-					data: arr,
-					modal: false,
-					loading: false,
-				});
 			},
 			function (errorObject) {
 				console.log('The read failed: ' + errorObject.code);
@@ -155,7 +165,7 @@ export class ListingPage extends Component {
 						_.sortBy(arr, [{ updated_on: 'desc' }]);
 
 						this.setState({
-							data: arr.reverse(),
+							data: this.getSortedArray(arr)||[],
 							modal: false,
 							loading: false,
 						});
@@ -168,19 +178,7 @@ export class ListingPage extends Component {
 						});
 					}
 				});
-				///==========================>
-				// const newArr=[]
-				// this.state.data.map(data=>{
-				//     console.log(data.city,"data");
-				//     if(data.city.toUpperCase()===this.state.city.toUpperCase()){
-				//         newArr.push(data)
-				//     }
-				// })
-				// this.setState({
-				// 	data: newArr,
-				// 	modal: false,
-				// 	loading: false,
-				// });
+			
 			}
 		}
 		if (prevState.type !== this.state.type) {
@@ -209,9 +207,9 @@ export class ListingPage extends Component {
 								}
 							});
 						});
-						_.sortBy(arr, [{ updated_on: 'desc' }]);
+						
 						this.setState({
-							data: arr.reverse(),
+							data: this.getSortedArray(arr)||[],
 							modal: false,
 							loading: false,
 						});
@@ -241,6 +239,16 @@ export class ListingPage extends Component {
 	onCloseModal = () => {
 		this.setState({ modal: false });
 	};
+    find=(items, text) =>{
+        const search = new fulltextsearchlight();
+
+
+       this.state.data.map(d=>{
+           search.add(d)
+       }) 
+       return search.search(text);
+
+    }
 
 	report() {
 		console.log(this.state);
@@ -352,7 +360,8 @@ export class ListingPage extends Component {
 					)}
 				</Modal>
 				<center>
-					<h1 onClick={() => this.props.history.push(`/`)}>CoAid.live</h1>
+                  
+                <h2 onClick={() => this.props.history.push(`/`)}><img src={Logo} class={"logo-1"} alt=""/>CoAid.live</h2>
 				</center>
 				<div class='dd_with_select'>
 					<select name='sections' id='select' onchange=''>
@@ -403,6 +412,25 @@ export class ListingPage extends Component {
 						<option value='Ambulance'>Ambulance</option>
 					</select>
 				</div>
+
+                {/* <input type="text"
+                className={"search"}
+                placeholder={" Search here..."}
+                value={this.state.search}
+                onChange={(e)=>{
+					this.setState({ ...this.state, search: e.target.value });
+
+                    if(e.target.value===""){
+                        // this.fetchUniversalData();
+                    }else{
+                        
+                        const x = this.find(this.state.data,e.target.value);
+                        // this.setState({ ...this.state, data: x });
+
+                    }
+                    // console.log(this.find(this.state.data,e.target.value));
+                }}
+                /> */}
 
 				<div className={'refresh'}>
 					<p onClick={() => this.props.history.push(`/`)}>Back to home</p>

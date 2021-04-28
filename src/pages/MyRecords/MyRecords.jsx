@@ -7,8 +7,9 @@ import wbcitylist from '../../Utils/WBList';
 import stateArray from '../../Utils/StateList';
 import Loader from 'react-loader-spinner';
 import { Modal } from 'react-responsive-modal';
-import uuid from 'react-uuid';
+import Logo from '../../Utils/logo1.png'
 // import { Fab, Action } from 'react-tiny-fab';
+import moment from 'moment'
 
 
 // import 'react-tiny-fab/dist/styles.css';
@@ -68,26 +69,60 @@ export class MyRecords extends Component {
 		
 	}
 
+    ParseDate=(dateString)=> {
+        if(moment(dateString,'DD-MM-YYYY HH:mm:ss').isValid()){
+            return moment(dateString,'DD-MM-YYYY HH:mm:ss').format('dddd, MMMM Do, h:mm a');
+        }else if(moment(dateString,'MM/DD/YYYY HH:mm:ss').isValid()){
+            return moment(dateString,'MM/DD/YYYY HH:mm:ss').format('dddd, MMMM Do, h:mm a');
+        }
+        else{
+            return moment(dateString).format('dddd, MMMM Do, h:mm a');
+        }
+
+    }
+    getSortedArray(arr){
+
+        const tempArr = [...arr]
+        tempArr.map(data=>{
+           return data.updated_on= this.ParseDate(data.updated_on)
+            
+        })
+
+        tempArr.sort(function (left, right) {
+            return moment.utc(left.timeStamp).diff(moment.utc(right.timeStamp))
+        });
+
+
+
+        return tempArr.reverse()
+        console.log(tempArr)
+    }
+
+
 	fetchUniversalData() {
-        this.setState({
+		this.setState({
 			...this.state,
 			modal: true,
-            loading:true
+			loading: true,
 		});
-		let databaseRef = firebase.database().ref('/data2').child(sessionStorage.getItem('co_aiduser'));
+		let databaseRef = firebase.database().ref('/data2');
 
 		databaseRef.on(
 			'value',
 			(snapshot) => {
 				let json = snapshot.val();
+				console.log(json);
 				var arr = [];
 
 				try {
-					Object.keys(json).forEach(function (key) {
-						arr.push(json[key]);
+					Object.keys(json).forEach(function (keys) {
+						Object.keys(json[keys]).forEach((key) => {
+							arr.push(json[keys][key]);
+						});
 					});
+				
 					this.setState({
-						data: arr,
+						data: this.getSortedArray(arr)||[],
 						modal: false,
 						loading: false,
 					});
@@ -99,19 +134,12 @@ export class MyRecords extends Component {
 					});
 				}
 
-				this.setState({
-					data: arr,
-					modal: false,
-					loading: false,
-				});
 			},
 			function (errorObject) {
 				console.log('The read failed: ' + errorObject.code);
 			}
 		);
 	}
-
-
 
 	componentWillUnmount() {
 		this.setState({
@@ -174,7 +202,8 @@ export class MyRecords extends Component {
 					
 				</Modal>
 				<center>
-					<h2 onClick={() => this.props.history.push(`/`)}>CoAid</h2>
+                  
+				<h2 onClick={() => this.props.history.push(`/`)}><img src={Logo} class={"logo-1"} alt=""/>CoAid.live</h2>
 				</center>
 				
 				<div className={'refresh'}>

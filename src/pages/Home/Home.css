@@ -55,3 +55,7 @@ h1{
   .terms-div{
       cursor: pointer;
   }
+  .logo{
+      height: 4em;
+      width: 4em;
+  }

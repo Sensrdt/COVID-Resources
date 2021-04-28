@@ -34,20 +34,21 @@ const SearchCompoent = ({data,setData})=>{
     
     return (
         <div>
-            <label 
-            style={{marginLeft:"5%",
-            fontStyle:"italic"}}>Search</label>
+          
             <center>
                 <div 
                 style={{display:"flex",
                 flexDirection:"column",
+                marginLeft:'1em',
+                marginRight:'1em',
                 justifyContent:"center",alignItems:"center"}}>
                     <input type="text" 
+                    placeholder={"Search..."}
                     style={{
                         height:40,
-                        width:"90%",
+                        width:"100%",
                         borderRadius:7,
-                        padding:2
+                       paddingLeft:'1em'
                         }}
                         onChange = {(e)=>{
                             debouncedSearch(e.target.value)

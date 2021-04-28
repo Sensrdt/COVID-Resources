@@ -329,15 +329,12 @@ export class ListingPage extends Component {
 
 			return ;
 		}
-		
-		if (searchText.length < 4)
-			return;
 
 		searchText = searchText.toLowerCase();
 
 		let searchResult = this.state.data.filter(
-			data=> [data.name, data.city, data.district, data.state]
-					.map(attribute => attribute.toLowerCase())
+			data=> [data.name, data.city, data.district, data.state, data.type, data.ox_contact]
+					.map(attribute => (""+attribute).toLowerCase())
 					.findIndex( element => element.includes(searchText)) !== -1
 		);
 

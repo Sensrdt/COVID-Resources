@@ -50,6 +50,13 @@ export class Home extends Component {
 						</button>
 					</div>
 
+					<div class='wrap'>
+						<button
+							class='button'
+							onClick={() => this.props.history.push(`/upload/ask-help`)}>
+							Ask Help
+						</button>
+					</div>
 				
 				</div>
 			</React.Fragment>

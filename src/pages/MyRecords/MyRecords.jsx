@@ -98,14 +98,13 @@ export class MyRecords extends Component {
         console.log(tempArr)
     }
 
-
-	fetchUniversalData() {
+    fetchUniversalData() {
 		this.setState({
 			...this.state,
 			modal: true,
 			loading: true,
 		});
-		let databaseRef = firebase.database().ref('/data2');
+        const databaseRef = firebase.database().ref('/data2').child(sessionStorage.getItem('co_aiduser'));
 
 		databaseRef.on(
 			'value',
@@ -115,12 +114,9 @@ export class MyRecords extends Component {
 				var arr = [];
 
 				try {
-					Object.keys(json).forEach(function (keys) {
-						Object.keys(json[keys]).forEach((key) => {
-							arr.push(json[keys][key]);
-						});
+                    Object.keys(json).forEach(function (key) {
+						arr.push(json[key]);
 					});
-				
 					this.setState({
 						data: this.getSortedArray(arr)||[],
 						modal: false,

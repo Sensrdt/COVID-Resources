@@ -15,6 +15,7 @@ import fulltextsearchlight from 'full-text-search-light';
 
 import moment from 'moment'
 // import 'react-tiny-fab/dist/styles.css';
+import MiniSearch from 'minisearch'
 
 import 'react-responsive-modal/styles.css';
 
@@ -62,31 +63,46 @@ export class ListingPage extends Component {
 	}
     ParseDate=(dateString)=> {
         if(moment(dateString,'DD-MM-YYYY HH:mm:ss').isValid()){
-            return moment(dateString,'DD-MM-YYYY HH:mm:ss').format('dddd, MMMM Do, h:mm a');
+
+         
+            let now2 =moment(dateString,'DD/MM/YYYY HH:mm:ss').format("MM/DD/YYYY HH:mm:ss");
+
+     
+
+            return (Date.parse(now2));
+          
         }else if(moment(dateString,'MM/DD/YYYY HH:mm:ss').isValid()){
-            return moment(dateString,'MM/DD/YYYY HH:mm:ss').format('dddd, MMMM Do, h:mm a');
+            return (Date.parse(dateString));
+
+        }
+        else if(moment(dateString,'DD/MM/YYYY HH:mm:ss').isValid()){
+            return(Date.parse(dateString));
+
         }
         else{
-            return moment(dateString).format('dddd, MMMM Do, h:mm a');
+            return(Date.parse(dateString));
+            
         }
-
     }
     getSortedArray(arr){
 
         const tempArr = [...arr]
+
         tempArr.map(data=>{
            return data.updated_on= this.ParseDate(data.updated_on)
             
         })
 
-        tempArr.sort(function (left, right) {
-            return moment.utc(left.timeStamp).diff(moment.utc(right.timeStamp))
-        });
+        // tempArr.sort(function (left, right) {
+        //     return moment.utc(left.timeStamp).diff(moment.utc(right.timeStamp))
+        // });
 
+        tempArr.sort((a,b) => new Date(a.updated_on).getTime() - new Date(b.updated_on).getTime() )
+
+        console.log(tempArr);
 
 
         return tempArr.reverse()
-        console.log(tempArr)
     }
 
 
@@ -96,7 +112,8 @@ export class ListingPage extends Component {
 			modal: true,
 			loading: true,
 		});
-		let databaseRef = firebase.database().ref('/data2');
+        
+		let databaseRef = firebase.database().ref('/data2').orderByChild('updated_on')
 
 		databaseRef.on(
 			'value',

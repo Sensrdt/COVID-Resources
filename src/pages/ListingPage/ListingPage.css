@@ -150,3 +150,20 @@ cursor: pointer;
 .search{
     margin-top: 1em;
 }
+
+.search-container {
+  display: flex;
+}
+
+.react-search-field input {
+  flex: 1;
+  height: 28px im !important;
+  border: 2px solid darkcyan im !important;
+  border-radius: 12px i !important;
+  background: #333 im !important;
+  color: #f0f0f0 i !important;
+}
+
+.search-container .react-search-field {
+  width: 100%;
+}

@@ -21,6 +21,7 @@ import 'react-responsive-modal/styles.css';
 
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
 
+import SearchField from 'react-search-field';
 
 export class ListingPage extends Component {
 	constructor(props) {
@@ -54,6 +55,7 @@ export class ListingPage extends Component {
 		};
 		this.fetchUniversalData = this.fetchUniversalData.bind(this);
 		this.report = this.report.bind(this);
+		this.filterSearchResult = this.filterSearchResult.bind(this);
 
 		this.myRootRef = React.createRef();
 	}
@@ -320,6 +322,32 @@ export class ListingPage extends Component {
 		);
 	}
 
+	filterSearchResult(searchText) {
+
+		if(searchText===""){
+			this.fetchUniversalData();
+
+			return ;
+		}
+		
+		if (searchText.length < 4)
+			return;
+
+		searchText = searchText.toLowerCase();
+
+		let searchResult = this.state.data.filter(
+			data=> [data.name, data.city, data.district, data.state]
+					.map(attribute => attribute.toLowerCase())
+					.findIndex( element => element.includes(searchText)) !== -1
+		);
+
+		console.log(searchResult);
+
+		this.setState(
+			{"data": searchResult
+		});
+	}
+
 	render() {
 		return (
 			<div className={'listing-main'}>
@@ -380,6 +408,13 @@ export class ListingPage extends Component {
                   
                 <h2 onClick={() => this.props.history.push(`/`)}><img src={Logo} class={"logo-1"} alt=""/>CoAid.live</h2>
 				</center>
+				<div className='search-container'>
+					<SearchField 
+						placeholder='Search your query'
+						onChange={this.filterSearchResult}
+						style={{flex: 1}}
+					/>
+				</div>
 				<div class='dd_with_select'>
 					<select name='sections' id='select' onchange=''>
 						<option value='West Bengal'>West Bengal</option>

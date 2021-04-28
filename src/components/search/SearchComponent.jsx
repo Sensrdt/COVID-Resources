@@ -17,7 +17,6 @@ const SearchCompoent = ({data,setData})=>{
                 SEARCH_TIME)
         }
     }
-    export default debounce
     const search = (text)=>{
         let searchText = text.toLowerCase()
         if(text.trim()!=""){

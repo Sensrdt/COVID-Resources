@@ -19,12 +19,12 @@ import moment from 'moment'
 import 'react-responsive-modal/styles.css';
 
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
+import SearchCompoent from './../../components/search/SearchComponent.jsx';
 
 
 export class ListingPage extends Component {
 	constructor(props) {
 		super(props);
-
 		this.state = {
 			data: [],
 			city: '',
@@ -49,14 +49,15 @@ export class ListingPage extends Component {
 			cached_type: '',
 			area: '',
 			my_contact: '',
-            search:''
+            search:'',
+			tempData:[]
 		};
 		this.fetchUniversalData = this.fetchUniversalData.bind(this);
 		this.report = this.report.bind(this);
 
 		this.myRootRef = React.createRef();
 	}
-
+	
 	componentDidMount() {
 		this.fetchUniversalData();
 	}
@@ -82,11 +83,8 @@ export class ListingPage extends Component {
         tempArr.sort(function (left, right) {
             return moment.utc(left.timeStamp).diff(moment.utc(right.timeStamp))
         });
-
-
-
+		console.log(tempArr)
         return tempArr.reverse()
-        console.log(tempArr)
     }
 
 
@@ -111,9 +109,10 @@ export class ListingPage extends Component {
 							arr.push(json[keys][key]);
 						});
 					});
-				
+					let data = this.getSortedArray(arr)||[]
 					this.setState({
-						data: this.getSortedArray(arr)||[],
+						data,
+						tempData:data,
 						modal: false,
 						loading: false,
 					});
@@ -146,7 +145,6 @@ export class ListingPage extends Component {
 				});
 				databaseRef.on('value', (snapshot) => {
 					let json = snapshot.val();
-					console.log(json);
 
 					if (json !== null) {
 						var arr = [];
@@ -163,9 +161,10 @@ export class ListingPage extends Component {
 						});
 
 						_.sortBy(arr, [{ updated_on: 'desc' }]);
-
+						let temp = this.getSortedArray(arr)||[] 
 						this.setState({
-							data: this.getSortedArray(arr)||[],
+							data: temp,
+							tempData:temp,
 							modal: false,
 							loading: false,
 						});
@@ -207,9 +206,12 @@ export class ListingPage extends Component {
 								}
 							});
 						});
-						
+						let temp = this.getSortedArray(arr)||[]
+						console.log(temp)
 						this.setState({
-							data: this.getSortedArray(arr)||[],
+							...this.state,
+							data: temp,
+							tempData:temp,
 							modal: false,
 							loading: false,
 						});
@@ -224,6 +226,12 @@ export class ListingPage extends Component {
 				});
 			}
 		}
+	}
+
+	setData = (data)=>{
+		this.setState({
+			data
+		})
 	}
 
 	componentWillUnmount() {
@@ -436,7 +444,7 @@ export class ListingPage extends Component {
 					<p onClick={() => this.props.history.push(`/`)}>Back to home</p>
 					<p onClick={() => window.location.reload()}>Refresh</p>
 				</div>
-
+				<SearchCompoent data = {this.state.tempData} setData={this.setData}/>
 				<div ref={this.myRootRef}>
 					{this.state.data.length === 0 && !this.state.loading ? (
 						<p className={'no-data'}>
@@ -445,7 +453,7 @@ export class ListingPage extends Component {
 					) : (
 						''
 					)}
-					{this.state.data.map((value) => {
+					{this.state.data.map((value,index) => {
 						return (
 							<List
 								name={value.name}
@@ -462,6 +470,7 @@ export class ListingPage extends Component {
 								quantity={value.quantity}
 								type={value.type}
 								uid={value.uid}
+								key={index}
 								onReport={(id) => {
 									this.setState({
 										...this.state,

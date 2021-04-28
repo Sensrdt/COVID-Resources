@@ -202,7 +202,6 @@ export class MyRecords extends Component {
 					
 				</Modal>
 				<center>
-                  
 				<h2 onClick={() => this.props.history.push(`/`)}><img src={Logo} class={"logo-1"} alt=""/>CoAid.live</h2>
 				</center>
 				
@@ -210,12 +209,11 @@ export class MyRecords extends Component {
 					<p onClick={() => this.props.history.push(`/`)}>Back to home</p>
 					<p onClick={() => window.location.reload()}>Refresh</p>
 				</div>
-
 				<div ref={this.myRootRef}>
                     {this.state.data.length===0 && !this.state.loading?
                 <p className={"no-data"}>😔 Currently no data available! Please try after sometime</p>:
                         ""}
-					{this.state.data.map((value) => {
+					{this.state.data.map((value,index) => {
 						return (
 							<List
                                 delete={true}
@@ -233,6 +231,7 @@ export class MyRecords extends Component {
 								quantity={value.quantity}
 								type={value.type}
                                 ukey={value.key}
+								key= {index}
                                 onDelete={(ukey)=>{
                                     
                                     this.setState({ modal: true ,remove:true,ukey:ukey});

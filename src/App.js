@@ -21,7 +21,6 @@ class App extends Component {
 					<Route path='/list/aids' component={ListingPage} />
 					<Route path='/upload/aid' component={DetailsUpload} />
 					<Route path='/list/records' component={MyRecords} />
-
 				</Switch>
 			</Router>
 		);

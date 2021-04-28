@@ -36,7 +36,7 @@ export class List extends Component {
 							Rating
 						</p> */}
           </div>
-          <p>
+          <p className={"type-p"}>
             {"📋  "}&nbsp;
             <b>Type</b>
             : {this.props.type}</p>
@@ -57,12 +57,11 @@ export class List extends Component {
                         <b>Quantity & Amount</b>
 						 : {this.props.quantity} & {this.props.amount}{' '}
 					</p> */}
-          <p>{"📱  "}&nbsp;
-            <b>Contact Number</b>
+          <p>{"📱 "}&nbsp;<b>Contact Number</b>
             : {this.props.ox_contact}</p>
 
           <p className='name'>{"👨  "}&nbsp;<b>Dealer / Supplier</b>: {this.props.name}</p>
-       
+{/*        
           <div className={"amount"}>
 
             
@@ -76,12 +75,12 @@ this.props.quantity==="Unknown. " || this.props.quantity==="Unknown." || this.pr
    `   NA  `: `   ${this.props.amount} ` 
    }</p>
 
-</div>
+</div> */}
 
           <p className={'updated'}>
             {"⏱️  "}&nbsp;
-            <b>Last updated</b>
-            : {moment(this.props.updated_on).format("dddd, MMMM Do, h:mm a")}</p>
+            {/* <b>Updated</b> */}
+             {moment(this.props.updated_on).format("dddd, MMMM Do, h:mm a")}</p>
 
     
         

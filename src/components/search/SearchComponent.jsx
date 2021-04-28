@@ -43,7 +43,7 @@ const SearchCompoent = ({data,setData})=>{
                 marginRight:'1em',
                 justifyContent:"center",alignItems:"center"}}>
                     <input type="text" 
-                    placeholder={"Search..."}
+                    placeholder={"Search here..."}
                     style={{
                         height:40,
                         width:"100%",

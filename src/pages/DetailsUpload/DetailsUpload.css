@@ -54,7 +54,7 @@ form {
     box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
     margin-bottom: 30px;
     padding: 6px;
-    height: 32px;
+    height: 35px;
     border-radius: 2px;
   }
   
@@ -170,4 +170,10 @@ form {
       justify-content: center;
       margin-top: 0.5em;
   }
-  
+  .first-verify{
+      text-decoration: none;
+      color: rgb(24, 27, 39);
+      text-align: center;
+      display: flex;
+      justify-content: center;
+  }

@@ -265,7 +265,14 @@ export class DetailsUpload extends Component {
                                 />
 								
 							</fieldset>
+                            {this.state.user_verified?"": <fieldset>
+                                <a className={"first-verify"} href={"#"}>First verify your phone number</a> 
+
+                                </fieldset>}
+                                
+                             
 							<fieldset>
+                                
 								<legend>
 									<span className='number'>2</span> Details
 								</legend>
@@ -273,6 +280,7 @@ export class DetailsUpload extends Component {
 								<label htmlFor='name'>Name:</label>
 								<input
 									type='text'
+                                    disabled={!this.state.user_verified}
 									id='name'
 									name='name'
 									onChange={(e) => {
@@ -281,6 +289,7 @@ export class DetailsUpload extends Component {
 								/>
 								<label htmlFor='phone'>Dealer / Supplier Contact Number:</label>
 								<input
+                                disabled={!this.state.user_verified}
 									type='text'
 									id='ox_contact'
 									name='ox_contact'
@@ -295,6 +304,7 @@ export class DetailsUpload extends Component {
 								<div className={'ox-verified'}>
 									<label>Verified:</label>
 									<input
+                                    disabled={!this.state.user_verified}
 										type='radio'
 										id='under_13'
 										defaultValue='under_13'
@@ -311,6 +321,7 @@ export class DetailsUpload extends Component {
 									</label>
 									<br />
 									<input
+                                    disabled={!this.state.user_verified}
 										type='radio'
 										id='over_13'
 										defaultValue='over_13'
@@ -393,11 +404,14 @@ export class DetailsUpload extends Component {
 									<option value='Oxygen'>Oxygen</option>
 									<option value='ICU Bed'>ICU Bed</option>
 									<option value='Plasma'>Plasma</option>
-									<option value='Bed'>Beds</option>
+
                                     <option value='Ambulance'>Ambulance</option>
+
+									<option value='Bed'>Beds</option>
+									<option value='Masks'>Masks</option>
 								</select>
 
-								<label htmlFor='area'>Quantity:</label>
+								{/* <label htmlFor='area'>Quantity:</label>
 								<input
 									onChange={(e) => {
 										this.setState({ ...this.state, quantity: e.target.value });
@@ -420,7 +434,7 @@ export class DetailsUpload extends Component {
 									id='amount'
 									name='amount'
                                     value={this.state.amount}
-								/>
+								/> */}
 							</fieldset>
 							<center>
 								<button

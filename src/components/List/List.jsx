@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import './List.css';
+import moment from 'moment'
+
 export class List extends Component {
   getLocation = () => {
       if(this.props.city==="" && this.props.state==="" && this.props.district===""){
@@ -79,7 +81,7 @@ this.props.quantity==="Unknown. " || this.props.quantity==="Unknown." || this.pr
           <p className={'updated'}>
             {"⏱️  "}&nbsp;
             <b>Last updated</b>
-            : {this.props.updated_on}</p>
+            : {moment(this.props.updated_on).format("dddd, MMMM Do, h:mm a")}</p>
 
     
         

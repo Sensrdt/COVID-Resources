@@ -33,17 +33,18 @@ const SearchCompoent = ({data,setData})=>{
     const debouncedSearch = debounce(search)
     
     return (
-        <div>
+        <div className={"search-div"}>
           
             <center>
                 <div 
                 style={{display:"flex",
                 flexDirection:"column",
-                marginLeft:'1em',
-                marginRight:'1em',
+                marginLeft:'1.5em',
+                marginRight:'1.5em',
                 justifyContent:"center",alignItems:"center"}}>
                     <input type="text" 
-                    placeholder={"Search here..."}
+                    className={"search-input"}
+                    placeholder={"🔍 Search here..."}
                     style={{
                         height:40,
                         width:"100%",

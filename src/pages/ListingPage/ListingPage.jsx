@@ -8,7 +8,6 @@ import stateArray from '../../Utils/StateList';
 import Loader from 'react-loader-spinner';
 import { Modal } from 'react-responsive-modal';
 import _ from 'lodash';
-import Logo from '../../Utils/logo1.png'
 
 import fulltextsearchlight from 'full-text-search-light';
 // import { Fab, Action } from 'react-tiny-fab';
@@ -21,6 +20,7 @@ import 'react-responsive-modal/styles.css';
 
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
 import SearchCompoent from './../../components/search/SearchComponent.jsx';
+import Navbar from '../../components/Navbar/Navbar';
 
 
 export class ListingPage extends Component {
@@ -386,10 +386,16 @@ export class ListingPage extends Component {
 						''
 					)}
 				</Modal>
-				<center>
+				{/* <center>
                   
                 <h2 onClick={() => this.props.history.push(`/`)}><img src={Logo} class={"logo-1"} alt=""/>CoAid.live</h2>
-				</center>
+				</center> */}
+
+
+               <Navbar
+               redirect={()=>this.props.history.push(`/`)}
+               />
+
 				<div class='dd_with_select'>
 					<select name='sections' id='select' onchange=''>
 						<option value='West Bengal'>West Bengal</option>
@@ -459,10 +465,7 @@ export class ListingPage extends Component {
                 }}
                 /> */}
 
-				<div className={'refresh'}>
-					<p onClick={() => this.props.history.push(`/`)}>Back to home</p>
-					<p onClick={() => window.location.reload()}>Refresh</p>
-				</div>
+				
 				<SearchCompoent data = {this.state.tempData} setData={this.setData}/>
 				<div ref={this.myRootRef}>
 					{this.state.data.length === 0 && !this.state.loading ? (

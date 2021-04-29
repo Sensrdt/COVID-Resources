@@ -17,6 +17,7 @@ import moment from 'moment'
 import 'react-responsive-modal/styles.css';
 
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
+import Navbar from '../../components/Navbar/Navbar';
 export class MyRecords extends Component {
 	constructor(props) {
 		super(props);
@@ -197,14 +198,14 @@ export class MyRecords extends Component {
                 }
 					
 				</Modal>
-				<center>
-				<h2 onClick={() => this.props.history.push(`/`)}><img src={Logo} class={"logo-1"} alt=""/>CoAid.live</h2>
-				</center>
-				
+                <Navbar
+               redirect={()=>this.props.history.push(`/`)}
+               />
 				<div className={'refresh'}>
 					<p onClick={() => this.props.history.push(`/`)}>Back to home</p>
 					<p onClick={() => window.location.reload()}>Refresh</p>
 				</div>
+
 				<div ref={this.myRootRef}>
                     {this.state.data.length===0 && !this.state.loading?
                 <p className={"no-data"}>😔 Currently no data available! Please try after sometime</p>:

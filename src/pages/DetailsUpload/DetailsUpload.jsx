@@ -13,6 +13,7 @@ import TermsCond from '../../components/TermsCond/TermsCond';
 import OTP from '../../components/Auth/OTP';
 import Logo from '../../Utils/logo1.png'
 import moment from 'moment'
+import Navbar from '../../components/Navbar/Navbar';
 
 export class DetailsUpload extends Component {
 	constructor(props) {
@@ -224,10 +225,9 @@ export class DetailsUpload extends Component {
 
 				</Modal>
 
-				<center>
-                  
-					<h2 onClick={() => this.props.history.push(`/`)}><img src={Logo} class={"logo-1"} alt=""/>CoAid.live</h2>
-				</center>
+                <Navbar
+               redirect={()=>this.props.history.push(`/`)}
+               />
 
 				<div className={'refresh'}>
 					<p onClick={() => this.props.history.push(`/`)}>Back to home</p>

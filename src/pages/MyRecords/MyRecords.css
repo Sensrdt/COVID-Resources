@@ -12,8 +12,8 @@ Dropdown with CHECKBOX
 
 .dd_with_select{
     display: flex;
-   
-    margin-top: 1em;
+    position: inherit;
+    margin-top: 55px;
     flex-direction: row;
     overflow: scroll;
     width: 100%;

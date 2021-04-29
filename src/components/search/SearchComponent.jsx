@@ -23,7 +23,7 @@ const SearchCompoent = ({data,setData})=>{
             const temporaryData = data
             let filteredData = temporaryData.filter(
                 (item)=>{
-                    return item.area.toLowerCase().includes(searchText) || item.city.toLowerCase().includes(searchText)
+                    return JSON.stringify(item).toLowerCase().includes(searchText)
                 })
             setData(filteredData)
         }else{

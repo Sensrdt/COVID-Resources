@@ -21,11 +21,11 @@ class App extends Component {
 
 
 					<Route path='/' component={Home} exact />
+					<Route path='/list/records' component={MyRecords} exact/>
 					
-					<Route path='/list' component={ListingPage} />
+					<Route path='/list' component={ListingPage} exact/>
 
 					<Route path='/upload' component={DetailsUpload} />
-					<Route path='/list/records' component={MyRecords} />
 				</Switch>
 			</Router>
 		);

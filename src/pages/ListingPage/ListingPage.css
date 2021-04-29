@@ -1,7 +1,6 @@
 .listing-main{
     background: #f1f3f9;
-    height: 100%;
-    
+
 }
 h2{
     cursor: pointer;
@@ -150,3 +149,10 @@ cursor: pointer;
 .search{
     margin-top: 1em;
 }
+/* .top-content{
+    height: 20%;
+}
+.main-list-content{
+    height: 80%;
+    overflow: scroll;
+} */

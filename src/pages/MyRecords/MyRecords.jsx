@@ -18,6 +18,7 @@ import 'react-responsive-modal/styles.css';
 
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
 import Navbar from '../../components/Navbar/Navbar';
+import SearchCompoent from '../../components/search/SearchComponent';
 export class MyRecords extends Component {
 	constructor(props) {
 		super(props);
@@ -47,7 +48,9 @@ export class MyRecords extends Component {
 			area: '',
 			my_contact: '',
             remove:false,
-            ukey:null
+            ukey:null,
+			tempData:[]
+
 		};
 		this.fetchUniversalData = this.fetchUniversalData.bind(this);
 
@@ -72,32 +75,47 @@ export class MyRecords extends Component {
 
     ParseDate=(dateString)=> {
         if(moment(dateString,'DD-MM-YYYY HH:mm:ss').isValid()){
-            return moment(dateString,'DD-MM-YYYY HH:mm:ss').format('dddd, MMMM Do, h:mm a');
+
+         
+            let now2 =moment(dateString,'DD/MM/YYYY HH:mm:ss').format("MM/DD/YYYY HH:mm:ss");
+
+     
+
+            return (Date.parse(now2));
+          
         }else if(moment(dateString,'MM/DD/YYYY HH:mm:ss').isValid()){
-            return moment(dateString,'MM/DD/YYYY HH:mm:ss').format('dddd, MMMM Do, h:mm a');
+            return (Date.parse(dateString));
+
+        }
+        else if(moment(dateString,'DD/MM/YYYY HH:mm:ss').isValid()){
+            return(Date.parse(dateString));
+
         }
         else{
-            return moment(dateString).format('dddd, MMMM Do, h:mm a');
+            return(Date.parse(dateString));
+            
         }
-
     }
     getSortedArray(arr){
 
         const tempArr = [...arr]
+
         tempArr.map(data=>{
            return data.updated_on= this.ParseDate(data.updated_on)
             
         })
 
-        tempArr.sort(function (left, right) {
-            return moment.utc(left.timeStamp).diff(moment.utc(right.timeStamp))
-        });
 
+        // tempArr.sort(function (left, right) {
+        //     return moment.utc(left.timeStamp).diff(moment.utc(right.timeStamp))
+        // });
 
+        tempArr.sort((a,b) => new Date(a.updated_on).getTime() - new Date(b.updated_on).getTime() )
 
+        console.log(tempArr);
         return tempArr.reverse()
-        console.log(tempArr)
     }
+
 
     fetchUniversalData() {
 		this.setState({
@@ -112,16 +130,18 @@ export class MyRecords extends Component {
 			(snapshot) => {
 				let json = snapshot.val();
 				console.log(json);
-				var arr = [];
-
+				const arr = [];
 				try {
                     Object.keys(json).forEach(function (key) {
 						arr.push(json[key]);
 					});
+                    const data = this.getSortedArray(arr)||[]
 					this.setState({
-						data: this.getSortedArray(arr)||[],
+						data: data,
 						modal: false,
 						loading: false,
+			            tempData:data
+
 					});
 				} catch (error) {
 					this.setState({
@@ -155,6 +175,12 @@ export class MyRecords extends Component {
 	remove=()=>{
         let databaseRef = firebase.database().ref('/data2').child(sessionStorage.getItem('co_aiduser')).child(this.state.ukey).remove()
     }
+
+    setData = (data)=>{
+		this.setState({
+			data
+		})
+	}
 
 	render() {
 		return (
@@ -205,10 +231,10 @@ export class MyRecords extends Component {
 					<p onClick={() => this.props.history.push(`/`)}>Back to home</p>
 					<p onClick={() => window.location.reload()}>Refresh</p>
 				</div>
-
+                <SearchCompoent data = {this.state.tempData} setData={this.setData}/>
 				<div ref={this.myRootRef}>
                     {this.state.data.length===0 && !this.state.loading?
-                <p className={"no-data"}>😔 Currently no data available! Please try after sometime</p>:
+                <p className={"no-data"}>Sorry 😔 <br/>Please try after sometime</p>:
                         ""}
 					{this.state.data.map((value,index) => {
 						return (

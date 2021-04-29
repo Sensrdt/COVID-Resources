@@ -226,7 +226,7 @@ export class DetailsUpload extends Component {
 				</Modal>
 
                 <Navbar
-               redirect={()=>this.props.history.push(`/`)}
+               redirect={()=>this.props.history.push(``)}
                />
 
 				<div className={'refresh'}>
@@ -266,7 +266,7 @@ export class DetailsUpload extends Component {
 								
 							</fieldset>
                             {this.state.user_verified?"": <fieldset>
-                                <a className={"first-verify"} href={"#"}>First verify your phone number</a> 
+                                <a className={"first-verify"} href={"#"}>First verify your phone number&nbsp;{"📱"} </a> 
 
                                 </fieldset>}
                                 

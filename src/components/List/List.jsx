@@ -85,7 +85,7 @@ this.props.quantity==="Unknown. " || this.props.quantity==="Unknown." || this.pr
     
         
           {this.props.delete
-            ? <p className={"remove"} onClick={() => this.props.onDelete(this.props.ukey)}>Delete</p>
+            ? <p className={"remove"} onClick={() => this.props.onDelete(this.props.ukey)}>{"🗑️  "}&nbsp;Delete</p>
             : ""}
 
         </div>

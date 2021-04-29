@@ -1,27 +1,16 @@
 import React, { Component } from 'react';
 import List from '../../components/List/List';
-import './ListingPage.css';
-import LocationDetails from '../../Utils/Location.json';
 import firebase from '../../config/firebase';
 import wbcitylist from '../../Utils/WBList';
-import stateArray from '../../Utils/StateList';
 import Loader from 'react-loader-spinner';
 import { Modal } from 'react-responsive-modal';
 import _ from 'lodash';
-
-import fulltextsearchlight from 'full-text-search-light';
-// import { Fab, Action } from 'react-tiny-fab';
-
 import moment from 'moment'
-// import 'react-tiny-fab/dist/styles.css';
-import MiniSearch from 'minisearch'
-
-import 'react-responsive-modal/styles.css';
-
-import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
 import SearchCompoent from './../../components/search/SearchComponent.jsx';
 import Navbar from '../../components/Navbar/Navbar';
-
+import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
+import './ListingPage.css';
+import 'react-responsive-modal/styles.css';
 
 export class ListingPage extends Component {
 	constructor(props) {
@@ -56,7 +45,6 @@ export class ListingPage extends Component {
 		this.fetchUniversalData = this.fetchUniversalData.bind(this);
 		this.report = this.report.bind(this);
 
-		this.myRootRef = React.createRef();
 	}
 	
 	componentDidMount() {
@@ -266,16 +254,6 @@ export class ListingPage extends Component {
 	onCloseModal = () => {
 		this.setState({ modal: false });
 	};
-    find=(items, text) =>{
-        const search = new fulltextsearchlight();
-
-
-       this.state.data.map(d=>{
-           search.add(d)
-       }) 
-       return search.search(text);
-
-    }
 
 	report() {
 		console.log(this.state);
@@ -332,18 +310,7 @@ export class ListingPage extends Component {
 
 	render() {
 		return (
-			<div className={'listing-main'}>
-				{/* <Fab
-					alwaysShowTitle={true}
-					icon={<Upload />}
-					onClick={() => {
-						console.log('213');
-						this.myRootRef.current.scroll({
-							top: 0,
-							left: 0,
-							behavior: 'smooth',
-						});
-					}}></Fab> */}
+			<div className={'listing-main'} >
 				<Modal
 					open={this.state.modal}
 					onClose={this.onCloseModal}
@@ -392,7 +359,8 @@ export class ListingPage extends Component {
 				</center> */}
 
 
-               <Navbar
+                <div className={"top-content"}>
+                <Navbar
                redirect={()=>this.props.history.push(`/`)}
                />
 
@@ -400,17 +368,6 @@ export class ListingPage extends Component {
 					<select name='sections' id='select' onchange=''>
 						<option value='West Bengal'>West Bengal</option>
 					</select>
-
-					{/* <select
-						id='state'
-						name='state'
-						className={'custom-select'}
-						disabled={!this.state.user_verified}
-						onChange={(e) => {
-							this.setState({ ...this.state, state: e.target.value });
-						}}>
-						<option value='West Bengal'>West Bengal</option>
-					</select> */}
 
 					<select
 						id='city'
@@ -447,32 +404,16 @@ export class ListingPage extends Component {
 
 					</select>
 				</div>
+                </div>
+              
 
-                {/* <input type="text"
-                className={"search"}
-                placeholder={" Search here..."}
-                value={this.state.search}
-                onChange={(e)=>{
-					this.setState({ ...this.state, search: e.target.value });
 
-                    if(e.target.value===""){
-                        // this.fetchUniversalData();
-                    }else{
-                        
-                        const x = this.find(this.state.data,e.target.value);
-                        // this.setState({ ...this.state, data: x });
-
-                    }
-                    // console.log(this.find(this.state.data,e.target.value));
-                }}
-                /> */}
-
-				
+                <div className={"main-list-content"} >
 				<SearchCompoent data = {this.state.tempData} setData={this.setData}/>
-				<div ref={this.myRootRef}>
+			
 					{this.state.data.length === 0 && !this.state.loading ? (
 						<p className={'no-data'}>
-							😔 Currently no data available! Please try after sometime
+							Sorry 😔 <br/> Please try after sometime
 						</p>
 					) : (
 						''

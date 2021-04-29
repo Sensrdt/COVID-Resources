@@ -23,6 +23,7 @@ const wbcity = [
     'Dankuni',
 	'Darjeeling',
     'Dumdum',
+    'Dunlop',
     'Diamond Harbour',
     'Digha',
 	'English Bazar',

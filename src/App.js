@@ -15,11 +15,16 @@ class App extends Component {
 		return (
 			<Router>
 				<Switch>
-					<Redirect from='/' to='/home' exact />
-					<Route path='/home' component={Home} exact />
-					<Route path='/auth' component={Auth} />
-					<Route path='/list/aids' component={ListingPage} />
-					<Route path='/upload/aid' component={DetailsUpload} />
+					<Redirect from='/home' to='/' exact />
+					<Redirect from='/list/aids' to='/list' exact />
+					<Redirect from='/upload/aid' to='/upload' exact />
+
+
+					<Route path='/' component={Home} exact />
+					
+					<Route path='/list' component={ListingPage} />
+
+					<Route path='/upload' component={DetailsUpload} />
 					<Route path='/list/records' component={MyRecords} />
 				</Switch>
 			</Router>

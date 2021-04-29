@@ -100,7 +100,9 @@ Dropdown with HTML SELECT
 ---------------------------- */
 .dd_with_select select {
   width: 100%;
-  padding: 15px 0 15px 5px;
+  margin: 0.05em;
+
+  padding: 8px 0 8px 5px;
   border-radius: 5px;
   color: #4a74c9;
   font-weight: bold;
@@ -126,6 +128,7 @@ Dropdown with HTML SELECT
     align-items: center;
     text-align: center;
     justify-content: center;
+    margin-top: 50px;
 }
 .refresh p{
     margin-left: 0.5em;

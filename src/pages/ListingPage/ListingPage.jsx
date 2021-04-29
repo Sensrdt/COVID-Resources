@@ -443,6 +443,8 @@ export class ListingPage extends Component {
 						<option value='Plasma'>Plasma</option>
 						<option value='Bed'>Beds</option>
 						<option value='Ambulance'>Ambulance</option>
+						<option value='Masks'>Masks</option>
+
 					</select>
 				</div>
 

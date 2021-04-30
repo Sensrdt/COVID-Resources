@@ -38,9 +38,8 @@ export class DetailsUpload extends Component {
             terms:false,
             loading:false,
             cost:0,
-
-            
-
+			active_hours: '',
+			additional_info: ''
 		};
 		this.onSubmit = this.onSubmit.bind(this);
 	}
@@ -102,6 +101,8 @@ export class DetailsUpload extends Component {
                 not_available:0,
                 support:0,
                 fake:0,
+				active_hours: this.state.active_hours,
+				additional_info: this.state.additional_info !== '' ? this.state.additional_info : 'Not specified',
                 key:newPostRef.key
 
 			},
@@ -430,11 +431,40 @@ export class DetailsUpload extends Component {
 									name='cost'
                                     value={this.state.cost}
 								/>
+								
                                 </React.Fragment>:""
                             
                                 }
                                 
-                                
+								<label htmlFor='active_hours'>Active Hours: </label>
+								<input
+                                disabled={!this.state.user_verified}
+									type='text'
+									id='active_hours'
+									name='ox_contact'
+									placeholder='Plase enter operational activity hours timing'
+									onChange={(e) => {
+										this.setState({
+											...this.state,
+											active_hours: e.target.value,
+										});
+									}}
+								/>
+
+								<label htmlFor='additional_info'>Additional Information: </label>
+								<textarea
+                                disabled={!this.state.user_verified}
+									id='active_hours'
+									name='ox_contact'
+									onChange={(e) => {
+										this.setState({
+											...this.state,
+											additional_info: e.target.value,
+										});
+									}}
+
+									style={{minHeight: '10em'}}
+								/>
 
 								{/* <label htmlFor='area'>Quantity:</label>
 								<input

@@ -366,15 +366,16 @@ export class ListingPage extends Component {
 							});
 						}}>
 						<option value=''>All Type</option>
-						<option value='Oxygen'>Oxygen</option>
+                        <option value='Oxygen'>Oxygen</option>
 						<option value='ICU Bed'>ICU Bed</option>
 						<option value='Plasma'>Plasma</option>
 						<option value='Bed'>Beds</option>
 						<option value='Ambulance'>Ambulance</option>
+                        <option value='Meals'>Meals</option>
 						<option value='Masks'>Masks</option>
+						<option value='Helpline'>Covid Helplines</option>
 						<option value='CovidTestCentres'>Covid Testing Centres</option>
 						<option value='VaccinationCentres'>Vaccination Centres</option>
-						<option value='Helpline'>Covid Helplines</option>
 
 					</select>
 				</div>

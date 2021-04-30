@@ -277,7 +277,7 @@ export class DetailsUpload extends Component {
 									<span className='number'>2</span> Details
 								</legend>
 
-								<label htmlFor='name'>Name:</label>
+								<label htmlFor='name'>Name:*</label>
 								<input
 									type='text'
                                     disabled={!this.state.user_verified}
@@ -287,7 +287,7 @@ export class DetailsUpload extends Component {
 										this.setState({ ...this.state, name: e.target.value });
 									}}
 								/>
-								<label htmlFor='phone'>Dealer / Supplier Contact Number:</label>
+								<label htmlFor='phone'>Dealer / Supplier Contact Number: *</label>
 								<input
                                 disabled={!this.state.user_verified}
 									type='text'
@@ -306,9 +306,9 @@ export class DetailsUpload extends Component {
 									<input
                                     disabled={!this.state.user_verified}
 										type='radio'
-										id='under_13'
-										defaultValue='under_13'
-										name='user_age'
+										id='yes'
+										defaultValue='Yes'
+										name='yes'
 										onChange={() =>
 											this.setState({
 												...this.state,
@@ -316,16 +316,16 @@ export class DetailsUpload extends Component {
 											})
 										}
 									/>
-									<label htmlFor='under_13' className='light'>
+									<label htmlFor='yes' className='light'>
 										Yes
 									</label>
 									<br />
 									<input
                                     disabled={!this.state.user_verified}
 										type='radio'
-										id='over_13'
-										defaultValue='over_13'
-										name='user_age'
+										id='no'
+										defaultValue='No'
+										name='no'
 										onChange={() =>
 											this.setState({
 												...this.state,
@@ -333,7 +333,7 @@ export class DetailsUpload extends Component {
 											})
 										}
 									/>
-									<label htmlFor='over_13' className='light'>
+									<label htmlFor='no' className='light'>
 										No
 									</label>
 								</div>
@@ -380,7 +380,7 @@ export class DetailsUpload extends Component {
 									name='district'
 								/>
 
-								<label htmlFor='area'>Area:</label>
+								<label htmlFor='area'>Area: *</label>
 								<input
 									onChange={(e) => {
 										this.setState({ ...this.state, area: e.target.value });
@@ -392,7 +392,7 @@ export class DetailsUpload extends Component {
 									name='area'
 								/>
 
-								<label htmlFor='type'>Type:</label>
+								<label htmlFor='type'>Type: *</label>
 								<select
 									id='type'
 									name='type'

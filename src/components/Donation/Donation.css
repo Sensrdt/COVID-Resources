@@ -1,0 +1,12 @@
+.outer {
+    height: 100%;
+    width: 100%;
+}
+.donation-container {
+
+    width: 300px;
+    height: 300px;
+    
+    margin-top: calc(50vh - 150px);
+    margin-left: calc(50vh - 150px);
+}

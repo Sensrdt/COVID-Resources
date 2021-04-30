@@ -142,7 +142,7 @@ export class ListingPage extends Component {
 		let databaseRef = firebase.database().ref('/data2');
 
 		if (prevState.city !== this.state.city) {
-			if (this.state.city === 'All City / Town') {
+			if (this.state.city === '') {
 				this.fetchUniversalData();
 			} else {
 				this.setState({
@@ -322,36 +322,7 @@ export class ListingPage extends Component {
 					) : (
 						''
 					)}
-					{this.state.report ? (
-						<div className={'report'}>
-							<div className={'report-history'}>
-								<p>{this.state.support} supported 🤝</p>
-								<p>{this.state.fake} marked as fake 😠</p>
-								<p>{this.state.not_available} marked as not available ❌</p>
-							</div>
-							<label htmlFor='report'>Feedback:</label>
-
-							<select
-								id='report'
-								name='report'
-								className={'custom-select'}
-								onChange={(e) => {
-									this.setState({ ...this.state, report_val: e.target.value });
-								}}>
-								<option value='support'>Support</option>
-								<option value='fake'>Fake</option>
-								<option value='not_available'>Not available</option>
-							</select>
-							<center>
-								<button onClick={this.report}>Submit</button>
-							</center>
-							<a href={'#'} onClick={this.onCloseModal} className={'a-close'}>
-								Close
-							</a>
-						</div>
-					) : (
-						''
-					)}
+					
 				</Modal>
 				{/* <center>
                   
@@ -372,10 +343,10 @@ export class ListingPage extends Component {
 					<select
 						id='city'
 						name='city'
-						// disabled={!this.state.user_verified}
 						onChange={(e) => {
 							this.setState({ ...this.state, city: e.target.value });
 						}}>
+                        <option value="">All City / Town</option>
 						{wbcitylist.map((city, key) => {
 							return (
 								<option value={city} key={key}>
@@ -396,11 +367,19 @@ export class ListingPage extends Component {
 						}}>
 						<option value='AllType'>All Type</option>
 						<option value='Oxygen'>Oxygen</option>
-						<option value='ICU Bed'>ICU Bed</option>
-						<option value='Plasma'>Plasma</option>
-						<option value='Bed'>Beds</option>
-						<option value='Ambulance'>Ambulance</option>
-						<option value='Masks'>Masks</option>
+									<option value='ICU Bed'>ICU Bed</option>
+									<option value='Bed'>Beds</option>
+									<option value='Plasma'>Plasma</option>
+                                    <option value='Ambulance'>Ambulance</option>
+
+									<option value='Helpline'>Helpline</option>
+
+									<option value='Meals'>Meals</option>
+									<option value='Volunteer'>Volunteer</option>
+
+
+
+					    <option value='Masks'>Masks</option>
 
 					</select>
 				</div>
@@ -436,31 +415,7 @@ export class ListingPage extends Component {
 								type={value.type}
 								uid={value.uid}
 								key={index}
-								onReport={(id) => {
-									this.setState({
-										...this.state,
-										report_id: id,
-										name: value.name,
-										verified: value.verified,
-										user_verified: value.user_verified,
-										cached_city: value.city,
-										state: value.state,
-										district: value.district,
-										amount: value.amount,
-										quantity: value.quantity,
-										cached_type: value.type,
-										ox_contact: value.ox_contact,
-										updated_on: value.updated_on,
-										modal: true,
-										phone: value.phone,
-										support: value.support,
-										fake: value.fake,
-										area: value.area,
-										not_available: value.not_available,
-										report: true,
-										my_contact: value.my_contact,
-									});
-								}}
+								cost={value.type==="Meals"?value.cost:""}
 							/>
 						);
 					})}

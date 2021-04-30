@@ -37,6 +37,8 @@ export class DetailsUpload extends Component {
 			type: 'Oxygen',
             terms:false,
             loading:false,
+            cost:0,
+
             
 
 		};
@@ -96,6 +98,7 @@ export class DetailsUpload extends Component {
 					this.state.quantity !== '' ? this.state.quantity : 'Not specified',
 				amount: this.state.amount !== '' ? this.state.amount : 'Not specified',
 				type: this.state.type,
+                cost:this.state.cost,
                 not_available:0,
                 support:0,
                 fake:0,
@@ -350,7 +353,7 @@ export class DetailsUpload extends Component {
 									<option value='West Bengal'>West Bengal</option>
 								</select>
 
-								<label htmlFor='city'>City / Town:</label>
+								<label htmlFor='city'>City / Town: *</label>
 								<select
 									id='city'
 									name='city'
@@ -359,6 +362,7 @@ export class DetailsUpload extends Component {
 									onChange={(e) => {
 										this.setState({ ...this.state, city: e.target.value });
 									}}>
+                                    <option value="">Select</option>
 									{wbcitylist.map((city, key) => {
 										return (
 											<option value={city} key={key}>
@@ -403,13 +407,33 @@ export class DetailsUpload extends Component {
 									}}>
 									<option value='Oxygen'>Oxygen</option>
 									<option value='ICU Bed'>ICU Bed</option>
-									<option value='Plasma'>Plasma</option>
-
-                                    <option value='Ambulance'>Ambulance</option>
-
 									<option value='Bed'>Beds</option>
+									<option value='Plasma'>Plasma</option>
+                                    <option value='Ambulance'>Ambulance</option>
+									<option value='Helpline'>Helpline</option>
+									<option value='Meals'>Meals</option>
+									<option value='Volunteer'>Volunteer</option>
 									<option value='Masks'>Masks</option>
 								</select>
+
+                                {this.state.type==="Meals"? 
+                                <React.Fragment>
+                                <label htmlFor='area'>Cost: </label>
+								<input
+									onChange={(e) => {
+										this.setState({ ...this.state, cost: e.target.value });
+									}}
+									disabled={!this.state.user_verified}
+									type='text'
+									id='cost'
+									name='cost'
+                                    value={this.state.cost}
+								/>
+                                </React.Fragment>:""
+                            
+                                }
+                                
+                                
 
 								{/* <label htmlFor='area'>Quantity:</label>
 								<input
@@ -440,10 +464,10 @@ export class DetailsUpload extends Component {
 								<button
 									type='submit'
 									className={!this.state.user_verified   ||
-                                        this.state.name==="" || this.state.ox_contact==="" ? 'u_verified' : ''}
+                                        this.state.name==="" || this.state.ox_contact==="" ||this.state.city===""? 'u_verified' : ''}
 									disabled={!this.state.user_verified
                                     ||
-                                    this.state.name==="" || this.state.ox_contact==="" 
+                                    this.state.name==="" || this.state.ox_contact==="" || this.state.city===""
                                     }
 									onClick={this.onSubmit}>
 									Submit

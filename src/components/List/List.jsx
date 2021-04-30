@@ -61,21 +61,10 @@ export class List extends Component {
             : {this.props.ox_contact}</p>
 
           <p className='name'>{"👨  "}&nbsp;<b>Dealer / Supplier</b>: {this.props.name}</p>
-{/*        
-          <div className={"amount"}>
+                    
 
-            
-{"#️⃣ "}&nbsp; <p>{this.props.quantity===undefined || this.props.quantity==="undefined" ||this.props.quantity===""|| this.props.quantity === 0 ||
-this.props.quantity==="Unknown. " || this.props.quantity==="Unknown." || this.props.quantity==="Unknown"|| this.props.quantity==="Not specified"?
-
-   `   NA  `: `   ${this.props.quantity}` 
-   }</p>&nbsp;
-
-&nbsp;{"💰 "}&nbsp; <p>{this.props.amount===""|| this.props.amount === 0 || this.props.amount==="Not specified"? 
-   `   NA  `: `   ${this.props.amount} ` 
-   }</p>
-
-</div> */}
+        {this.props.type==="Meals"?this.props.cost!==""? <p>{"💰  "}&nbsp;{this.props.cost}</p>
+:"NA":""}
 
           <p className={'updated'}>
             {"⏱️  "}&nbsp;

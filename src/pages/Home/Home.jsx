@@ -11,7 +11,7 @@ import Bed from '../../Utils/assets/bed.svg';
 import Ambulance from '../../Utils/assets/ambulance.svg';
 import Support from '../../Utils/assets/support.svg';
 import Logo from '../../Utils/logo1.png';
-
+import { Link } from 'react-router-dom';
 export class Home extends Component {
   constructor(props) {
     super(props);
@@ -74,6 +74,12 @@ export class Home extends Component {
             </div>
           </div>
 
+          <center>
+            {' '}
+            <div className={'main-icon-text'}>
+              Want to help ? <Link to="/upload">Click here</Link>
+            </div>
+          </center>
           {/* 
             Disabling this feature now for security analisis. If everything is ok then I'll uncomment this
           */}

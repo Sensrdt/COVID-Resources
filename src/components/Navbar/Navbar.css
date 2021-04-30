@@ -1,39 +1,38 @@
-.brand h2{
-    margin-top: 4px;
-    margin-top: 4px;
-
+.brand h2 {
+  margin-top: 4px;
+  margin-top: 4px;
+  color: #37486e;
 }
 
 .fixed-nav-bar {
-    position: fixed;
-    align-items: flex-end;
-    justify-content: flex-end;
-    top: 0;
-    left: 0;
-    z-index: 9999;
-    width: 100%;
-    height: 50px;
-    background-color: #f1f3f9;
- 
-    display: flex;
-  }
-  
-  nav img {
-    height: 40px;
-  }
-  
-  nav .brand {
-    flex: 1 1;
-    align-self: flex-start;
-    height: 50px;
-    text-decoration: none;
-    color: #1462ff;
-    margin-left: -1em;
+  position: fixed;
+  align-items: flex-end;
+  justify-content: flex-end;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  width: 100%;
+  height: 50px;
+  background-color: #f1f3f9;
 
-  }
-  
-  nav .link {
-    flex: 1;
-    max-width: max-content;
-    margin-right: 40px;
-  }
+  display: flex;
+}
+
+nav img {
+  height: 40px;
+}
+
+nav .brand {
+  flex: 1 1;
+  align-self: flex-start;
+  height: 50px;
+  text-decoration: none;
+  color: #1462ff;
+  margin-left: -1em;
+}
+
+nav .link {
+  flex: 1;
+  max-width: max-content;
+  margin-right: 40px;
+}

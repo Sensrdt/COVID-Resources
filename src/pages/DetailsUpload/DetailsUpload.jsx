@@ -450,25 +450,24 @@ export class DetailsUpload extends Component {
                       name="cost"
                       value={this.state.cost}
                     />
+                    <label htmlFor="active_hours">Active Hours: </label>
+                    <input
+                      disabled={!this.state.user_verified}
+                      type="text"
+                      id="active_hours"
+                      name="ox_contact"
+                      placeholder="Please enter operational activity hours timing"
+                      onChange={(e) => {
+                        this.setState({
+                          ...this.state,
+                          active_hours: e.target.value,
+                        });
+                      }}
+                    />
                   </React.Fragment>
                 ) : (
                   ''
                 )}
-
-                <label htmlFor="active_hours">Active Hours: </label>
-                <input
-                  disabled={!this.state.user_verified}
-                  type="text"
-                  id="active_hours"
-                  name="ox_contact"
-                  placeholder="Please enter operational activity hours timing"
-                  onChange={(e) => {
-                    this.setState({
-                      ...this.state,
-                      active_hours: e.target.value,
-                    });
-                  }}
-                />
 
                 <label htmlFor="additional_info">Additional Information: </label>
                 <textarea
@@ -481,7 +480,7 @@ export class DetailsUpload extends Component {
                       additional_info: e.target.value,
                     });
                   }}
-                  style={{ minHeight: '10em' }}
+                  style={{ minHeight: '8em' }}
                 />
               </fieldset>
               <center>

@@ -1,179 +1,174 @@
-
 form {
-    max-width: 310px;
-    margin: 1px auto;
-    padding: 10px 20px;
-    background: white;
-    border-radius: 8px;
-    padding-top: 3em;
-  }
-  
-  h1 {
-    margin: 0 0 30px 0;
-    text-align: center;
-  }
-  h2{
-      cursor: pointer;
-  }
+  max-width: 310px;
+  margin: 1px auto;
+  padding: 10px 20px;
+  background: white;
+  border-radius: 8px;
+  padding-top: 3em;
+}
 
-  input[type="text"],
-  input[type="password"],
-  input[type="date"],
-  input[type="datetime"],
-  input[type="phone"],
-  input[type="number"],
-  input[type="search"],
-  input[type="tel"],
-  input[type="time"],
-  input[type="url"],
-  textarea {
-    background: rgba(255,255,255,0.1);
-    border: none;
-    font-size: 16px;
-    height: auto;
-    margin: 0;
-    outline: 0;
-    height: 2em;
-    width: 100%;
-    background-color: #e8eeef;
-    color: #43494e;
-    box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
-    margin-bottom: 30px;
-  }
-  .custom-select{
-    background: rgba(255,255,255,0.1);
-    border: none;
-    font-size: 16px;
-    height: auto;
-    margin: 0;
-    outline: 0;
-    height: 2em;
-    width: 100%;
-    background-color: #e8eeef;
-    color: #8a97a0;
-    box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
-    margin-bottom: 30px;
-    padding: 6px;
-    height: 35px;
-    border-radius: 2px;
-  }
-  
-  input[type="radio"],
-  input[type="checkbox"] {
-    margin: 0 4px 8px 0;
-  }
-  
-  
-  button {
-    width: 140px;
-    height: 45px;
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 2.5px;
-    font-weight: 600;
+h1 {
+  margin: 0 0 30px 0;
+  text-align: center;
+}
+h2 {
+  cursor: pointer;
+}
 
-    
-    border: none;
-    border-radius: 45px;
-   
-    transition: all 0.3s ease 0s;
-    cursor: pointer;
-    outline: none;
+input[type='text'],
+input[type='password'],
+input[type='date'],
+input[type='datetime'],
+input[type='phone'],
+input[type='number'],
+input[type='search'],
+input[type='tel'],
+input[type='time'],
+input[type='url'],
+textarea {
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  font-size: 16px;
+  height: auto;
+  margin: 0;
+  outline: 0;
+  height: 2em;
+  width: 100%;
+  background-color: #e8eeef;
+  color: #43494e;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.03) inset;
+  margin-bottom: 30px;
+}
+.custom-select {
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  font-size: 16px;
+  height: auto;
+  margin: 0;
+  outline: 0;
+  height: 2em;
+  width: 100%;
+  background-color: #e8eeef;
+  color: #8a97a0;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.03) inset;
+  margin-bottom: 30px;
+  padding: 6px;
+  height: 35px;
+  border-radius: 2px;
+}
 
-    background-color: #1462ff;
-    box-shadow: 0 6px 30px -10px #4a74c9;
-    color: #fff;
-  }
-  
-  fieldset {
-    margin-bottom: 30px;
-    border: none;
-  }
-  
-  legend {
-    font-size: 1.4em;
-    margin-bottom: 10px;
-  }
-  
-  label {
-    display: block;
-    margin-bottom: 8px;
-  }
-  
-  label.light {
-    font-weight: 300;
-    display: inline;
-  }
-  
-  .number {
-    background-color: #4a74c9;
-    color: #fff;
-    height: 30px;
-    width: 30px;
-    display: inline-block;
-    font-size: 0.8em;
-    margin-right: 4px;
-    line-height: 30px;
-    text-align: center;
-    text-shadow: 0 1px 0 rgba(255,255,255,0.2);
-    border-radius: 100%;
-  }
-  
-  @media screen and (min-width: 480px) {
-  
-    form {
-      max-width: 480px;
-    }
-  
-  }
-  .verify-btn{
-     float: right;
-  }
+input[type='radio'],
+input[type='checkbox'] {
+  margin: 0 4px 8px 0;
+}
 
-  .ox-verified{
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      margin-bottom: 1em;
-  }
-  .ox-verified input{
-      margin-left: 0.2em;
-  }
-  .u_verified{
-      opacity: 0.5;
-  }
-  .yes-no-div{
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-  }
-  .yes-no-div a{
-      text-decoration: none;
-      margin-right: 1em;
-  }
+button {
+  width: 140px;
+  height: 45px;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 2.5px;
+  font-weight: 600;
 
-  .a-verified{
-    text-decoration: none;
-    float: left;
-    color: green;
+  border: none;
+  border-radius: 45px;
+
+  transition: all 0.3s ease 0s;
+  cursor: pointer;
+  outline: none;
+
+  background-color: #4a74c9;
+  box-shadow: 0 6px 30px -10px #4a74c9;
+  color: #fff;
+}
+
+fieldset {
+  margin-bottom: 30px;
+  border: none;
+}
+
+legend {
+  font-size: 1.4em;
+  margin-bottom: 10px;
+}
+
+label {
+  display: block;
+  margin-bottom: 8px;
+}
+
+label.light {
+  font-weight: 300;
+  display: inline;
+}
+
+.number {
+  background-color: #4a74c9;
+  color: #fff;
+  height: 30px;
+  width: 30px;
+  display: inline-block;
+  font-size: 0.8em;
+  margin-right: 4px;
+  line-height: 30px;
+  text-align: center;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.2);
+  border-radius: 100%;
+}
+
+@media screen and (min-width: 480px) {
+  form {
+    max-width: 480px;
   }
-  .click-terms{
-      align-items: center;
-      text-align: center;
-  }
-  .otp-close{
-      align-items: center;
-      text-decoration: none;
-      color: rgb(33, 34, 56);
-      font-size: 1.25rem;
-      display: flex;
-      justify-content: center;
-      margin-top: 0.5em;
-  }
-  .first-verify{
-      text-decoration: none;
-      color: rgb(24, 27, 39);
-      text-align: center;
-      display: flex;
-      justify-content: center;
-  }
+}
+.verify-btn {
+  float: right;
+}
+
+.ox-verified {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 1em;
+}
+.ox-verified input {
+  margin-left: 0.2em;
+}
+.u_verified {
+  opacity: 0.5;
+}
+.yes-no-div {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.yes-no-div a {
+  text-decoration: none;
+  margin-right: 1em;
+}
+
+.a-verified {
+  text-decoration: none;
+  float: left;
+  color: green;
+}
+.click-terms {
+  align-items: center;
+  text-align: center;
+}
+.otp-close {
+  align-items: center;
+  text-decoration: none;
+  color: rgb(33, 34, 56);
+  font-size: 1.25rem;
+  display: flex;
+  justify-content: center;
+  margin-top: 0.5em;
+}
+.first-verify {
+  text-decoration: none;
+  color: rgb(24, 27, 39);
+  text-align: center;
+  display: flex;
+  justify-content: center;
+}

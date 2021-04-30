@@ -8,6 +8,8 @@ import _ from 'lodash';
 import moment from 'moment';
 import SearchCompoent from './../../components/search/SearchComponent.jsx';
 import Navbar from '../../components/Navbar/Navbar';
+import { withRouter } from 'react-router-dom';
+
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
 import './ListingPage.css';
 import 'react-responsive-modal/styles.css';
@@ -47,6 +49,12 @@ export class ListingPage extends Component {
   }
 
   componentDidMount() {
+    const url = this.props.location.pathname.substring(1);
+
+    this.setState({
+      ...this.state,
+      type: url,
+    });
     this.fetchUniversalData();
   }
   ParseDate = (dateString) => {
@@ -68,10 +76,6 @@ export class ListingPage extends Component {
     tempArr.map((data) => {
       return (data.updated_on = this.ParseDate(data.updated_on));
     });
-
-    // tempArr.sort(function (left, right) {
-    //     return moment.utc(left.timeStamp).diff(moment.utc(right.timeStamp))
-    // });
 
     tempArr.sort((a, b) => new Date(a.updated_on).getTime() - new Date(b.updated_on).getTime());
 
@@ -378,4 +382,4 @@ export class ListingPage extends Component {
   }
 }
 
-export default ListingPage;
+export default withRouter(ListingPage);

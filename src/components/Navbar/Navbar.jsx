@@ -8,7 +8,7 @@ export default function Navbar(props) {
         <center>
           <h2 onClick={() => props.redirect()}>
             <img src={Logo} className={'logo-1'} alt="" />
-            CoAid.live
+            &nbsp;CoAid.live
           </h2>
         </center>
       </a>

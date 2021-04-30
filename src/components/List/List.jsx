@@ -1,33 +1,28 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import './List.css';
-import moment from 'moment'
+import moment from 'moment';
 
 export class List extends Component {
   getLocation = () => {
-      if(this.props.city==="" && this.props.state==="" && this.props.district===""){
-          return "";
-      }else{
-          return(
+    if (this.props.city === '' && this.props.state === '' && this.props.district === '') {
+      return '';
+    } else {
+      return (
         <p>
-            {"🌎  "}&nbsp;<b>Location</b>:&nbsp;
-            {this.props.district!==""?`${this.props.district} ,`:""}
-            
-            {this.props.city !==""?`${this.props.city} ,`:"" }
-            
-            {this.props.state}{' '}
+          {'🌎  '}&nbsp;<b>Location</b>:&nbsp;
+          {this.props.district !== '' ? `${this.props.district} ,` : ''}
+          {this.props.city !== '' ? `${this.props.city} ,` : ''}
+          {this.props.state}{' '}
         </p>
-          )
-
-      }
-  }
+      );
+    }
+  };
   render() {
     return (
       <React.Fragment>
-        <div className='list-main-class' id={this.props.ukey+"=="+this.props.phone.slice(-4)}>
+        <div className="list-main-class" id={this.props.ukey + '==' + this.props.phone.slice(-4)}>
           <div className={'rating'}>
-            {this.props.verified
-              ? <p className={"tick-verified"}>✔ Verified</p>
-              : ""}
+            {this.props.verified ? <p className={'tick-verified'}>✔ Verified</p> : ''}
 
             {/* <p
 							onClick={() => {
@@ -36,47 +31,63 @@ export class List extends Component {
 							Rating
 						</p> */}
           </div>
-          <p className={"type-p"}>
-            {"📋  "}&nbsp;
-            <b>Type</b>
-            : {this.props.type}</p>
+          <p className={'type-p'}>
+            {'📋  '}&nbsp;
+            <b>Type</b>: {this.props.type}
+          </p>
 
-            {this.getLocation()}
-          
+          {this.getLocation()}
 
           {/* <p>
                         <b>District</b>
                          : {this.props.district===""?"Not available":this.props.district}
                          </p>
                           */}
-          {this.props.area !== ""
-            ? <p>{"🏠  "}&nbsp;<b>Area</b>: {this.props.area}</p>
-            : ""}
+          {this.props.area !== '' ? (
+            <p>
+              {'🏠  '}&nbsp;<b>Area</b>: {this.props.area}
+            </p>
+          ) : (
+            ''
+          )}
 
           {/* <p>
                         <b>Quantity & Amount</b>
 						 : {this.props.quantity} & {this.props.amount}{' '}
 					</p> */}
-          <p>{"📱 "}&nbsp;<b>Contact Number</b>
-            : {this.props.ox_contact}</p>
+          <p>
+            {'📱 '}&nbsp;<b>Contact Number</b>: {this.props.ox_contact}
+          </p>
 
-          <p className='name'>{"👨  "}&nbsp;<b>Dealer / Supplier</b>: {this.props.name}</p>
-                    
+          <p className="name">
+            {'👨  '}&nbsp;<b>Dealer / Supplier</b>: {this.props.name}
+          </p>
 
-        {this.props.type==="Meals"?this.props.cost!==""? <p>{"💰  "}&nbsp;{this.props.cost}</p>
-:"NA":""}
+          {this.props.type === 'Meals' ? (
+            this.props.cost !== '' ? (
+              <p>
+                {'💰  '}&nbsp;{this.props.cost}
+              </p>
+            ) : (
+              'NA'
+            )
+          ) : (
+            ''
+          )}
 
           <p className={'updated'}>
-            {"⏱️  "}&nbsp;
+            {'⏱️  '}&nbsp;
             {/* <b>Updated</b> */}
-             {moment(this.props.updated_on).format("dddd, MMMM Do, h:mm a")}</p>
+            {moment(this.props.updated_on).format('dddd, MMMM Do, h:mm a')}
+          </p>
 
-    
-        
-          {this.props.delete
-            ? <p className={"remove"} onClick={() => this.props.onDelete(this.props.ukey)}>{"🗑️  "}&nbsp;Delete</p>
-            : ""}
-
+          {this.props.delete ? (
+            <p className={'remove'} onClick={() => this.props.onDelete(this.props.ukey)}>
+              {'🗑️  '}&nbsp;Delete
+            </p>
+          ) : (
+            ''
+          )}
         </div>
       </React.Fragment>
     );

@@ -23,8 +23,9 @@ class App extends Component {
           <Route path="/list" component={ListingPage} exact />
 
           <Route path="/upload" component={DetailsUpload} />
-		  <Route path="/donation" component={Donation} />
-		  
+		  { /* on hold till security risk analysis */ }
+		  {/* <Route path="/donation" component={Donation} /> */}
+
         </Switch>
       </Router>
     );

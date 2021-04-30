@@ -89,7 +89,6 @@ export class ListingPage extends Component {
 
         tempArr.sort((a,b) => new Date(a.updated_on).getTime() - new Date(b.updated_on).getTime() )
 
-        console.log(tempArr);
         return tempArr.reverse()
     }
 
@@ -107,7 +106,6 @@ export class ListingPage extends Component {
 			'value',
 			(snapshot) => {
 				let json = snapshot.val();
-				console.log(json);
 				var arr = [];
 
 				try {
@@ -326,7 +324,7 @@ export class ListingPage extends Component {
 				</Modal>
 				{/* <center>
                   
-                <h2 onClick={() => this.props.history.push(`/`)}><img src={Logo} class={"logo-1"} alt=""/>CoAid.live</h2>
+                <h2 onClick={() => this.props.history.push(`/`)}><img src={Logo} className={"logo-1"} alt=""/>CoAid.live</h2>
 				</center> */}
 
 
@@ -335,8 +333,8 @@ export class ListingPage extends Component {
                redirect={()=>this.props.history.push(`/`)}
                />
 
-				<div class='dd_with_select'>
-					<select name='sections' id='select' onchange=''>
+				<div className='dd_with_select'>
+					<select name='sections' id='select' onChange=''>
 						<option value='West Bengal'>West Bengal</option>
 					</select>
 
@@ -411,6 +409,7 @@ export class ListingPage extends Component {
 								type={value.type}
 								uid={value.uid}
 								key={index}
+                                ukey={value.key}
 								cost={value.type==="Meals"?value.cost:""}
 							/>
 						);

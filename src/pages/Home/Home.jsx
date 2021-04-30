@@ -33,18 +33,18 @@ export class Home extends Component {
 						<p>An aid towards distancing covid</p>
 					</header>
 
-					<div class='wrap'>
+					<div className='wrap'>
 						<button
-							class='button'
+							className='button'
 							onClick={() =>window.location.assign('/list/aids')
 						}>
 							Medical aids
 						</button>
 					</div>
 
-					<div class='wrap'>
+					<div className='wrap'>
 						<button
-							class='button'
+							className='button'
 							onClick={() => this.props.history.push(`/upload/aid`)}>
 							Provide info
 						</button>

@@ -1,18 +1,14 @@
 import React, { Component } from 'react';
 import List from '../../components/List/List';
 import './MyRecords.css';
-import LocationDetails from '../../Utils/Location.json';
 import firebase from '../../config/firebase';
-import wbcitylist from '../../Utils/WBList';
-import stateArray from '../../Utils/StateList';
+
 import Loader from 'react-loader-spinner';
 import { Modal } from 'react-responsive-modal';
-import Logo from '../../Utils/logo1.png'
-// import { Fab, Action } from 'react-tiny-fab';
+
 import moment from 'moment'
 
 
-// import 'react-tiny-fab/dist/styles.css';
 
 import 'react-responsive-modal/styles.css';
 
@@ -258,34 +254,9 @@ export class MyRecords extends Component {
                                 onDelete={(ukey)=>{
                                     
                                     this.setState({ modal: true ,remove:true,ukey:ukey});
-                                 
+                                
                                    
                                 }}
-								onReport={(id) => {
-									this.setState({
-										...this.state,
-										report_id: id,
-										name: value.name,
-										verified: value.verified,
-										user_verified: value.user_verified,
-										cached_city: value.city,
-										state: value.state,
-										district: value.district,
-										amount: value.amount,
-										quantity: value.quantity,
-										cached_type: value.type,
-										ox_contact: value.ox_contact,
-										updated_on: value.updated_on,
-										modal: true,
-										phone: value.phone,
-										support: value.support,
-										fake: value.fake,
-										area: value.area,
-										not_available: value.not_available,
-										report: true,
-										my_contact: value.my_contact,
-									});
-								}}
 							/>
 						);
 					})}

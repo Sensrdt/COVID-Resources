@@ -1,11 +1,8 @@
-import logo from './logo.svg';
 import React, { Component } from 'react';
 import './App.css';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { Redirect } from 'react-router-dom';
-import Auth from './pages/Auth/Auth';
-import Home from './pages/Home/Home';
-import UpdateForm from './pages/Update/UpdateForm';
+import Home from'./pages/Home/Home';
 import ListingPage from './pages/ListingPage/ListingPage';
 import DetailsUpload from './pages/DetailsUpload/DetailsUpload';
 import MyRecords from './pages/MyRecords/MyRecords';

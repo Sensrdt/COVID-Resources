@@ -3,12 +3,12 @@ import Logo from '../../Utils/logo1.png'
 import './Navbar.css'
 export default function Navbar(props) {
     return (
-        <nav class="fixed-nav-bar">
+        <nav className="fixed-nav-bar">
          
-        <a class="brand">
+        <a href={"#"} className="brand">
         <center>
                         
-                        <h2 onClick={() => props.redirect()}><img src={Logo} class={"logo-1"} alt=""/>CoAid.live</h2>
+                        <h2 onClick={() => props.redirect()}><img src={Logo} className={"logo-1"} alt=""/>CoAid.live</h2>
                         </center>
         </a>
       

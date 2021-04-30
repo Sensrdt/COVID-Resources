@@ -69,7 +69,7 @@ export class Home extends Component {
               </div>
               <div className={'fold-2__category'} onClick={() => this.props.history.push(`/support`)}>
                 <img src={Support} alt="" />
-                <div className={'main-icon-text'}>Support</div>
+                <div className={'main-icon-text'}>Helplines</div>
               </div>
             </div>
           </div>

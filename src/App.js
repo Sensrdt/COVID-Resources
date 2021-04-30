@@ -6,6 +6,7 @@ import Home from './pages/Home/Home';
 import ListingPage from './pages/ListingPage/ListingPage';
 import DetailsUpload from './pages/DetailsUpload/DetailsUpload';
 import MyRecords from './pages/MyRecords/MyRecords';
+import { Donation } from './components/Donation/Donation';
 
 class App extends Component {
   render() {
@@ -22,6 +23,8 @@ class App extends Component {
           <Route path="/list" component={ListingPage} exact />
 
           <Route path="/upload" component={DetailsUpload} />
+		  <Route path="/donation" component={Donation} />
+		  
         </Switch>
       </Router>
     );

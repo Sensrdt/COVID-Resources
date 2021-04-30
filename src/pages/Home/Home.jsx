@@ -39,6 +39,12 @@ export class Home extends Component {
               Provide info
             </button>
           </div>
+
+          <div className="wrap">
+            <button className="button" onClick={() => window.location.assign('/donation')}>
+              Donate Us
+            </button>
+          </div>
         </div>
       </React.Fragment>
     );

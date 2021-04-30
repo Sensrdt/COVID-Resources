@@ -1,56 +1,56 @@
-import React, { Component } from "react";
-import "./DetailsUpload.css";
-import firebase from "../../config/firebase";
-import wbcitylist from "../../Utils/WBList";
-import Loader from "react-loader-spinner";
-import { Modal } from "react-responsive-modal";
-import uuid from "react-uuid";
+import React, { Component } from 'react';
+import './DetailsUpload.css';
+import firebase from '../../config/firebase';
+import wbcitylist from '../../Utils/WBList';
+import Loader from 'react-loader-spinner';
+import { Modal } from 'react-responsive-modal';
+import uuid from 'react-uuid';
 
-import "react-responsive-modal/styles.css";
+import 'react-responsive-modal/styles.css';
 
-import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
-import TermsCond from "../../components/TermsCond/TermsCond";
-import OTP from "../../components/Auth/OTP";
-import Logo from "../../Utils/logo1.png";
-import moment from "moment";
-import Navbar from "../../components/Navbar/Navbar";
+import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
+import TermsCond from '../../components/TermsCond/TermsCond';
+import OTP from '../../components/Auth/OTP';
+import Logo from '../../Utils/logo1.png';
+import moment from 'moment';
+import Navbar from '../../components/Navbar/Navbar';
 
 export class DetailsUpload extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      name: "",
-      ox_contact: "",
-      state: "West Bengal",
-      city: "",
-      district: "",
-      area: "",
-      my_contact: "",
+      name: '',
+      ox_contact: '',
+      state: 'West Bengal',
+      city: '',
+      district: '',
+      area: '',
+      my_contact: '',
       user_verified: false,
       modal_open: false,
       submitted: false,
       error: false,
       verified: false,
-      quantity: "",
-      amount: "",
-      type: "Oxygen",
+      quantity: '',
+      amount: '',
+      type: 'Oxygen',
       terms: false,
       loading: false,
       cost: 0,
-      active_hours: "",
-      additional_info: "",
+      active_hours: '',
+      additional_info: '',
     };
     this.onSubmit = this.onSubmit.bind(this);
   }
 
   componentDidMount() {
-    if (sessionStorage.getItem("co_aiduser")) {
+    if (sessionStorage.getItem('co_aiduser')) {
       this.setState({
         ...this.state,
         otp_loading: false,
         user_verified: true,
-        my_contact: sessionStorage.getItem("co_aiduser"),
+        my_contact: sessionStorage.getItem('co_aiduser'),
       });
     }
   }
@@ -60,7 +60,7 @@ export class DetailsUpload extends Component {
   };
 
   ParseDate = (dateString) => {
-    const format1 = "DD-MM-YYYY HH:mm:ss";
+    const format1 = 'DD-MM-YYYY HH:mm:ss';
 
     const dateTime1 = moment(dateString).format(format1);
 
@@ -78,10 +78,7 @@ export class DetailsUpload extends Component {
 
     const uid = uuid();
 
-    let databaseRef = firebase
-      .database()
-      .ref("data2")
-      .child(this.state.my_contact);
+    let databaseRef = firebase.database().ref('data2').child(this.state.my_contact);
     var newPostRef = databaseRef.push();
     console.log(newPostRef.key);
 
@@ -98,19 +95,15 @@ export class DetailsUpload extends Component {
         user_verified: this.state.user_verified,
         uid: uid,
         updated_on: this.ParseDate(new Date().toString()),
-        quantity:
-          this.state.quantity !== "" ? this.state.quantity : "Not specified",
-        amount: this.state.amount !== "" ? this.state.amount : "Not specified",
+        quantity: this.state.quantity !== '' ? this.state.quantity : 'Not specified',
+        amount: this.state.amount !== '' ? this.state.amount : 'Not specified',
         type: this.state.type,
         cost: this.state.cost,
         not_available: 0,
         support: 0,
         fake: 0,
         active_hours: this.state.active_hours,
-        additional_info:
-          this.state.additional_info !== ""
-            ? this.state.additional_info
-            : "Not specified",
+        additional_info: this.state.additional_info !== '' ? this.state.additional_info : 'Not specified',
         key: newPostRef.key,
       },
       (error) => {
@@ -155,28 +148,22 @@ export class DetailsUpload extends Component {
         >
           {this.state.error || this.state.submitted ? (
             <div>
+              <p>{this.state.error ? 'Something went wrong! Would you like to try again ?' : ''}</p>
               <p>
-                {this.state.error
-                  ? "Something went wrong! Would you like to try again ?"
-                  : ""}
-              </p>
-              <p>
-                {this.state.submitted
-                  ? "Data has been saved successfully! Would you like to upload more data?"
-                  : ""}
+                {this.state.submitted ? 'Data has been saved successfully! Would you like to upload more data?' : ''}
               </p>
 
-              <div className={"yes-no-div"}>
+              <div className={'yes-no-div'}>
                 <a
                   href="#"
-                  className={""}
+                  className={''}
                   onClick={() => {
                     this.setState({
                       ...this.state,
-                      district: "",
-                      area: "",
-                      quantity: "",
-                      amount: "",
+                      district: '',
+                      area: '',
+                      quantity: '',
+                      amount: '',
                       modal_open: false,
                       submitted: false,
                       error: false,
@@ -191,8 +178,8 @@ export class DetailsUpload extends Component {
                   onClick={() => {
                     this.setState({
                       ...this.state,
-                      district: "",
-                      area: "",
+                      district: '',
+                      area: '',
                       modal_open: false,
                       quantity: 0,
                       amount: 0,
@@ -206,13 +193,13 @@ export class DetailsUpload extends Component {
               </div>
             </div>
           ) : (
-            ""
+            ''
           )}
 
           {this.state.loading || this.state.otp_loading ? (
             <Loader type="Puff" color="#4a74c9" height={100} width={100} />
           ) : (
-            ""
+            ''
           )}
 
           {this.state.terms ? (
@@ -225,7 +212,7 @@ export class DetailsUpload extends Component {
               }}
             />
           ) : (
-            ""
+            ''
           )}
 
           {this.state.verify_modal ? (
@@ -240,8 +227,8 @@ export class DetailsUpload extends Component {
                 }}
               />
               <a
-                className={"otp-close"}
-                href={"#"}
+                className={'otp-close'}
+                href={'#'}
                 onClick={() => {
                   this.setState({
                     modal_open: false,
@@ -252,18 +239,18 @@ export class DetailsUpload extends Component {
               </a>
             </React.Fragment>
           ) : (
-            ""
+            ''
           )}
         </Modal>
 
         <Navbar redirect={() => this.props.history.push(``)} />
 
-        <div className={"refresh"}>
+        <div className={'refresh'}>
           <p onClick={() => this.props.history.push(`/`)}>Back to home</p>
 
           <p
             onClick={() => {
-              if (sessionStorage.getItem("co_aiduser")) {
+              if (sessionStorage.getItem('co_aiduser')) {
                 this.props.history.push(`/list/records`);
               } else {
                 this.setState({
@@ -279,7 +266,7 @@ export class DetailsUpload extends Component {
 
         <div className="row">
           <div className="col-md-12">
-            <form action={"#"}>
+            <form action={'#'}>
               <fieldset>
                 <legend>
                   <span className="number">1</span> Your Info
@@ -295,11 +282,11 @@ export class DetailsUpload extends Component {
                 />
               </fieldset>
               {this.state.user_verified ? (
-                ""
+                ''
               ) : (
                 <fieldset>
-                  <a className={"first-verify"} href={"#"}>
-                    First verify your phone number&nbsp;{"📱"}{" "}
+                  <a className={'first-verify'} href={'#'}>
+                    First verify your phone number&nbsp;{'📱'}{' '}
                   </a>
                 </fieldset>
               )}
@@ -319,9 +306,7 @@ export class DetailsUpload extends Component {
                     this.setState({ ...this.state, name: e.target.value });
                   }}
                 />
-                <label htmlFor="phone">
-                  Dealer / Supplier Contact Number: *
-                </label>
+                <label htmlFor="phone">Dealer / Supplier Contact Number: *</label>
                 <input
                   disabled={!this.state.user_verified}
                   type="text"
@@ -335,7 +320,7 @@ export class DetailsUpload extends Component {
                   }}
                 />
 
-                <div className={"ox-verified"}>
+                <div className={'ox-verified'}>
                   <label>Verified:</label>
                   <input
                     disabled={!this.state.user_verified}
@@ -376,7 +361,7 @@ export class DetailsUpload extends Component {
                 <select
                   id="state"
                   name="state"
-                  className={"custom-select"}
+                  className={'custom-select'}
                   disabled={!this.state.user_verified}
                   onChange={(e) => {
                     this.setState({ ...this.state, state: e.target.value });
@@ -389,7 +374,7 @@ export class DetailsUpload extends Component {
                 <select
                   id="city"
                   name="city"
-                  className={"custom-select"}
+                  className={'custom-select'}
                   disabled={!this.state.user_verified}
                   onChange={(e) => {
                     this.setState({ ...this.state, city: e.target.value });
@@ -433,7 +418,7 @@ export class DetailsUpload extends Component {
                 <select
                   id="type"
                   name="type"
-                  className={"custom-select"}
+                  className={'custom-select'}
                   disabled={!this.state.user_verified}
                   onChange={(e) => {
                     this.setState({ ...this.state, type: e.target.value });
@@ -446,16 +431,13 @@ export class DetailsUpload extends Component {
                   <option value="Ambulance">Ambulance</option>
                   <option value="Meals">Meals</option>
                   <option value="Masks">Masks</option>
+                  <option value="Volunteers">Volunteers</option>
                   <option value="Helpline">Covid Helplines</option>
-                  <option value="CovidTestCentres">
-                    Covid Testing Centres
-                  </option>
-                  <option value="VaccinationCentres">
-                    Vaccination Centres
-                  </option>
+                  <option value="CovidTestCentres">Covid Testing Centres</option>
+                  <option value="VaccinationCentres">Vaccination Centres</option>
                 </select>
 
-                {this.state.type === "Meals" ? (
+                {this.state.type === 'Meals' ? (
                   <React.Fragment>
                     <label htmlFor="area">Cost: </label>
                     <input
@@ -470,7 +452,7 @@ export class DetailsUpload extends Component {
                     />
                   </React.Fragment>
                 ) : (
-                  ""
+                  ''
                 )}
 
                 <label htmlFor="active_hours">Active Hours: </label>
@@ -488,9 +470,7 @@ export class DetailsUpload extends Component {
                   }}
                 />
 
-                <label htmlFor="additional_info">
-                  Additional Information:{" "}
-                </label>
+                <label htmlFor="additional_info">Additional Information: </label>
                 <textarea
                   disabled={!this.state.user_verified}
                   id="active_hours"
@@ -501,7 +481,7 @@ export class DetailsUpload extends Component {
                       additional_info: e.target.value,
                     });
                   }}
-                  style={{ minHeight: "10em" }}
+                  style={{ minHeight: '10em' }}
                 />
               </fieldset>
               <center>
@@ -509,27 +489,27 @@ export class DetailsUpload extends Component {
                   type="submit"
                   className={
                     !this.state.user_verified ||
-                    this.state.name === "" ||
-                    this.state.ox_contact === "" ||
-                    this.state.city === ""
-                      ? "u_verified"
-                      : ""
+                    this.state.name === '' ||
+                    this.state.ox_contact === '' ||
+                    this.state.city === ''
+                      ? 'u_verified'
+                      : ''
                   }
                   disabled={
                     !this.state.user_verified ||
-                    this.state.name === "" ||
-                    this.state.ox_contact === "" ||
-                    this.state.city === ""
+                    this.state.name === '' ||
+                    this.state.ox_contact === '' ||
+                    this.state.city === ''
                   }
                   onClick={this.onSubmit}
                 >
                   Submit
                 </button>
               </center>
-              <p className={"click-terms"}>
-                By clicking Submit, you agree to our{" "}
+              <p className={'click-terms'}>
+                By clicking Submit, you agree to our{' '}
                 <a
-                  href={"#"}
+                  href={'#'}
                   onClick={() =>
                     this.setState({
                       modal_open: true,

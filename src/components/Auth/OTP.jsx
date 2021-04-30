@@ -1,9 +1,9 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 
-import Loader from "react-loader-spinner";
-import firebase from "../../config/firebase";
+import Loader from 'react-loader-spinner';
+import firebase from '../../config/firebase';
 
-import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
+import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
 
 export class OTP extends Component {
   constructor(props) {
@@ -11,22 +11,23 @@ export class OTP extends Component {
 
     this.state = {
       user_verified: false,
-      otp_number: "",
+      otp_number: '',
       otp_sent: false,
       loading: false,
       otp_loading: false,
-      my_contact: "",
+      my_contact: '',
+      user: null,
     };
     this.confirmationResult = null;
     this.sendOtp = this.sendOtp.bind(this);
   }
   componentDidMount() {
-    if (sessionStorage.getItem("co_aiduser")) {
+    if (sessionStorage.getItem('co_aiduser')) {
       this.setState({
         ...this.state,
         otp_loading: false,
         user_verified: true,
-        my_contact: sessionStorage.getItem("co_aiduser"),
+        my_contact: sessionStorage.getItem('co_aiduser'),
       });
     }
   }
@@ -37,11 +38,11 @@ export class OTP extends Component {
       otp_loading: true,
     });
 
-    var recaptcha = new firebase.auth.RecaptchaVerifier("recaptcha", {
-      size: "invisible",
+    var recaptcha = new firebase.auth.RecaptchaVerifier('recaptcha', {
+      size: 'invisible',
     });
 
-    var number = "+91" + this.state.my_contact;
+    var number = '+91' + this.state.my_contact;
 
     // const appVerifier = window.recaptchaVerifier;
     firebase
@@ -61,7 +62,7 @@ export class OTP extends Component {
           user_verified: false,
           otp_loading: false,
         });
-        alert("Something error! Please try after sometime.");
+        alert('Something error! Please try after sometime.');
       });
   }
   checkValidOtp = () => {
@@ -72,7 +73,8 @@ export class OTP extends Component {
     this.confirmationResult
       .confirm(this.state.otp_number)
       .then((res) => {
-        sessionStorage.setItem("co_aiduser", this.state.my_contact);
+        this.setState({ ...this.state, user: res });
+        sessionStorage.setItem('co_aiduser', this.state.my_contact);
         this.props.onVerify(this.state.my_contact);
 
         this.setState({
@@ -87,7 +89,8 @@ export class OTP extends Component {
           user_verified: false,
           otp_loading: false,
         });
-        alert("Invalid code.");
+        console.log(err);
+        alert('Invalid code.');
       });
   };
   render() {
@@ -120,15 +123,15 @@ export class OTP extends Component {
             />
           </React.Fragment>
         ) : (
-          ""
+          ''
         )}
 
         {this.state.user_verified ? (
-          <a className={"a-verified"} href={"#"}>
+          <a className={'a-verified'} href={'#'}>
             ✔ Verified
           </a>
         ) : (
-          ""
+          ''
         )}
         {this.state.otp_loading && !this.state.otp_sent ? (
           <center>
@@ -136,14 +139,12 @@ export class OTP extends Component {
           </center>
         ) : (
           <button
-            type={"button"}
+            type={'button'}
             onClick={this.state.otp_sent ? this.checkValidOtp : this.sendOtp}
-            className={
-              this.state.user_verified ? "verify-btn u_verified" : "verify-btn"
-            }
+            className={this.state.user_verified ? 'verify-btn u_verified' : 'verify-btn'}
             disabled={this.state.user_verified}
           >
-            {this.state.otp_sent ? "Submit OTP" : "Send otp"}
+            {this.state.otp_sent ? 'Submit OTP' : 'Send otp'}
           </button>
         )}
       </React.Fragment>

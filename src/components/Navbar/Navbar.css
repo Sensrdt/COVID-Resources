@@ -23,9 +23,13 @@
   }
   
   nav .brand {
-    flex: 1;
+    flex: 1 1;
     align-self: flex-start;
     height: 50px;
+    text-decoration: none;
+    color: #1462ff;
+    margin-left: -1em;
+
   }
   
   nav .link {

@@ -401,6 +401,9 @@ export class ListingPage extends Component {
 						<option value='Bed'>Beds</option>
 						<option value='Ambulance'>Ambulance</option>
 						<option value='Masks'>Masks</option>
+						<option value='CovidTestCentres'>Covid Testing Centres</option>
+						<option value='VaccinationCentres'>Vaccination Centres</option>
+						<option value='CovidHelplines'>Covid Helplines</option>
 
 					</select>
 				</div>

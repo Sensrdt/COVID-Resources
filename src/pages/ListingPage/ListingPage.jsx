@@ -365,23 +365,8 @@ export class ListingPage extends Component {
 								type: e.target.value,
 							});
 						}}>
-						<option value='AllType'>All Type</option>
+						<option value=''>All Type</option>
 						<option value='Oxygen'>Oxygen</option>
-<<<<<<< HEAD
-									<option value='ICU Bed'>ICU Bed</option>
-									<option value='Bed'>Beds</option>
-									<option value='Plasma'>Plasma</option>
-                                    <option value='Ambulance'>Ambulance</option>
-
-									<option value='Helpline'>Helpline</option>
-
-									<option value='Meals'>Meals</option>
-									<option value='Volunteer'>Volunteer</option>
-
-
-
-					    <option value='Masks'>Masks</option>
-=======
 						<option value='ICU Bed'>ICU Bed</option>
 						<option value='Plasma'>Plasma</option>
 						<option value='Bed'>Beds</option>
@@ -389,8 +374,7 @@ export class ListingPage extends Component {
 						<option value='Masks'>Masks</option>
 						<option value='CovidTestCentres'>Covid Testing Centres</option>
 						<option value='VaccinationCentres'>Vaccination Centres</option>
-						<option value='CovidHelplines'>Covid Helplines</option>
->>>>>>> caa8dfce97296d1a1a82845fe52eb2e35f9cae90
+						<option value='Helpline'>Covid Helplines</option>
 
 					</select>
 				</div>

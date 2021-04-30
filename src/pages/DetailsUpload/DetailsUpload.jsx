@@ -405,15 +405,15 @@ export class DetailsUpload extends Component {
 									onChange={(e) => {
 										this.setState({ ...this.state, type: e.target.value });
 									}}>
-									<option value='Oxygen'>Oxygen</option>
-									<option value='ICU Bed'>ICU Bed</option>
-									<option value='Bed'>Beds</option>
-									<option value='Plasma'>Plasma</option>
-                                    <option value='Ambulance'>Ambulance</option>
-									<option value='Helpline'>Helpline</option>
-									<option value='Meals'>Meals</option>
-									<option value='Volunteer'>Volunteer</option>
-									<option value='Masks'>Masks</option>
+						<option value='Oxygen'>Oxygen</option>
+						<option value='ICU Bed'>ICU Bed</option>
+						<option value='Plasma'>Plasma</option>
+						<option value='Bed'>Beds</option>
+						<option value='Ambulance'>Ambulance</option>
+						<option value='Masks'>Masks</option>
+						<option value='CovidTestCentres'>Covid Testing Centres</option>
+						<option value='VaccinationCentres'>Vaccination Centres</option>
+						<option value='Helpline'>Covid Helplines</option>
 								</select>
 
                                 {this.state.type==="Meals"? 

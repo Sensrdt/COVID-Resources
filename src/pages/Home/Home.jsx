@@ -73,6 +73,15 @@ export class Home extends Component {
               </div>
             </div>
           </div>
+
+          {/* 
+            Disabling this feature now for security analisis. If everything is ok then I'll uncomment this
+          */}
+          {/* <div className="wrap">
+            <button className="button" onClick={() => window.location.assign('/donation')}>
+              Donate Us
+            </button>
+          </div> */}
         </div>
       </React.Fragment>
     );

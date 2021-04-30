@@ -6,6 +6,7 @@ import Home from './pages/Home/Home';
 import ListingPage from './pages/ListingPage/ListingPage';
 import DetailsUpload from './pages/DetailsUpload/DetailsUpload';
 import MyRecords from './pages/MyRecords/MyRecords';
+import { Donation } from './components/Donation/Donation';
 
 class App extends Component {
   render() {
@@ -22,6 +23,7 @@ class App extends Component {
           <Route path="/list" component={ListingPage} exact />
 
           <Route path="/upload" component={DetailsUpload} />
+<<<<<<< HEAD
 
           <Route path="/oxygen" component={ListingPage} exact />
           <Route path="/ambulance" component={ListingPage} exact />
@@ -31,6 +33,11 @@ class App extends Component {
           <Route path="/meals" component={ListingPage} exact />
           <Route path="/volunteers" component={ListingPage} exact />
           <Route path="/support" component={ListingPage} exact />
+=======
+		  { /* on hold till security risk analysis */ }
+		  {/* <Route path="/donation" component={Donation} /> */}
+
+>>>>>>> 8d797ce409688f2a025a79da14a00a68129971d9
         </Switch>
       </Router>
     );

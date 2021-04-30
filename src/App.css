@@ -1,15 +1,15 @@
 * {
-  
   outline: none;
   font-family: 'Noto Serif', serif;
-  -webkit-tap-highlight-color: rgba(0,0,0,0);
--webkit-tap-highlight-color: transparent;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  -webkit-tap-highlight-color: transparent;
+  box-sizing: border-box;
 }
 
 :focus {
   outline: 0;
 }
-.logo-1{
+.logo-1 {
   height: 1.5em;
   width: 1.5em;
 }

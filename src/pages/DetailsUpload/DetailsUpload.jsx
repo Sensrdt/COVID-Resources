@@ -461,7 +461,7 @@ export class DetailsUpload extends Component {
                   type="text"
                   id="active_hours"
                   name="ox_contact"
-                  placeholder="Plase enter operational activity hours timing"
+                  placeholder="Please enter operational activity hours timing"
                   onChange={(e) => {
                     this.setState({
                       ...this.state,

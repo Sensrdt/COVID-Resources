@@ -22,6 +22,15 @@ class App extends Component {
           <Route path="/list" component={ListingPage} exact />
 
           <Route path="/upload" component={DetailsUpload} />
+
+          <Route path="/oxygen" component={ListingPage} exact />
+          <Route path="/ambulance" component={ListingPage} exact />
+          <Route path="/plasma" component={ListingPage} exact />
+          <Route path="/vaccine" component={ListingPage} exact />
+          <Route path="/beds" component={ListingPage} exact />
+          <Route path="/meals" component={ListingPage} exact />
+          <Route path="/volunteers" component={ListingPage} exact />
+          <Route path="/support" component={ListingPage} exact />
         </Switch>
       </Router>
     );

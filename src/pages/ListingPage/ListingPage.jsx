@@ -92,7 +92,6 @@ export class ListingPage extends Component {
   }
 
   fetchUniversalData() {
-    console.log('TEST');
     this.setState({
       ...this.state,
       modal: true,
@@ -110,7 +109,6 @@ export class ListingPage extends Component {
         try {
           Object.keys(json).forEach((keys) => {
             Object.keys(json[keys]).forEach((key) => {
-              console.log(this.state.type, 'TYPE');
               if (this.state.type === 'list' || this.state.type === '') {
                 arr.push(json[keys][key]);
               } else {
@@ -144,8 +142,6 @@ export class ListingPage extends Component {
   componentDidUpdate(prevProps, prevState) {
     let databaseRef = firebase.database().ref('/data2');
 
-    console.log(this.state.type, '  >>> ', this.state.city);
-
     if (prevState.city !== this.state.city) {
       if (this.state.city === '') {
         this.fetchUniversalData();
@@ -163,7 +159,9 @@ export class ListingPage extends Component {
 
             Object.keys(json).forEach((keys) => {
               Object.keys(json[keys]).forEach((key) => {
-                if (
+                if (this.state.type === '' && json[keys][key].city.toUpperCase() === this.state.city.toUpperCase()) {
+                  arr.push(json[keys][key]);
+                } else if (
                   json[keys][key].city.toUpperCase() === this.state.city.toUpperCase() &&
                   json[keys][key].type.toUpperCase() === this.state.type.toUpperCase()
                 ) {
@@ -171,7 +169,6 @@ export class ListingPage extends Component {
                 }
               });
             });
-
             _.sortBy(arr, [{ updated_on: 'desc' }]);
             let temp = this.getSortedArray(arr) || [];
             this.setState({
@@ -202,14 +199,15 @@ export class ListingPage extends Component {
         });
         databaseRef.on('value', (snapshot) => {
           let json = snapshot.val();
-          console.log(json);
 
           if (json !== null) {
             var arr = [];
 
             Object.keys(json).forEach((keys) => {
               Object.keys(json[keys]).forEach((key) => {
-                if (
+                if (this.state.city === '' && json[keys][key].type.toUpperCase() === this.state.type.toUpperCase()) {
+                  arr.push(json[keys][key]);
+                } else if (
                   json[keys][key].type.toUpperCase() === this.state.type.toUpperCase() &&
                   json[keys][key].city.toUpperCase() === this.state.city.toUpperCase()
                 ) {
@@ -218,7 +216,6 @@ export class ListingPage extends Component {
               });
             });
             let temp = this.getSortedArray(arr) || [];
-            console.log(temp);
             this.setState({
               ...this.state,
               data: temp,
@@ -260,8 +257,6 @@ export class ListingPage extends Component {
   };
 
   report() {
-    console.log(this.state);
-
     let databaseRef = firebase.database().ref('/data2').child(this.state.report_id);
 
     databaseRef.set(
@@ -301,8 +296,6 @@ export class ListingPage extends Component {
     );
   }
   calculateDifference = (startTime) => {
-    console.log(startTime, '==<');
-
     const timenow = Date.parse(new Date().toString());
 
     const difference = timenow - startTime;

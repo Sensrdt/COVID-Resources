@@ -36,7 +36,7 @@ const SearchCompoent = ({ data, setData }) => {
           style={{
             display: 'flex',
             flexDirection: 'column',
-
+            marginBottom: '-1em',
             justifyContent: 'center',
             alignItems: 'center',
           }}

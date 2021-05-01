@@ -359,6 +359,8 @@ export class ListingPage extends Component {
                 });
               }}
             >
+              <option value="">Select type</option>
+
               <option value="Oxygen">Oxygen</option>
               <option value="ICU Bed">ICU Bed</option>
               <option value="Plasma">Plasma</option>

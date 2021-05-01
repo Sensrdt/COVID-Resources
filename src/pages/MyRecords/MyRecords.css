@@ -1,23 +1,32 @@
-.listing-main{
+.listing-main {
+  background: #f1f3f9;
+  height: 100%;
+  width: 100%;
+  margin: 0 auto;
+}
+@media only screen and (min-width: 768px) {
+  .listing-main {
     background: #f1f3f9;
     height: 100%;
-    
+    width: 70%;
+    margin: 0 auto;
+  }
 }
-h2{
-    cursor: pointer;
+h2 {
+  cursor: pointer;
 }
 /* ---------------------------
 Dropdown with CHECKBOX 
 ---------------------------- */
 
-.dd_with_select{
-    display: flex;
-    position: inherit;
-    margin-top: 55px;
-    flex-direction: row;
-    overflow: scroll;
-    width: 100%;
-    justify-content: space-evenly;
+.dd_with_select {
+  display: flex;
+  position: inherit;
+  margin-top: 55px;
+  flex-direction: row;
+  overflow: scroll;
+  width: 100%;
+  justify-content: space-evenly;
 }
 .dd_with_chkb label.toogle {
   /* dropdown toogle */
@@ -122,41 +131,40 @@ Dropdown with HTML SELECT
   background-color: #f0f0f0;
 }
 
-.refresh{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    text-align: center;
-    justify-content: center;
-    margin-top: 50px;
+.refresh {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  margin-top: 50px;
 }
-.refresh p{
-    margin-left: 0.5em;
-    margin-right: 0.5em;
-    text-decoration: underline;
-cursor: pointer;
+.refresh p {
+  margin-left: 0.5em;
+  margin-right: 0.5em;
+  text-decoration: underline;
+  cursor: pointer;
 }
-.a-close{
-    text-align: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 1em;
-    color: black;
-    text-decoration: none;
+.a-close {
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1em;
+  color: black;
+  text-decoration: none;
 }
-.no-data{
-    text-align: center;
-    margin-top: 3em;
-    font-size: 2rem;
+.no-data {
+  text-align: center;
+  margin-top: 3em;
+  font-size: 2rem;
 }
-.remove-div{
-    padding: 1em;
-
+.remove-div {
+  padding: 1em;
 }
-.remove-div a{
-    margin-right: 1em;
-    font-size: 1.5rem;
-    text-decoration: none;
-    color: black;
+.remove-div a {
+  margin-right: 1em;
+  font-size: 1.5rem;
+  text-decoration: none;
+  color: black;
 }

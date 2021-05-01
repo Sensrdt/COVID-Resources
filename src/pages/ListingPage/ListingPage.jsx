@@ -54,7 +54,7 @@ export class ListingPage extends Component {
       url = 'ICU Bed';
     }
     if (url === 'TestCenters') {
-      url = '';
+      url = 'VaccinationCentres';
     }
     this.setState(
       {
@@ -111,9 +111,7 @@ export class ListingPage extends Component {
           Object.keys(json).forEach((keys) => {
             Object.keys(json[keys]).forEach((key) => {
               console.log(this.state.type, 'TYPE');
-              if (this.state.type === 'list') {
-                arr.push(json[keys][key]);
-              } else if (this.state.type === '') {
+              if (this.state.type === 'list' || this.state.type === '') {
                 arr.push(json[keys][key]);
               } else {
                 if (json[keys][key].type.toUpperCase() === this.state.type.toUpperCase()) {
@@ -330,10 +328,6 @@ export class ListingPage extends Component {
         >
           {this.state.loading ? <Loader type="Puff" color="#4a74c9" height={100} width={100} /> : ''}
         </Modal>
-        {/* <center>
-                  
-                <h2 onClick={() => this.props.history.push(`/`)}><img src={Logo} className={"logo-1"} alt=""/>CoAid.live</h2>
-				</center> */}
 
         <div className={'top-content'}>
           <Navbar redirect={() => this.props.history.push(`/`)} />
@@ -419,6 +413,7 @@ export class ListingPage extends Component {
                     key={index}
                     ukey={value.key}
                     cost={value.type === 'Meals' ? value.cost : ''}
+                    active_hours={value.active_hours}
                   />
                 );
               } else {
@@ -444,6 +439,7 @@ export class ListingPage extends Component {
                   key={index}
                   ukey={value.key}
                   cost={value.type === 'Meals' ? value.cost : ''}
+                  active_hours={value.active_hours}
                 />
               );
             }

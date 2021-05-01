@@ -228,6 +228,8 @@ export class MyRecords extends Component {
                 onDelete={(ukey) => {
                   this.setState({ modal: true, remove: true, ukey: ukey });
                 }}
+                cost={value.type === 'Meals' ? value.cost : ''}
+                active_hours={value.active_hours}
               />
             );
           })}

@@ -11,7 +11,6 @@ import 'react-responsive-modal/styles.css';
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
 import TermsCond from '../../components/TermsCond/TermsCond';
 import OTP from '../../components/Auth/OTP';
-import Logo from '../../Utils/logo1.png';
 import moment from 'moment';
 import Navbar from '../../components/Navbar/Navbar';
 
@@ -40,6 +39,8 @@ export class DetailsUpload extends Component {
       cost: 0,
       active_hours: '',
       additional_info: '',
+      bgroup: '',
+      age: '',
     };
     this.onSubmit = this.onSubmit.bind(this);
   }
@@ -105,6 +106,8 @@ export class DetailsUpload extends Component {
         active_hours: this.state.active_hours,
         additional_info: this.state.additional_info !== '' ? this.state.additional_info : 'Not specified',
         key: newPostRef.key,
+        bgroup: this.state.bgroup,
+        age: this.state.age,
       },
       (error) => {
         if (error) {
@@ -295,125 +298,6 @@ export class DetailsUpload extends Component {
                 <legend>
                   <span className="number">2</span> Details
                 </legend>
-
-                <label htmlFor="name">Name:*</label>
-                <input
-                  type="text"
-                  disabled={!this.state.user_verified}
-                  id="name"
-                  name="name"
-                  onChange={(e) => {
-                    this.setState({ ...this.state, name: e.target.value });
-                  }}
-                />
-                <label htmlFor="phone">Dealer / Supplier Contact Number: *</label>
-                <input
-                  disabled={!this.state.user_verified}
-                  type="text"
-                  id="ox_contact"
-                  name="ox_contact"
-                  onChange={(e) => {
-                    this.setState({
-                      ...this.state,
-                      ox_contact: e.target.value,
-                    });
-                  }}
-                />
-
-                <div className={'ox-verified'}>
-                  <label>Verified:</label>
-                  <input
-                    disabled={!this.state.user_verified}
-                    type="radio"
-                    id="yes"
-                    defaultValue="Yes"
-                    name="yes"
-                    onChange={() =>
-                      this.setState({
-                        ...this.state,
-                        verified: true,
-                      })
-                    }
-                  />
-                  <label htmlFor="yes" className="light">
-                    Yes
-                  </label>
-                  <br />
-                  <input
-                    disabled={!this.state.user_verified}
-                    type="radio"
-                    id="no"
-                    defaultValue="No"
-                    name="no"
-                    onChange={() =>
-                      this.setState({
-                        ...this.state,
-                        verified: false,
-                      })
-                    }
-                  />
-                  <label htmlFor="no" className="light">
-                    No
-                  </label>
-                </div>
-
-                <label htmlFor="state">State:</label>
-                <select
-                  id="state"
-                  name="state"
-                  className={'custom-select'}
-                  disabled={!this.state.user_verified}
-                  onChange={(e) => {
-                    this.setState({ ...this.state, state: e.target.value });
-                  }}
-                >
-                  <option value="West Bengal">West Bengal</option>
-                </select>
-
-                <label htmlFor="city">City / Town: *</label>
-                <select
-                  id="city"
-                  name="city"
-                  className={'custom-select'}
-                  disabled={!this.state.user_verified}
-                  onChange={(e) => {
-                    this.setState({ ...this.state, city: e.target.value });
-                  }}
-                >
-                  <option value="">Select</option>
-                  {wbcitylist.map((city, key) => {
-                    return (
-                      <option value={city} key={key}>
-                        {city}
-                      </option>
-                    );
-                  })}
-                </select>
-
-                <label htmlFor="job">District:</label>
-                <input
-                  disabled={!this.state.user_verified}
-                  onChange={(e) => {
-                    this.setState({ ...this.state, district: e.target.value });
-                  }}
-                  value={this.state.district}
-                  type="text"
-                  id="district"
-                  name="district"
-                />
-
-                <label htmlFor="area">Area: *</label>
-                <input
-                  onChange={(e) => {
-                    this.setState({ ...this.state, area: e.target.value });
-                  }}
-                  value={this.state.area}
-                  disabled={!this.state.user_verified}
-                  type="text"
-                  id="area"
-                  name="area"
-                />
-
                 <label htmlFor="type">Type: *</label>
                 <select
                   id="type"
@@ -456,7 +340,7 @@ export class DetailsUpload extends Component {
                       type="text"
                       id="active_hours"
                       name="ox_contact"
-                      placeholder="Please enter operational activity hours timing"
+                      placeholder="Enter operational activity hours timing"
                       onChange={(e) => {
                         this.setState({
                           ...this.state,
@@ -468,6 +352,117 @@ export class DetailsUpload extends Component {
                 ) : (
                   ''
                 )}
+                {this.state.type === 'Plasma' || this.state.type === 'Blood' ? (
+                  <React.Fragment>
+                    <label htmlFor="bgroup">Blood Group: * </label>
+                    <input
+                      onChange={(e) => {
+                        this.setState({ ...this.state, bgroup: e.target.value });
+                      }}
+                      disabled={!this.state.user_verified}
+                      type="text"
+                      id="bgroup"
+                      name="bgroup"
+                      value={this.state.bgroup}
+                    />
+                    <label htmlFor="age">Age: * </label>
+                    <input
+                      disabled={!this.state.user_verified}
+                      type="text"
+                      id="age"
+                      name="age"
+                      onChange={(e) => {
+                        this.setState({
+                          ...this.state,
+                          age: e.target.value,
+                        });
+                      }}
+                    />
+                  </React.Fragment>
+                ) : (
+                  ''
+                )}
+
+                <label htmlFor="name">Name:*</label>
+                <input
+                  type="text"
+                  disabled={!this.state.user_verified}
+                  id="name"
+                  name="name"
+                  onChange={(e) => {
+                    this.setState({ ...this.state, name: e.target.value });
+                  }}
+                />
+                <label htmlFor="ox_contact">Dealer / Supplier Contact Number: *</label>
+                <input
+                  disabled={!this.state.user_verified}
+                  type="text"
+                  id="ox_contact"
+                  name="ox_contact"
+                  onChange={(e) => {
+                    this.setState({
+                      ...this.state,
+                      ox_contact: e.target.value,
+                    });
+                  }}
+                />
+
+                <label htmlFor="state">State:</label>
+                <select
+                  id="state"
+                  name="state"
+                  className={'custom-select'}
+                  disabled={!this.state.user_verified}
+                  onChange={(e) => {
+                    this.setState({ ...this.state, state: e.target.value });
+                  }}
+                >
+                  <option value="West Bengal">West Bengal</option>
+                </select>
+
+                <label htmlFor="city">City / Town: *</label>
+                <select
+                  id="city"
+                  name="city"
+                  className={'custom-select'}
+                  disabled={!this.state.user_verified}
+                  onChange={(e) => {
+                    this.setState({ ...this.state, city: e.target.value });
+                  }}
+                >
+                  <option value="">Select</option>
+                  {wbcitylist.map((city, key) => {
+                    return (
+                      <option value={city} key={key}>
+                        {city}
+                      </option>
+                    );
+                  })}
+                </select>
+
+                {/* <label htmlFor="job">District:</label>
+                <input
+                  disabled={!this.state.user_verified}
+                  onChange={(e) => {
+                    this.setState({ ...this.state, district: e.target.value });
+                  }}
+                  value={this.state.district}
+                  type="text"
+                  id="district"
+                  name="district"
+                /> */}
+
+                <label htmlFor="area">Area: *</label>
+                <input
+                  onChange={(e) => {
+                    this.setState({ ...this.state, area: e.target.value });
+                  }}
+                  value={this.state.area}
+                  disabled={!this.state.user_verified}
+                  type="text"
+                  id="area"
+                  name="area"
+                />
 
                 <label htmlFor="additional_info">Additional Information: </label>
                 <textarea
@@ -480,9 +475,46 @@ export class DetailsUpload extends Component {
                       additional_info: e.target.value,
                     });
                   }}
-                  style={{ minHeight: '8em' }}
+                  style={{ minHeight: '6em' }}
                 />
+                <div className={'ox-verified'}>
+                  <label>Verified:</label>
+                  <input
+                    disabled={!this.state.user_verified}
+                    type="radio"
+                    id="yes"
+                    defaultValue="Yes"
+                    name="yes"
+                    onChange={() =>
+                      this.setState({
+                        ...this.state,
+                        verified: true,
+                      })
+                    }
+                  />
+                  <label htmlFor="yes" className="light">
+                    Yes
+                  </label>
+                  <br />
+                  <input
+                    disabled={!this.state.user_verified}
+                    type="radio"
+                    id="no"
+                    defaultValue="No"
+                    name="no"
+                    onChange={() =>
+                      this.setState({
+                        ...this.state,
+                        verified: false,
+                      })
+                    }
+                  />
+                  <label htmlFor="no" className="light">
+                    No
+                  </label>
+                </div>
               </fieldset>
+
               <center>
                 <button
                   type="submit"
@@ -490,7 +522,9 @@ export class DetailsUpload extends Component {
                     !this.state.user_verified ||
                     this.state.name === '' ||
                     this.state.ox_contact === '' ||
-                    this.state.city === ''
+                    this.state.city === '' ||
+                    ((this.state.type === 'Plasma' || this.state.type === 'Blood') &&
+                      (this.state.bgroup === '' || this.state.age === ''))
                       ? 'u_verified'
                       : ''
                   }
@@ -498,7 +532,9 @@ export class DetailsUpload extends Component {
                     !this.state.user_verified ||
                     this.state.name === '' ||
                     this.state.ox_contact === '' ||
-                    this.state.city === ''
+                    this.state.city === '' ||
+                    ((this.state.type === 'Plasma' || this.state.type === 'Blood') &&
+                      (this.state.bgroup === '' || this.state.age === ''))
                   }
                   onClick={this.onSubmit}
                 >

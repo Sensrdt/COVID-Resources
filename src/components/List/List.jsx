@@ -17,6 +17,21 @@ export class List extends Component {
       );
     }
   };
+  getLabel = (type) => {
+    if (type === 'Meals' || type === 'Helpline') {
+      return 'Provider';
+    }
+    if (type === 'ICU Bed' || type === 'Bed') {
+      return 'Center:';
+    }
+    if (type === 'Volunteers') {
+      return 'Volunteer:';
+    }
+    if (type === 'Plasma') {
+      return 'Donour:';
+    }
+    return 'Dealer / Supplier:';
+  };
   render() {
     return (
       <React.Fragment>
@@ -60,8 +75,14 @@ export class List extends Component {
           </p>
 
           <p className="name">
-            {'👨  '}&nbsp;<b>Dealer / Supplier</b>: {this.props.name}
+            {'👨  '}&nbsp;<b>{this.getLabel(this.props.type)}</b>: {this.props.name}
           </p>
+
+          {this.props.active_hours !== '' && (
+            <p className="name">
+              {'⌚  '}&nbsp;<b>Active hours</b>: {this.props.active_hours}
+            </p>
+          )}
 
           {this.props.type === 'Meals' ? (
             this.props.cost !== '' ? (

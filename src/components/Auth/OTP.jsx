@@ -142,7 +142,7 @@ export class OTP extends Component {
             type={'button'}
             onClick={this.state.otp_sent ? this.checkValidOtp : this.sendOtp}
             className={this.state.user_verified ? 'verify-btn u_verified' : 'verify-btn'}
-            disabled={this.state.user_verified}
+            disabled={this.state.user_verified || this.state.my_contact === ''}
           >
             {this.state.otp_sent ? 'Submit OTP' : 'Send otp'}
           </button>

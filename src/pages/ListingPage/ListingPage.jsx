@@ -160,7 +160,10 @@ export class ListingPage extends Component {
 
             Object.keys(json).forEach((keys) => {
               Object.keys(json[keys]).forEach((key) => {
-                if (json[keys][key].city.toUpperCase() === this.state.city.toUpperCase()) {
+                if (
+                  json[keys][key].city.toUpperCase() === this.state.city.toUpperCase() &&
+                  json[keys][key].type.toUpperCase() === this.state.type.toUpperCase()
+                ) {
                   arr.push(json[keys][key]);
                 }
               });
@@ -203,7 +206,10 @@ export class ListingPage extends Component {
 
             Object.keys(json).forEach((keys) => {
               Object.keys(json[keys]).forEach((key) => {
-                if (json[keys][key].type.toUpperCase() === this.state.type.toUpperCase()) {
+                if (
+                  json[keys][key].type.toUpperCase() === this.state.type.toUpperCase() &&
+                  json[keys][key].city.toUpperCase() === this.state.city.toUpperCase()
+                ) {
                   arr.push(json[keys][key]);
                 }
               });

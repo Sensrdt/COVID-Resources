@@ -92,6 +92,7 @@ export class ListingPage extends Component {
   }
 
   fetchUniversalData() {
+    console.log('TEST');
     this.setState({
       ...this.state,
       modal: true,
@@ -111,6 +112,8 @@ export class ListingPage extends Component {
             Object.keys(json[keys]).forEach((key) => {
               console.log(this.state.type, 'TYPE');
               if (this.state.type === 'list') {
+                arr.push(json[keys][key]);
+              } else if (this.state.type === '') {
                 arr.push(json[keys][key]);
               } else {
                 if (json[keys][key].type.toUpperCase() === this.state.type.toUpperCase()) {
@@ -142,6 +145,8 @@ export class ListingPage extends Component {
 
   componentDidUpdate(prevProps, prevState) {
     let databaseRef = firebase.database().ref('/data2');
+
+    console.log(this.state.type, '  >>> ', this.state.city);
 
     if (prevState.city !== this.state.city) {
       if (this.state.city === '') {
@@ -189,7 +194,7 @@ export class ListingPage extends Component {
       }
     }
     if (prevState.type !== this.state.type) {
-      if (this.state.type === 'AllType') {
+      if (this.state.type === '') {
         this.fetchUniversalData();
       } else {
         this.setState({

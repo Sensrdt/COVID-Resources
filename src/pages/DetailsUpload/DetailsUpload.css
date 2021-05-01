@@ -141,6 +141,7 @@ label.light {
   display: flex;
   flex-direction: row;
   align-items: center;
+  float: right;
 }
 .yes-no-div a {
   text-decoration: none;

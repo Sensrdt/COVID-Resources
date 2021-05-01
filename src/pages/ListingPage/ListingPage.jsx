@@ -22,7 +22,7 @@ export class ListingPage extends Component {
       city: '',
       loading: false,
       modal: false,
-      type: '',
+      type: 'Oxygen',
       report_val: 'support',
       name: '',
       verified: '',
@@ -49,13 +49,22 @@ export class ListingPage extends Component {
   }
 
   componentDidMount() {
-    const url = this.props.location.pathname.substring(1);
-
-    this.setState({
-      ...this.state,
-      type: url,
-    });
-    this.fetchUniversalData();
+    let url = this.props.location.pathname.substring(1);
+    if (url === 'icubed') {
+      url = 'ICU Bed';
+    }
+    if (url === 'TestCenters') {
+      url = '';
+    }
+    this.setState(
+      {
+        ...this.state,
+        type: url,
+      },
+      () => {
+        this.fetchUniversalData();
+      }
+    );
   }
   ParseDate = (dateString) => {
     if (moment(dateString, 'DD-MM-YYYY HH:mm:ss').isValid()) {
@@ -98,9 +107,16 @@ export class ListingPage extends Component {
         var arr = [];
 
         try {
-          Object.keys(json).forEach(function (keys) {
+          Object.keys(json).forEach((keys) => {
             Object.keys(json[keys]).forEach((key) => {
-              arr.push(json[keys][key]);
+              console.log(this.state.type, 'TYPE');
+              if (this.state.type === 'list') {
+                arr.push(json[keys][key]);
+              } else {
+                if (json[keys][key].type.toUpperCase() === this.state.type.toUpperCase()) {
+                  arr.push(json[keys][key]);
+                }
+              }
             });
           });
           let data = this.getSortedArray(arr) || [];
@@ -275,6 +291,21 @@ export class ListingPage extends Component {
       }
     );
   }
+  calculateDifference = (startTime) => {
+    console.log(startTime, '==<');
+
+    const timenow = Date.parse(new Date().toString());
+
+    const difference = timenow - startTime;
+    const hourDifference = Math.floor(difference / 1000 / 60 / 60);
+
+    if (hourDifference <= 4) {
+      return true;
+    }
+    return false;
+    // var startTime = moment(startTime, 'DD-MM-YYYY hh:mm:ss');
+    // var endTime = moment('03-01-2021 16:52:53', 'DD-MM-YYYY hh:mm:ss');
+  };
 
   render() {
     return (
@@ -337,7 +368,7 @@ export class ListingPage extends Component {
               <option value="Masks">Masks</option>
               <option value="Volunteers">Volunteers</option>
               <option value="Helpline">Covid Helplines</option>
-              <option value="CovidTestCentres">Covid Testing Centres</option>
+              <option value="TestCenters">Covid Testing Centres</option>
               <option value="VaccinationCentres">Vaccination Centres</option>
             </select>
           </div>
@@ -354,27 +385,55 @@ export class ListingPage extends Component {
             ''
           )}
           {this.state.data.map((value, index) => {
-            return (
-              <List
-                name={value.name}
-                verified={value.verified}
-                user_verified={value.user_verified}
-                city={value.city}
-                state={value.state}
-                district={value.district}
-                ox_contact={value.ox_contact}
-                phone={value.my_contact}
-                updated_on={value.updated_on}
-                amount={value.amount}
-                area={value.area}
-                quantity={value.quantity}
-                type={value.type}
-                uid={value.uid}
-                key={index}
-                ukey={value.key}
-                cost={value.type === 'Meals' ? value.cost : ''}
-              />
-            );
+            if (value.type === 'ICU Bed' || value.type === 'Bed') {
+              if (this.calculateDifference(value.updated_on)) {
+                return (
+                  <List
+                    name={value.name}
+                    verified={value.verified}
+                    user_verified={value.user_verified}
+                    city={value.city}
+                    state={value.state}
+                    district={value.district}
+                    ox_contact={value.ox_contact}
+                    phone={value.my_contact}
+                    updated_on={value.updated_on}
+                    amount={value.amount}
+                    area={value.area}
+                    quantity={value.quantity}
+                    type={value.type}
+                    uid={value.uid}
+                    key={index}
+                    ukey={value.key}
+                    cost={value.type === 'Meals' ? value.cost : ''}
+                  />
+                );
+              } else {
+                return '';
+              }
+            } else {
+              return (
+                <List
+                  name={value.name}
+                  verified={value.verified}
+                  user_verified={value.user_verified}
+                  city={value.city}
+                  state={value.state}
+                  district={value.district}
+                  ox_contact={value.ox_contact}
+                  phone={value.my_contact}
+                  updated_on={value.updated_on}
+                  amount={value.amount}
+                  area={value.area}
+                  quantity={value.quantity}
+                  type={value.type}
+                  uid={value.uid}
+                  key={index}
+                  ukey={value.key}
+                  cost={value.type === 'Meals' ? value.cost : ''}
+                />
+              );
+            }
           })}
         </div>
       </div>

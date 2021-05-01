@@ -6,6 +6,7 @@ import Home from './pages/Home/Home';
 import ListingPage from './pages/ListingPage/ListingPage';
 import DetailsUpload from './pages/DetailsUpload/DetailsUpload';
 import MyRecords from './pages/MyRecords/MyRecords';
+import ComingSoon from './pages/ComingSoon/ComingSoon';
 // import { Donation } from './components/Donation/Donation';
 
 class App extends Component {
@@ -28,12 +29,17 @@ class App extends Component {
           <Route path="/Ambulance" component={ListingPage} exact />
           <Route path="/Plasma" component={ListingPage} exact />
           <Route path="/Vaccine" component={ListingPage} exact />
-          <Route path="/Beds" component={ListingPage} exact />
+          <Route path="/Bed" component={ListingPage} exact />
+          <Route path="/icubed" component={ListingPage} exact />
+
           <Route path="/Meals" component={ListingPage} exact />
+          <Route path="/Masks" component={ListingPage} exact />
+          <Route path="/TestCenters" component={ListingPage} exact />
+
           <Route path="/Volunteers" component={ListingPage} exact />
           <Route path="/Helpline" component={ListingPage} exact />
           {/* on hold till security risk analysis */}
-          {/* <Route path="/donation" component={Donation} /> */}
+          <Route path="/donation" component={ComingSoon} />
         </Switch>
       </Router>
     );

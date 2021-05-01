@@ -11,6 +11,11 @@ import Bed from '../../Utils/assets/bed.svg';
 import Ambulance from '../../Utils/assets/ambulance.svg';
 import Support from '../../Utils/assets/support.svg';
 import Logo from '../../Utils/logo1.png';
+import Mask from '../../Utils/assets/mask.svg';
+import Donate from '../../Utils/assets/donation.svg';
+import Bed2 from '../../Utils/assets/bed-2.svg';
+import TestCenters from '../../Utils/assets/test.svg';
+
 import { Link } from 'react-router-dom';
 export class Home extends Component {
   constructor(props) {
@@ -38,38 +43,57 @@ export class Home extends Component {
         <div className={'main-div'}>
           <div className={'fold-container'}>
             <div className={'fold-2__categories-box'}>
-              <div className={'fold-2__category'} onClick={() => this.props.history.push(`/oxygen`)}>
+              <div className={'fold-2__category'} onClick={() => this.props.history.push(`/Oxygen`)}>
                 <img src={Oxygen} alt="" />
                 <div className={'main-icon-text'}>Oxygen</div>
               </div>
-              <div className={'fold-2__category'} onClick={() => this.props.history.push(`/plasma`)}>
+              <div className={'fold-2__category'} onClick={() => this.props.history.push(`/Plasma`)}>
                 <img src={Blood} alt="" />
                 <div className={'main-icon-text'}>Plasma</div>
               </div>
-              <div className={'fold-2__category'} onClick={() => this.props.history.push(`/ambulance`)}>
+              <div className={'fold-2__category'} onClick={() => this.props.history.push(`/Ambulance`)}>
                 <img src={Ambulance} alt="" />
                 <div className={'main-icon-text'}>Ambulance</div>
               </div>
-              <div className={'fold-2__category'} onClick={() => this.props.history.push(`/vaccine`)}>
+              <div className={'fold-2__category'} onClick={() => this.props.history.push(`/Vaccine`)}>
                 <img src={Vaccine} alt="" />
                 <div className={'main-icon-text'}>Vaccine</div>
               </div>
-              <div className={'fold-2__category'} onClick={() => this.props.history.push(`/beds`)}>
+              <div className={'fold-2__category'} onClick={() => this.props.history.push(`/Bed`)}>
                 <img src={Bed} alt="" />
                 <div className={'main-icon-text'}>Bed</div>
               </div>
-              <div className={'fold-2__category'} onClick={() => this.props.history.push(`/meals`)}>
+
+              <div className={'fold-2__category'} onClick={() => this.props.history.push(`/icubed`)}>
+                <img src={Bed2} alt="" />
+                <div className={'main-icon-text'}>ICU Bed</div>
+              </div>
+              <div className={'fold-2__category'} onClick={() => this.props.history.push(`/Meals`)}>
                 <img src={Meal} alt="" />
                 <div className={'main-icon-text'}>Meals</div>
               </div>
 
-              <div className={'fold-2__category'} onClick={() => this.props.history.push(`/volunteers`)}>
+              <div className={'fold-2__category'} onClick={() => this.props.history.push(`/Volunteers`)}>
                 <img src={Volunteers} alt="" />
                 <div className={'main-icon-text'}>Volunteers</div>
               </div>
-              <div className={'fold-2__category'} onClick={() => this.props.history.push(`/support`)}>
+              <div className={'fold-2__category'} onClick={() => this.props.history.push(`/TestCenters`)}>
+                <img src={TestCenters} alt="" />
+                <div className={'main-icon-text'}>Test Center</div>
+              </div>
+
+              <div className={'fold-2__category'} onClick={() => this.props.history.push(`/Masks`)}>
+                <img src={Mask} alt="" />
+                <div className={'main-icon-text'}>Mask</div>
+              </div>
+
+              <div className={'fold-2__category'} onClick={() => this.props.history.push(`/Helpline`)}>
                 <img src={Support} alt="" />
                 <div className={'main-icon-text'}>Helplines</div>
+              </div>
+              <div className={'fold-2__category'} onClick={() => this.props.history.push(`/Donation`)}>
+                <img src={Donate} alt="" />
+                <div className={'main-icon-text'}>Donate</div>
               </div>
             </div>
           </div>

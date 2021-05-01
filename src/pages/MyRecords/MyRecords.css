@@ -144,6 +144,8 @@ Dropdown with HTML SELECT
   margin-right: 0.5em;
   text-decoration: underline;
   cursor: pointer;
+  color: #37486e;
+  font-weight: 600;
 }
 .a-close {
   text-align: center;

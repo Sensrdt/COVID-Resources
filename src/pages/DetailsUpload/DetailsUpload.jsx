@@ -433,7 +433,7 @@ export class DetailsUpload extends Component {
                   <option value="Masks">Masks</option>
                   <option value="Volunteers">Volunteers</option>
                   <option value="Helpline">Covid Helplines</option>
-                  <option value="CovidTestCentres">Covid Testing Centres</option>
+                  <option value="TestCenters">Covid Testing Centres</option>
                   <option value="VaccinationCentres">Vaccination Centres</option>
                 </select>
 

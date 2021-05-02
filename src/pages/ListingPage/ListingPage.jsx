@@ -54,8 +54,12 @@ export class ListingPage extends Component {
       url = 'ICU Bed';
     }
     if (url === 'TestCenters') {
-      url = 'VaccinationCentres';
+      url = 'Covid Testing Center';
     }
+    if (url === 'Vaccine') {
+      url = 'Vaccination Centres';
+    }
+
     this.setState(
       {
         ...this.state,
@@ -356,8 +360,9 @@ export class ListingPage extends Component {
                   type: e.target.value,
                 });
               }}
+              value={this.state.type}
             >
-              <option value="">Select type</option>
+              <option value="">All type</option>
 
               <option value="Oxygen">Oxygen</option>
               <option value="ICU Bed">ICU Bed</option>
@@ -368,8 +373,8 @@ export class ListingPage extends Component {
               <option value="Masks">Masks</option>
               <option value="Volunteers">Volunteers</option>
               <option value="Helpline">Covid Helplines</option>
-              <option value="TestCenters">Covid Testing Centres</option>
-              <option value="VaccinationCentres">Vaccination Centres</option>
+              <option value="Covid Testing Center">Covid Testing Centers</option>
+              <option value="Vaccination Centres">Vaccination Centers</option>
             </select>
           </div>
         </div>
@@ -407,6 +412,7 @@ export class ListingPage extends Component {
                     ukey={value.key}
                     cost={value.type === 'Meals' ? value.cost : ''}
                     active_hours={value.active_hours}
+                    delivery={value.type === 'Meals' ? value.delivery : ''}
                   />
                 );
               } else {
@@ -433,11 +439,19 @@ export class ListingPage extends Component {
                   ukey={value.key}
                   cost={value.type === 'Meals' ? value.cost : ''}
                   active_hours={value.active_hours}
+                  delivery={value.type === 'Meals' ? value.delivery : ''}
                 />
               );
             }
           })}
         </div>
+        {this.state.data.length !== 0 ? (
+          <center>
+            <h4>No more data</h4>
+          </center>
+        ) : (
+          ''
+        )}
       </div>
     );
   }

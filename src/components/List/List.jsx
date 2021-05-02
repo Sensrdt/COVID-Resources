@@ -22,15 +22,15 @@ export class List extends Component {
       return 'Provider';
     }
     if (type === 'ICU Bed' || type === 'Bed') {
-      return 'Center:';
+      return 'Center';
     }
     if (type === 'Volunteers') {
-      return 'Volunteer:';
+      return 'Volunteer';
     }
     if (type === 'Plasma') {
-      return 'Donour:';
+      return 'Donour';
     }
-    return 'Dealer / Supplier:';
+    return 'Dealer / Supplier';
   };
   render() {
     return (
@@ -78,20 +78,26 @@ export class List extends Component {
             {'👨  '}&nbsp;<b>{this.getLabel(this.props.type)}</b>: {this.props.name}
           </p>
 
-          {this.props.active_hours !== '' && (
+          {this.props.delivery !== '' && this.props.type === 'Meals' && this.props.delivery !== undefined ? (
+            <p className="name">
+              {'🚚  '}&nbsp;<b>Delivery</b>: {this.props.delivery || this.props.delivery === 'true' ? 'Yes' : 'No'}
+            </p>
+          ) : (
+            ''
+          )}
+
+          {this.props.type === 'Meals' && this.props.active_hours !== '' && this.props.active_hours !== undefined ? (
             <p className="name">
               {'⌚  '}&nbsp;<b>Active hours</b>: {this.props.active_hours}
             </p>
+          ) : (
+            ''
           )}
 
-          {this.props.type === 'Meals' ? (
-            this.props.cost !== '' ? (
-              <p>
-                {'💰  '}&nbsp;{this.props.cost}
-              </p>
-            ) : (
-              'NA'
-            )
+          {this.props.type === 'Meals' && this.props.cost !== '' && this.props.cost !== 0 ? (
+            <p>
+              {'💰  '}&nbsp;{this.props.cost}
+            </p>
           ) : (
             ''
           )}

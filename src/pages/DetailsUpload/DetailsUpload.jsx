@@ -41,6 +41,7 @@ export class DetailsUpload extends Component {
       additional_info: '',
       bgroup: '',
       age: '',
+      delivery: false,
     };
     this.onSubmit = this.onSubmit.bind(this);
   }
@@ -108,6 +109,7 @@ export class DetailsUpload extends Component {
         key: newPostRef.key,
         bgroup: this.state.bgroup,
         age: this.state.age,
+        delivery: this.state.delivery,
       },
       (error) => {
         if (error) {
@@ -171,7 +173,7 @@ export class DetailsUpload extends Component {
                       submitted: false,
                       error: false,
                     });
-                    this.props.history.push(`/list/aids`);
+                    this.props.history.push(`/`);
                   }}
                 >
                   No
@@ -188,6 +190,7 @@ export class DetailsUpload extends Component {
                       amount: 0,
                       submitted: false,
                       error: false,
+                      ox_contact: '',
                     });
                   }}
                 >
@@ -317,8 +320,8 @@ export class DetailsUpload extends Component {
                   <option value="Masks">Masks</option>
                   <option value="Volunteers">Volunteers</option>
                   <option value="Helpline">Covid Helplines</option>
-                  <option value="TestCenters">Covid Testing Centres</option>
-                  <option value="VaccinationCentres">Vaccination Centres</option>
+                  <option value="Covid Testing Center">Covid Testing Centers</option>
+                  <option value="Vaccination Centres">Vaccination Centres</option>
                 </select>
 
                 {this.state.type === 'Meals' ? (
@@ -334,13 +337,14 @@ export class DetailsUpload extends Component {
                       name="cost"
                       value={this.state.cost}
                     />
-                    <label htmlFor="active_hours">Active Hours: </label>
+                    <label htmlFor="active_hours">
+                      Active Hours:<span className={'ac-span'}> (eg. Mon-Sat 9am-10pm)</span>
+                    </label>
                     <input
                       disabled={!this.state.user_verified}
                       type="text"
                       id="active_hours"
                       name="ox_contact"
-                      placeholder="Enter operational activity hours timing"
                       onChange={(e) => {
                         this.setState({
                           ...this.state,
@@ -349,6 +353,46 @@ export class DetailsUpload extends Component {
                       }}
                     />
                   </React.Fragment>
+                ) : (
+                  ''
+                )}
+                {this.state.type === 'Meals' ? (
+                  <div className={'ox-verified'}>
+                    <label>Delivery: *</label>
+                    <input
+                      disabled={!this.state.user_verified}
+                      type="radio"
+                      id="yes"
+                      defaultValue="Yes"
+                      name="delivery"
+                      onChange={() =>
+                        this.setState({
+                          ...this.state,
+                          delivery: true,
+                        })
+                      }
+                    />
+                    <label htmlFor="yes" className="light">
+                      Yes
+                    </label>
+                    <br />
+                    <input
+                      disabled={!this.state.user_verified}
+                      type="radio"
+                      id="no"
+                      defaultValue="No"
+                      name="delivery"
+                      onChange={() =>
+                        this.setState({
+                          ...this.state,
+                          delivery: false,
+                        })
+                      }
+                    />
+                    <label htmlFor="no" className="light">
+                      No
+                    </label>
+                  </div>
                 ) : (
                   ''
                 )}
@@ -393,12 +437,13 @@ export class DetailsUpload extends Component {
                     this.setState({ ...this.state, name: e.target.value });
                   }}
                 />
-                <label htmlFor="ox_contact">Dealer / Supplier Contact Number: *</label>
+                <label htmlFor="ox_contact">Dealer / Supplier / Provider Contact: *</label>
                 <input
                   disabled={!this.state.user_verified}
                   type="text"
                   id="ox_contact"
                   name="ox_contact"
+                  value={this.state.ox_contact}
                   onChange={(e) => {
                     this.setState({
                       ...this.state,
@@ -484,7 +529,7 @@ export class DetailsUpload extends Component {
                     type="radio"
                     id="yes"
                     defaultValue="Yes"
-                    name="yes"
+                    name="verified"
                     onChange={() =>
                       this.setState({
                         ...this.state,
@@ -501,7 +546,7 @@ export class DetailsUpload extends Component {
                     type="radio"
                     id="no"
                     defaultValue="No"
-                    name="no"
+                    name="verified"
                     onChange={() =>
                       this.setState({
                         ...this.state,

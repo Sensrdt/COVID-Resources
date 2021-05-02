@@ -230,6 +230,7 @@ export class MyRecords extends Component {
                 }}
                 cost={value.type === 'Meals' ? value.cost : ''}
                 active_hours={value.active_hours}
+                delivery={value.type === 'Meals' ? value.delivery : ''}
               />
             );
           })}

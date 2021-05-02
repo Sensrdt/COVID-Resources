@@ -173,3 +173,8 @@ label.light {
   display: flex;
   justify-content: center;
 }
+
+.ac-span {
+  color: gray;
+  font-size: 0.9rem;
+}

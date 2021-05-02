@@ -83,6 +83,7 @@ const wbcity = [
   'Monoharpur',
   'Murshidabad',
   'Nabadwip',
+  'Nadia',
   'Naihati',
   'Newtown',
   'New Barrackpore',

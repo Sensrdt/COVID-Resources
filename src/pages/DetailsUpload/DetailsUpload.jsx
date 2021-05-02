@@ -70,7 +70,6 @@ export class DetailsUpload extends Component {
   };
   onSubmit(e) {
     e.preventDefault();
-    console.log(this.state);
     this.setState({
       ...this.state,
       modal_open: true,

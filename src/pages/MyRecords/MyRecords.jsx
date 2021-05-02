@@ -80,14 +80,8 @@ export class MyRecords extends Component {
     tempArr.map((data) => {
       return (data.updated_on = this.ParseDate(data.updated_on));
     });
-
-    // tempArr.sort(function (left, right) {
-    //     return moment.utc(left.timeStamp).diff(moment.utc(right.timeStamp))
-    // });
-
     tempArr.sort((a, b) => new Date(a.updated_on).getTime() - new Date(b.updated_on).getTime());
 
-    console.log(tempArr);
     return tempArr.reverse();
   }
 

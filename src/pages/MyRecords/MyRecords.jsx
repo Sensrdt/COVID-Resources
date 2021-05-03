@@ -97,7 +97,6 @@ export class MyRecords extends Component {
       'value',
       (snapshot) => {
         let json = snapshot.val();
-        console.log(json);
         const arr = [];
         try {
           Object.keys(json).forEach(function (key) {
@@ -151,17 +150,6 @@ export class MyRecords extends Component {
   render() {
     return (
       <div className={'listing-main'}>
-        {/* <Fab
-					alwaysShowTitle={true}
-					icon={<Upload />}
-					onClick={() => {
-						console.log('213');
-						this.myRootRef.current.scroll({
-							top: 0,
-							left: 0,
-							behavior: 'smooth',
-						});
-					}}></Fab> */}
         <Modal
           open={this.state.modal}
           onClose={this.onCloseModal}
